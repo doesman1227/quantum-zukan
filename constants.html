@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>力の交換ゲーム（相互作用）｜量子力学ふしぎ図鑑</title>
-<meta name="description" content="相互作用を体験するゲーム。電子どうしが光子（ボソン）をキャッチボールし、投げた側も受けた側も後ろへ下がって反発。力＝力を運ぶ粒子のやりとり、運動量保存を体感。">
+<title>この宇宙の定数｜量子力学ふしぎ図鑑</title>
+<meta name="description" content="この宇宙の基本定数（光速・重力定数・プランク定数・電気素量・微細構造定数1/137・ボルツマン定数）をやさしく解説。理論で決められない約20個のパラメータ、宇宙の微調整（ファインチューニング）、人間原理やマルチバースまで。">
 <style>
 /* =========================================================
    量子力学ふしぎ図鑑  -  共通スタイル
@@ -539,24 +539,6 @@ body{
 .thmore:hover{ text-decoration:underline; }
 
 </style>
-<style>
-.lab-wrap{ max-width:680px; margin:0 auto; }
-.lab-hud{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
-.lab-stat{ flex:1 1 130px; background:var(--window); border:1px solid var(--line); border-radius:10px; padding:9px 14px; box-shadow:var(--shadow); }
-.lab-stat .lab{ font-size:.72rem; color:var(--ink-soft); font-weight:700; }
-.lab-stat .val{ font-family:var(--font-ui); font-size:1.3rem; color:var(--blue-deep); line-height:1.2; }
-.lab-stage{ border-radius:14px; overflow:hidden; border:3px solid var(--blue-deep); box-shadow:var(--shadow-lg); background:#0a1730; }
-.lab-stage canvas{ display:block; width:100%; height:auto; }
-.lab-controls{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; align-items:center; }
-.lab-btn{ font-family:var(--font-ui); cursor:pointer; border:none; border-radius:8px; font-size:.9rem; padding:10px 15px; }
-.lab-btn.fire{ background:var(--gold); color:#3a2c00; box-shadow:0 4px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
-.lab-btn.fire:active{ transform:translateY(2px); box-shadow:0 2px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
-.lab-btn.sub{ background:var(--window); color:var(--blue-deep); border:1px solid var(--line); box-shadow:var(--shadow); }
-.lab-msg{ margin:12px 0 0; padding:11px 14px; border-radius:10px; font-size:.92rem; background:#eef3fb; border-left:4px solid var(--sky); color:var(--ink); }
-.lab-slider{ display:flex; align-items:center; gap:10px; width:100%; margin-top:4px; }
-.lab-slider input[type=range]{ flex:1; accent-color:var(--blue); }
-.lab-slider .cap{ font-size:.8rem; color:var(--ink-soft); white-space:nowrap; }
-</style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔵</text></svg>">
 </head>
 <body>
@@ -564,7 +546,7 @@ body{
 <header class="site-header">
   <nav class="nav">
     <a class="brand" href="index.html"><span class="slime" data-spr="slime"></span> 量子力学ふしぎ図鑑</a>
-            <div class="nav-links">
+<div class="nav-links">
       <a href="index.html">ホーム</a>
       <div class="nav-group">
         <button type="button" class="nav-trigger">まなぶ ▾</button>
@@ -612,43 +594,90 @@ body{
 
 <section class="hero" style="padding:48px 0 56px;">
   <div class="wrap">
-    <span class="tier tier-play">あそぶ</span><br>
-    <span class="eyebrow">あそぶ ・ ルール⑥ 相互作用</span>
-    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">力の交換ゲーム</h1>
-    <p class="lead">“力”の正体は、力を運ぶ粒子（ボソン）のキャッチボール。電子どうしが光子を投げ合うと、おたがい後ろへ下がって反発します。投げて確かめてみよう。</p>
+    <span class="tier tier-adv">コラム</span><br>
+    <span class="eyebrow">こらむ ・ もっと知りたい</span>
+    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">この宇宙の定数</h1>
+    <p class="lead">光の速さ、重力の強さ、電気の最小量――この宇宙には“理由は分からないのに決まっている数”がある。
+    しかも、ほんの少し違えば宇宙も生命も存在しなかった。その不思議をのぞいてみよう。</p>
   </div>
 </section>
 
 <section class="section-pad">
-  <div class="wrap lab-wrap">
-    <div class="rpg-window with-slime reveal" style="margin-bottom:18px;">
-      <span class="who" data-spr="photon"></span>
-      <p>「“力”の正体は、力を運ぶ粒子（ボソン）の<span class="tag">キャッチボール</span>。電子どうしは光子を投げ合って、おたがい後ろへ下がる＝<span class="tag">反発する</span>んだ。投げてみて！」</p>
+  <div class="wrap">
+    <div class="answer reveal">
+      <span class="verdict">ひとことで：この宇宙には、理由は分からないのに“ピタッと決まっている”数がある。</span>
+      <p>光の速さ、重力の強さ、電気の最小量…。これらは理論で計算して出てくるのではなく、
+      <b>測って当てはめるしかない</b>「自然界の設定値」。それが宇宙の<b>定数</b>だよ。</p>
     </div>
 
-    <div class="lab-hud">
-      <div class="lab-stat"><div class="lab">交換した回数</div><div class="val" id="cnt">0</div></div>
-      <div class="lab-stat"><div class="lab">電子A ↔ B の間隔</div><div class="val" id="mom">130</div></div>
+    <div class="rpg-window with-slime reveal" style="margin:22px 0;">
+      <span class="who" data-spr="slime"></span>
+      <p>「ゲームでいう“最初から決まっているパラメータ”みたいなもの。
+      なぜその値なのかは、じつは<span class="tag">まだ誰にも分からない</span>。でも、ほんの少し違うだけで宇宙はガラッと変わるんだ。」</p>
     </div>
 
-    <div class="lab-stage"><canvas id="it" width="600" height="320"></canvas></div>
+    <span class="eyebrow">① 定数ってなに？</span>
+    <h2 class="section-title">理論では決められない“設定値”</h2>
+    <p>物理の法則（式）は、世界の<b>ふるまい方</b>を教えてくれる。でも式の中に出てくる「光の速さ」や「重力の強さ」が
+    <b>いくつなのか</b>は、式からは出てこない。実験で測って入れるしかない。この“測って決める数”が基本定数だ。</p>
 
-    <div class="lab-controls">
-      <button class="lab-btn fire" id="fire">⚡ 力を交換する（光子を投げる）</button>
-      <button class="lab-btn sub" id="reset">♻ リセット</button>
+    <span class="eyebrow" style="margin-top:30px;">② おもな基本定数</span>
+    <h2 class="section-title">宇宙の“設定一覧”</h2>
+    <div class="grid">
+      <div class="card reveal"><span class="icon">⚡</span><h3>光速 c</h3>
+        <p>約 <b>30万 km/秒</b>。情報や光が出せる“最高速度”。時間と空間を結ぶ基準でもある。</p></div>
+      <div class="card reveal"><span class="icon">🍎</span><h3>重力定数 G</h3>
+        <p>重力の<b>強さ</b>を決める数。とても小さく、重力が4つの力で最弱な理由のひとつ。</p></div>
+      <div class="card reveal"><span class="icon">🌊</span><h3>プランク定数 h</h3>
+        <p>エネルギーの<b>最小のかたまり</b>を決める、量子の世界の基準（<a href="energy.html">E＝h×振動数</a>）。</p></div>
+      <div class="card reveal"><span class="icon">🔋</span><h3>電気素量 e</h3>
+        <p>電気の<b>最小単位</b>。電子1個がもつ電気の量。これ以下の電気は（基本的に）存在しない。</p></div>
+      <div class="card reveal"><span class="icon">🎯</span><h3>微細構造定数 α ≈ 1/137</h3>
+        <p>電磁気力の<b>強さ</b>を表す“単位のない数”。なぜ1/137なのか――物理最大級の謎のひとつ。</p></div>
+      <div class="card reveal"><span class="icon">🌡️</span><h3>ボルツマン定数 k</h3>
+        <p><b>温度とエネルギー</b>を結ぶ数。「熱さ」がミクロな粒子の運動エネルギーだと教えてくれる。</p></div>
     </div>
-    <p class="lab-msg" id="msg"></p>
 
-    <span class="eyebrow" style="margin-top:30px;">ここがポイント</span>
-    <h2 class="section-title">力 ＝ 力を運ぶ粒子の“やりとり”</h2>
-    <p>氷の上で2人がボールを投げ合うと、投げた人も受けた人も後ろへ下がる――これが反発する力のイメージ。
-    自然界では、電磁気力は<b>光子</b>、強い力は<b>グルーオン</b>…というように、<b>力ごとに専用のボソン</b>をやりとりして働く。
-    投げた光子が運動量を運ぶので、<b>全体の運動量は変わらない（保存される）</b>。
-    くわしくは<a href="rules.html">量子のルール「相互作用」</a>、登場するボソンは<a href="zukan.html">量子図鑑</a>で。</p>
+    <span class="eyebrow" style="margin-top:30px;">③ じつは“手で入れる”数が約20個</span>
+    <h2 class="section-title">標準模型も、定数だらけ</h2>
+    <div class="point">
+      世界をほぼ説明できる<a href="standard-model.html">標準模型</a>でさえ、粒子の質量や力の強さなど
+      <b>約20個の数値を、理論ではなく実測で埋めている</b>。なぜその値なのかは説明できていない。
+      「式は完成に近いのに、肝心の“数”の理由は分からない」――それが今の物理の正直なところだ。
+    </div>
 
+    <span class="eyebrow" style="margin-top:30px;">④ ほんの少し違えば、宇宙は無かった？</span>
+    <h2 class="section-title">きわどい“微調整”</h2>
+    <p>おどろくことに、これらの定数が<b>ほんの数％ずれるだけ</b>で、星も原子も生命も生まれない宇宙になってしまう、と考えられている。</p>
+    <div class="grid">
+      <div class="card reveal"><span class="icon">⭐</span><h3>強い力が少し違えば</h3>
+        <p>陽子や原子核がうまく作れず、<b>炭素や酸素</b>ができない。生命の材料が存在しない。</p></div>
+      <div class="card reveal"><span class="icon">💨</span><h3>ダークエネルギーが少し強ければ</h3>
+        <p>宇宙が速く膨張しすぎて、<b>銀河も星も</b>集まれない（→<a href="darkmatter.html">宇宙の95%</a>）。</p></div>
+      <div class="card reveal"><span class="icon">🧲</span><h3>α が少し違えば</h3>
+        <p>化学結合や星の燃え方が変わり、<b>安定した物質や太陽</b>が成り立たなくなる。</p></div>
+    </div>
+    <p class="section-sub" style="margin-top:14px;">この“ちょうど良すぎる”感じを、<b>宇宙の微調整（ファインチューニング）問題</b>と呼ぶ。</p>
+
+    <span class="eyebrow" style="margin-top:30px;">⑤ なぜ、この値なのか？</span>
+    <h2 class="section-title">3つの考え方</h2>
+    <div class="grid">
+      <div class="card reveal"><span class="icon">🎲</span><h3>たまたま</h3>
+        <p>深い理由はなく、ただの偶然という立場。ただ「きわどさ」を偶然で片づけるのは苦しい、という声も。</p></div>
+      <div class="card reveal"><span class="icon">🌌</span><h3>人間原理＋マルチバース</h3>
+        <p>定数の違う宇宙が<b>無数にあり</b>、たまたま生命が生まれられた宇宙に私たちがいるから観測できる、という考え（→<a href="multiverse.html">パラレルワールド</a>）。</p></div>
+      <div class="card reveal"><span class="icon">🧩</span><h3>まだ知らない理論が決めている</h3>
+        <p>もっと根本の理論（<a href="superstring.html">超弦理論</a>など）が、定数の値を必然的に導く――そんな“最終理論”を探している。</p></div>
+    </div>
+
+    <div class="summary reveal" style="margin-top:26px;">
+      <span class="big" data-spr="slime"></span>
+      <p>宇宙の定数は、<b>「測れば分かるのに、なぜその値かは分からない」</b>不思議な数たち。
+      しかもどれも、生命が生まれるのにちょうど良い。偶然か、選ばれた結果か、未知の理論のしわざか――物理の最前線の問いだよ。</p>
+    </div>
     <div class="btn-row">
-      <a class="btn btn-primary" href="rules.html">▶ 相互作用（ルール）へ</a>
-      <a class="btn btn-ghost" href="zukan.html" style="border-color:var(--line); color:var(--blue);">📖 力のボソンを図鑑で見る</a>
+      <a class="btn btn-primary" href="multiverse.html">▶ パラレルワールドへ</a>
+      <a class="btn btn-ghost" href="theory.html" style="border-color:var(--line); color:var(--blue);">🗺 理論ガイドへ</a>
     </div>
   </div>
 </section>
@@ -966,48 +995,6 @@ document.addEventListener('click', () => {
   document.querySelectorAll('.nav-group.open').forEach((g) => g.classList.remove('open'));
 });
 
-</script>
-
-<script>
-(function(){
-  var cv=document.getElementById('it'), ctx=cv.getContext('2d');
-  var DPR=Math.min(2,window.devicePixelRatio||1), W=600, H=320;
-  cv.width=W*DPR; cv.height=H*DPR; ctx.scale(DPR,DPR);
-  var cntEl=document.getElementById('cnt'), pEl=document.getElementById('mom'), msg=document.getElementById('msg');
-  var y=H/2, R=22, KICK=1.7;
-  var A={x:235,v:0}, B={x:365,v:0}, ball=null, cnt=0;
-  function fire(){
-    if(ball) return;
-    var left = A.x<B.x?A:B, right = A.x<B.x?B:A;
-    ball={x:left.x, target:right};
-    left.v += -KICK; cnt++; cntEl.textContent=cnt;
-  }
-  function particle(x,label){
-    ctx.fillStyle='#2b6cb0'; ctx.beginPath(); ctx.arc(x,y,R,0,7); ctx.fill();
-    ctx.strokeStyle='#cfe0f5'; ctx.lineWidth=2; ctx.stroke();
-    ctx.fillStyle='#fff'; ctx.font='bold 22px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('−',x,y-1);
-    ctx.fillStyle='#9fc4e8'; ctx.font='12px sans-serif'; ctx.fillText(label,x,y+R+14);
-  }
-  function draw(){
-    ctx.fillStyle='#0a1730'; ctx.fillRect(0,0,W,H);
-    ctx.strokeStyle='rgba(255,255,255,.14)'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(20,y+R+26); ctx.lineTo(W-20,y+R+26); ctx.stroke();
-    particle(A.x,'電子A'); particle(B.x,'電子B');
-    if(ball){ ctx.fillStyle='#e0a800'; ctx.beginPath(); ctx.arc(ball.x,y,9,0,7); ctx.fill(); ctx.fillStyle='#3a2c00'; ctx.font='bold 11px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('γ',ball.x,y); }
-    ctx.textAlign='left';
-  }
-  function step(){
-    if(ball){ var dir = ball.target.x>=ball.x?1:-1; ball.x += dir*4.4; if((dir>0&&ball.x>=ball.target.x)||(dir<0&&ball.x<=ball.target.x)){ ball.target.v += dir*KICK; ball=null; } }
-    var arr=[A,B];
-    for(var i=0;i<2;i++){ var P=arr[i]; P.x+=P.v; P.v*=0.99; if(P.x<40){P.x=40;P.v=Math.abs(P.v)*0.5;} if(P.x>W-40){P.x=W-40;P.v=-Math.abs(P.v)*0.5;} }
-    if(Math.abs(A.x-B.x)<2*R+10){ var m=(A.x+B.x)/2; if(A.x<=B.x){A.x=m-(R+5);B.x=m+(R+5);}else{A.x=m+(R+5);B.x=m-(R+5);} }
-    pEl.textContent=Math.round(Math.abs(B.x-A.x))+'px';
-    draw(); requestAnimationFrame(step);
-  }
-  document.getElementById('fire').onclick=fire;
-  document.getElementById('reset').onclick=function(){ A={x:235,v:0}; B={x:365,v:0}; ball=null; cnt=0; cntEl.textContent='0'; };
-  msg.textContent='「力を交換する」を押すと、電子Aが光子（γ）を投げてAは後ろへ。受け取った電子Bも後ろへ。＝反発する力！';
-  step();
-})();
 </script>
 </body>
 </html>

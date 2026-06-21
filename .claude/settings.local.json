@@ -8,7 +8,11 @@
       "Bash(python3 -)",
       "WebFetch(domain:youtu.be)",
       "WebFetch(domain:www.youtube.com)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(python3 _build_constants.py)",
+      "Bash(git add *)",
+      "Bash(git -c user.name=quantum-zukan -c user.email=doesman1227@gmail.com commit -q -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
