@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>量子とエネルギー ゲーム｜量子力学ふしぎ図鑑</title>
+<meta name="description" content="量子とエネルギーの関係を体験するゲーム。光は光子のつぶつぶで、そのエネルギーは色（振動数）で決まる（E=h×振動数）。電子の準位差ΔEにぴったり合う光子だけが吸収されることを通じて、エネルギーが量子（とびとび）でやりとりされる感覚をつかむ。">
+<style>
+/* =========================================================
+   量子力学ふしぎ図鑑  -  共通スタイル
+   RPG（RPGゲーム風）テーマ
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Zen+Maru+Gothic:wght@500;700&display=swap');
+
+:root {
+  --bg:            #f4f7fb;
+  --bg-deep:       #e8eef7;
+  --window:        #ffffff;
+  --ink:           #20303f;
+  --ink-soft:      #5a6b7b;
+  --line:          #d6e0ec;
+
+  --blue:          #2b6cb0;
+  --blue-deep:     #1e3a5f;
+  --sky:           #4aa3df;
+  --green:         #38a169;
+  --green-soft:    #e6f4ec;
+  --orange:        #dd6b20;
+  --orange-soft:   #fdf0e3;
+  --purple:        #805ad5;
+  --purple-soft:   #efeafc;
+  --red:           #e05252;
+  --gold:          #e0a800;
+
+  --fermion:       #6aa84f;
+  --boson:         #5b8fd4;
+
+  --radius:        16px;
+  --shadow:        0 6px 18px rgba(30, 58, 95, .10);
+  --shadow-lg:     0 14px 40px rgba(30, 58, 95, .16);
+  --maxw:          1100px;
+
+  --font: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic",
+          "Meiryo", system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 8%, #ffffff 0, transparent 40%),
+    radial-gradient(circle at 88% 4%, #eaf2ff 0, transparent 45%),
+    var(--bg);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--blue); }
+
+/* ---------- ヘッダー / ナビ ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255,255,255,.86);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  color: var(--blue-deep);
+  text-decoration: none;
+  font-size: 1.05rem;
+}
+.brand .slime { font-size: 1.5rem; }
+.nav-links {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--ink-soft);
+  font-weight: 700;
+  font-size: .9rem;
+  padding: 7px 13px;
+  border-radius: 999px;
+  transition: .18s;
+}
+.nav-links a:hover { background: var(--bg-deep); color: var(--blue-deep); }
+.nav-links a.active { background: var(--blue); color: #fff; }
+
+/* ---------- 共通レイアウト ---------- */
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 18px; }
+section { padding: 56px 0; }
+.section-pad { padding: 40px 0; }
+
+.eyebrow {
+  display: inline-block;
+  font-weight: 800;
+  font-size: .8rem;
+  letter-spacing: .14em;
+  color: var(--sky);
+  background: #eaf4fc;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+h1, h2, h3 { line-height: 1.4; }
+h2.section-title {
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  margin: 0 0 8px;
+  color: var(--blue-deep);
+}
+.section-sub { color: var(--ink-soft); margin: 0 0 30px; }
+
+/* ---------- ヒーロー ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 80% -10%, #cfe6ff 0, transparent 55%),
+    linear-gradient(160deg, #1e3a5f 0%, #2b6cb0 60%, #3d8ed0 100%);
+  color: #fff;
+  padding: 70px 0 90px;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.6) 0, transparent 100%),
+    radial-gradient(2px 2px at 70% 60%, rgba(255,255,255,.5) 0, transparent 100%),
+    radial-gradient(1.5px 1.5px at 40% 80%, rgba(255,255,255,.5) 0, transparent 100%),
+    radial-gradient(1.5px 1.5px at 90% 20%, rgba(255,255,255,.4) 0, transparent 100%),
+    radial-gradient(2px 2px at 55% 15%, rgba(255,255,255,.4) 0, transparent 100%);
+  pointer-events: none;
+}
+.hero .wrap { position: relative; z-index: 1; }
+.hero h1 {
+  font-size: clamp(1.8rem, 5.5vw, 3.1rem);
+  margin: 14px 0 16px;
+  font-weight: 900;
+  letter-spacing: .01em;
+}
+.hero p.lead {
+  font-size: clamp(1rem, 2.4vw, 1.2rem);
+  max-width: 640px;
+  color: #e8f2ff;
+}
+.hero .eyebrow { background: rgba(255,255,255,.18); color: #fff; }
+.hero-slime {
+  font-size: clamp(3rem, 10vw, 5rem);
+  display: inline-block;
+  animation: bob 2.6s ease-in-out infinite;
+}
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+.btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 800;
+  padding: 13px 22px;
+  border-radius: 12px;
+  transition: .18s;
+}
+.btn-primary { background: var(--gold); color: #3a2c00; box-shadow: 0 6px 0 #b88a00; }
+.btn-primary:hover { transform: translateY(2px); box-shadow: 0 4px 0 #b88a00; }
+.btn-ghost { background: rgba(255,255,255,.14); color: #fff; border: 2px solid rgba(255,255,255,.5); }
+.btn-ghost:hover { background: rgba(255,255,255,.25); }
+
+/* ---------- RPGメッセージウィンドウ（吹き出し） ---------- */
+.rpg-window {
+  background: var(--blue-deep);
+  color: #fff;
+  border: 3px solid #fff;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 0 0 3px var(--blue-deep), var(--shadow);
+  position: relative;
+  font-weight: 600;
+}
+.rpg-window.with-slime { padding-left: 64px; }
+.rpg-window .who {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+}
+.rpg-window p { margin: 0; }
+.rpg-window .tag { color: var(--gold); font-weight: 800; }
+
+/* ---------- カードグリッド ---------- */
+.grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.card {
+  background: var(--window);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+  transition: .2s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.card .icon { font-size: 2.2rem; display: block; margin-bottom: 8px; }
+.card h3 { margin: 0 0 8px; color: var(--blue-deep); }
+.card p { margin: 0; color: var(--ink-soft); font-size: .95rem; }
+.card .more { display:inline-block; margin-top:14px; font-weight:800; text-decoration:none; }
+
+/* ---------- 分解フロー（水→素粒子） ---------- */
+.flow {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 6px 2px 16px;
+}
+.flow-step {
+  flex: 0 0 175px;
+  background: var(--window);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 14px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.flow-step .emoji { font-size: 2.4rem; display:block; margin-bottom:6px; }
+.flow-step h4 { margin: 4px 0; color: var(--blue-deep); font-size: 1rem; }
+.flow-step p { margin: 0; font-size: .82rem; color: var(--ink-soft); }
+.flow-arrow { align-self: center; font-size: 1.6rem; color: var(--sky); flex: 0 0 auto; }
+
+/* ---------- 図鑑カード（キャラクター） ---------- */
+.dex-band {
+  display: flex; align-items: center; gap: 12px;
+  margin: 8px 0 18px;
+}
+.dex-band .chip {
+  font-weight: 900; color: #fff; padding: 8px 18px; border-radius: 999px;
+  letter-spacing: .04em;
+}
+.chip.fermion { background: var(--fermion); }
+.chip.boson { background: var(--boson); }
+.dex-band .desc { color: var(--ink-soft); font-size: .92rem; }
+
+.npc {
+  background: var(--window);
+  border: 1px solid var(--line);
+  border-top: 6px solid var(--blue);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: .2s;
+}
+.npc:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.npc.is-fermion { border-top-color: var(--fermion); }
+.npc.is-boson   { border-top-color: var(--boson); }
+.npc .head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.npc .ava { font-size: 2.6rem; line-height: 1; }
+.npc .title { margin: 0; font-size: 1.15rem; color: var(--blue-deep); font-weight: 800; }
+.npc .sub { font-size: .78rem; color: var(--ink-soft); font-weight: 700; }
+.npc .role {
+  font-size: .9rem; color: var(--ink); margin: 0 0 12px;
+}
+.npc .stats { list-style: none; margin: auto 0 0; padding: 12px 0 0; border-top: 1px dashed var(--line); }
+.npc .stats li { font-size: .82rem; color: var(--ink-soft); padding: 2px 0; }
+.npc .stats b { color: var(--ink); }
+
+/* ---------- ルール（量子のふしぎ） ---------- */
+.rule {
+  background: var(--window);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+.rule .num {
+  display:inline-flex; align-items:center; justify-content:center;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--blue); color:#fff; font-weight:900; font-size:1.1rem;
+  margin-bottom: 12px;
+}
+.rule.c-green .num { background: var(--green); }
+.rule.c-orange .num { background: var(--orange); }
+.rule.c-purple .num { background: var(--purple); }
+.rule.c-red .num { background: var(--red); }
+.rule h3 { margin: 0 0 10px; color: var(--blue-deep); }
+.rule p { margin: 0 0 10px; color: var(--ink-soft); }
+.point {
+  margin-top: 14px; padding: 12px 14px; border-radius: 10px;
+  background: var(--green-soft); border-left: 4px solid var(--green);
+  font-size: .9rem; color: var(--ink);
+}
+.point b { color: var(--green); }
+
+/* energy levels table */
+.energy {
+  width: 100%; border-collapse: collapse; margin: 8px 0; font-size: .9rem;
+}
+.energy th, .energy td { padding: 6px 10px; text-align: center; border-bottom: 1px solid var(--line); }
+.energy th { color: var(--blue-deep); }
+.energy .no { color: var(--red); text-decoration: line-through; opacity:.7; }
+
+.spin-demo { display:flex; gap:24px; justify-content:center; margin:10px 0; }
+.spin-demo .s { text-align:center; }
+.spin-demo .arr { font-size:2rem; }
+
+/* ---------- タイムライン（歴史） ---------- */
+.timeline { position: relative; margin-top: 20px; }
+.timeline::before {
+  content:""; position:absolute; left: 26px; top: 0; bottom: 0;
+  width: 3px; background: linear-gradient(var(--sky), var(--purple));
+  border-radius: 3px;
+}
+.tl-item { position: relative; padding: 0 0 28px 70px; }
+.tl-item .dot {
+  position: absolute; left: 10px; top: 2px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background:#fff; border: 3px solid var(--blue);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:900; color:var(--blue); font-size:.95rem; z-index:1;
+}
+.tl-item .card-tl {
+  background: var(--window); border:1px solid var(--line);
+  border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow);
+}
+.tl-item .year { font-weight:900; color: var(--sky); font-size:.85rem; }
+.tl-item h3 { margin: 2px 0 4px; color: var(--blue-deep); }
+.tl-item .who { font-size:.85rem; color: var(--ink-soft); font-weight:700; margin-bottom:8px; }
+.tl-item p { margin:0 0 10px; color: var(--ink-soft); font-size:.93rem; }
+.tl-item .kw {
+  display:inline-block; font-size:.78rem; font-weight:800;
+  background: var(--purple-soft); color: var(--purple);
+  padding: 4px 11px; border-radius: 999px;
+}
+.tl-item .quote {
+  font-style: italic; color: var(--blue-deep);
+  border-left: 3px solid var(--sky); padding-left: 12px; margin: 0 0 10px;
+}
+
+/* ---------- まとめバナー ---------- */
+.summary {
+  background: linear-gradient(160deg, #1e3a5f, #2b6cb0);
+  color:#fff; border-radius: var(--radius); padding: 30px;
+  box-shadow: var(--shadow-lg);
+  display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+}
+.summary .big { font-size: 2.6rem; }
+.summary p { margin:0; }
+.summary b { color: var(--gold); }
+
+/* ---------- フッター ---------- */
+.site-footer {
+  background: var(--blue-deep); color: #cdd9e6;
+  padding: 34px 0; margin-top: 30px;
+  font-size: .88rem;
+}
+.site-footer .wrap { display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:center; }
+.site-footer a { color:#9ecbff; }
+
+/* ---------- 補足 / 用語 ---------- */
+.kvp { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:14px; }
+.kvp .k { background:var(--window); border:1px solid var(--line); border-radius:12px; padding:16px; box-shadow:var(--shadow); }
+.kvp .k b { color: var(--blue-deep); }
+
+.note { font-size:.82rem; color: var(--ink-soft); }
+
+/* reveal on scroll */
+.reveal { opacity:0; transform: translateY(18px); transition: .6s ease; }
+.reveal.in { opacity:1; transform:none; }
+
+@media (max-width: 600px) {
+  section { padding: 40px 0; }
+  .nav-links a { padding: 6px 10px; font-size: .82rem; }
+}
+
+/* =========================================================
+   GAME-UI テーマ（ピクセルフォント＆コマンドウィンドウ）
+   ========================================================= */
+:root{
+  --font-ui: "DotGothic16", "Hiragino Kaku Gothic ProN", system-ui, sans-serif;
+  --font-body: "Zen Maru Gothic", "Hiragino Maru Gothic ProN",
+               "Hiragino Kaku Gothic ProN", system-ui, sans-serif;
+}
+
+/* 本文はやわらか丸ゴシック、見出し系はドット文字 */
+body{
+  font-family: var(--font-body);
+  background-image:
+    linear-gradient(rgba(43,108,176,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(43,108,176,.045) 1px, transparent 1px),
+    radial-gradient(circle at 12% 8%, #ffffff 0, transparent 40%),
+    radial-gradient(circle at 88% 4%, #eaf2ff 0, transparent 45%);
+  background-size: 24px 24px, 24px 24px, auto, auto;
+  background-color: var(--bg);
+}
+
+.brand, .nav-links a, .eyebrow, h1, h2, h3,
+.btn, .rule .num, .chip, .dex-band .chip,
+.npc .title, .npc .sub, .tl-item h3, .tl-item .year,
+.flow-step h4, .card h3, .section-title, .hero h1,
+.rpg-window .tag, .summary b, .tl-item .kw, .energy th{
+  font-family: var(--font-ui);
+  font-weight: 400;
+  letter-spacing: .03em;
+}
+.hero h1, .section-title{ line-height: 1.5; }
+
+/* 角ばったゲーム機UIへ */
+.btn, .btn-ghost, .nav-links a, .chip, .dex-band .chip{ border-radius: 6px; }
+.card, .npc, .rule, .flow-step, .tl-item .card-tl, .k, .kvp .k{ border-radius: 10px; }
+.btn-primary{ box-shadow: 0 5px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
+.btn-primary:hover{ box-shadow: 0 2px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
+.nav-links a.active{ box-shadow: 0 3px 0 #1c4f86; }
+
+/* RPGコマンドウィンドウ：二重枠＆角ピクセル */
+.rpg-window{ border-radius: 8px; }
+.rpg-window::after{
+  content:""; position:absolute; inset:5px;
+  border:1px solid rgba(255,255,255,.4); border-radius:5px; pointer-events:none;
+}
+
+/* ===== 手描きSVGスプライト ===== */
+.spr{ width: 1em; height: 1em; display:inline-block; vertical-align: -0.18em; }
+.hero-slime .spr{ filter: drop-shadow(0 8px 12px rgba(0,0,0,.28)); }
+.npc .ava{ line-height: 1; }
+
+/* コンセプト系の絵文字アイコンも“トークン枠”に */
+.card .icon{
+  width: 60px; height: 60px; line-height: 60px; text-align: center;
+  font-size: 1.9rem; margin-bottom: 12px; border-radius: 12px;
+  background: var(--bg-deep); border: 2px solid var(--line);
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,.06);
+}
+
+/* JSが無効な環境でも内容が消えないように（reveal安全弁） */
+@media (scripting: none){
+  .reveal{ opacity:1 !important; transform:none !important; }
+}
+
+/* 文章中にインラインで置くキャラクタースプライト */
+.spr-inline{ font-size: 1.5em; vertical-align: middle; line-height: 1; }
+
+/* ===== 難易度バッジ & 学習ルート ===== */
+.tier{ display:inline-block; font-family:var(--font-ui); font-size:.72rem; font-weight:400;
+  padding:3px 11px; border-radius:6px; letter-spacing:.04em; color:#fff; vertical-align:middle; }
+.tier-intro{ background:#38a169; }   /* 入門 */
+.tier-play{ background:#dd6b20; }    /* 体験 */
+.tier-adv{ background:#805ad5; }     /* 発展 */
+.tier-read{ background:#4aa3df; }    /* よみもの */
+.hero .tier{ margin-bottom:12px; box-shadow:0 2px 0 rgba(0,0,0,.18); }
+.card .tier{ margin-bottom:10px; }
+
+.route-head{ display:flex; align-items:center; gap:12px; margin:34px 0 16px; }
+.route-head .tier{ font-size:.82rem; padding:5px 15px; }
+.route-head h3{ margin:0; color:var(--blue-deep); font-family:var(--font-ui); font-weight:400; font-size:1.05rem; }
+.route-head .ln{ flex:1; height:2px; background:var(--line); border-radius:2px; }
+
+/* ホーム：量子とは の3つのびっくり */
+.whatis-lead{ font-size:1.05rem; color:var(--ink); background:var(--green-soft);
+  border-left:5px solid var(--green); border-radius:0 12px 12px 0; padding:16px 20px; margin:0 0 22px; }
+.whatis-lead b{ color:var(--green); }
+
+
+/* ===== ナビ：ドロップダウン（まなぶ／あそぶ／ふかめる） ===== */
+.nav-group{ position: relative; }
+.nav-trigger{
+  font-family: var(--font-ui); font-weight: 400; letter-spacing: .03em;
+  cursor: pointer; border: none; background: transparent;
+  color: var(--ink-soft); font-size: .9rem; padding: 7px 13px;
+  border-radius: 6px; transition: .18s;
+}
+.nav-trigger:hover{ background: var(--bg-deep); color: var(--blue-deep); }
+.nav-group.has-active .nav-trigger{ background: var(--blue); color: #fff; }
+.nav-menu{
+  position: absolute; top: calc(100% + 8px); left: 0;
+  background: var(--window); border: 1px solid var(--line); border-radius: 10px;
+  box-shadow: var(--shadow-lg); padding: 6px; min-width: 172px;
+  display: none; flex-direction: column; gap: 2px; z-index: 60;
+}
+.nav-menu::before{ content:""; position:absolute; top:-8px; left:0; right:0; height:8px; }
+.nav-group:hover .nav-menu,
+.nav-group.open .nav-menu{ display: flex; }
+.nav-menu a{ white-space: nowrap; }
+
+/* ===== ナビ：こらむ内のサブカテゴリ見出し ===== */
+.nav-cat{ display:block; padding:9px 13px 3px; font-family:var(--font-ui); font-weight:400;
+  font-size:.7rem; letter-spacing:.06em; color:var(--ink-soft);
+  border-top:1px solid var(--line); margin-top:4px; }
+.nav-menu .nav-cat:first-child{ border-top:none; margin-top:0; padding-top:2px; }
+
+/* ===== 理論コラム（QFT〜ホログラフィー） ===== */
+.thstat{ display:inline-flex; align-items:center; gap:6px; font-family:var(--font-ui);
+  font-size:.8rem; padding:5px 14px; border-radius:999px; margin:2px 0 14px; }
+.thstat.ok{ background:var(--green-soft); color:#1f7a4d; border:1px solid #abdcc0; }
+.thstat.hyp{ background:var(--orange-soft); color:#b35c12; border:1px solid #f0c89a; }
+.thstat.strong{ background:#e6f6f3; color:#1d7d70; border:1px solid #a9ddd4; }
+.illfig{ background:#0f1f3a; border-radius:12px; padding:14px; margin:8px 0 16px;
+  max-width:360px; box-shadow:var(--shadow); }
+.illfig svg{ width:100%; height:auto; display:block; }
+.answer{ background:#eef6ff; border:2px solid var(--sky); border-radius:14px; padding:18px 20px; margin:0 0 14px; }
+.answer .verdict{ font-family:var(--font-ui); font-size:1.12rem; color:var(--blue-deep); display:block; margin-bottom:4px; }
+.answer p{ margin:0; }
+.linklist{ list-style:none; padding:0; margin:16px 0 0; display:flex; flex-wrap:wrap; gap:8px; }
+.linklist a{ display:inline-block; background:#eef6ff; border:1px solid var(--sky);
+  color:var(--blue-deep); text-decoration:none; font-weight:700; font-size:.85rem;
+  padding:7px 13px; border-radius:999px; }
+.linklist a:hover{ background:var(--sky); color:#fff; }
+
+.thmore{ display:inline-block; margin-top:10px; font-weight:800; font-size:.85rem; text-decoration:none; color:var(--blue); }
+.thmore:hover{ text-decoration:underline; }
+
+</style>
+<style>
+.lab-wrap{ max-width:680px; margin:0 auto; }
+.lab-hud{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+.lab-stat{ flex:1 1 130px; background:var(--window); border:1px solid var(--line); border-radius:10px; padding:9px 14px; box-shadow:var(--shadow); }
+.lab-stat .lab{ font-size:.72rem; color:var(--ink-soft); font-weight:700; }
+.lab-stat .val{ font-family:var(--font-ui); font-size:1.3rem; color:var(--blue-deep); line-height:1.2; }
+.lab-stage{ border-radius:14px; overflow:hidden; border:3px solid var(--blue-deep); box-shadow:var(--shadow-lg); background:#0a1730; }
+.lab-stage canvas{ display:block; width:100%; height:auto; }
+.lab-controls{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; align-items:center; }
+.lab-btn{ font-family:var(--font-ui); cursor:pointer; border:none; border-radius:8px; font-size:.9rem; padding:10px 15px; }
+.lab-btn.fire{ background:var(--gold); color:#3a2c00; box-shadow:0 4px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
+.lab-btn.fire:active{ transform:translateY(2px); box-shadow:0 2px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
+.lab-btn.sub{ background:var(--window); color:var(--blue-deep); border:1px solid var(--line); box-shadow:var(--shadow); }
+.lab-msg{ margin:12px 0 0; padding:11px 14px; border-radius:10px; font-size:.92rem; background:#eef3fb; border-left:4px solid var(--sky); color:var(--ink); }
+.lab-slider{ display:flex; align-items:center; gap:10px; width:100%; margin-top:4px; }
+.lab-slider input[type=range]{ flex:1; accent-color:var(--blue); }
+.lab-slider .cap{ font-size:.8rem; color:var(--ink-soft); white-space:nowrap; }
+</style>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔵</text></svg>">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="slime" data-spr="slime"></span> 量子力学ふしぎ図鑑</a>
+        <div class="nav-links">
+      <a href="index.html">ホーム</a>
+      <div class="nav-group">
+        <button type="button" class="nav-trigger">まなぶ ▾</button>
+        <div class="nav-menu">
+          <a href="zukan.html">量子図鑑</a>
+          <a href="rules.html">量子のルール</a>
+          <a href="apply.html">実世界の応用</a>
+          <a href="history.html">量子力学の歴史</a>
+        </div>
+      </div>
+      <div class="nav-group">
+        <button type="button" class="nav-trigger">こらむ ▾</button>
+        <div class="nav-menu">
+          <span class="nav-cat">理論</span>
+          <a href="theory.html">理論ガイド</a>
+          <a href="qft.html">場の量子論</a>
+          <a href="standard-model.html">標準模型</a>
+          <a href="superstring.html">超弦理論</a>
+          <a href="mtheory.html">M理論</a>
+          <a href="lqg.html">ループ量子重力</a>
+          <a href="holography.html">ホログラフィック理論</a>
+          <span class="nav-cat">もっと知りたい</span>
+          <a href="entropy.html">量子力学とエントロピー</a>
+          <a href="existtime.html">時間は存在するのか</a>
+          <a href="compute.html">量子コンピューター</a>
+          <a href="darkmatter.html">ダークマターの正体</a>
+        </div>
+      </div>
+      <div class="nav-group">
+        <button type="button" class="nav-trigger">あそぶ ▾</button>
+        <div class="nav-menu">
+          <a href="energy.html">量子とエネルギー</a>
+          <a href="levels.html">準位ジャンプ</a>
+          <a href="slit.html">二重スリット</a>
+          <a href="collapse.html">観測と収縮</a>
+          <a href="uncertainty.html">不確定性</a>
+          <a href="game.html">もつれワーム</a>
+          <a href="interact.html">力の交換</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<section class="hero" style="padding:48px 0 56px;">
+  <div class="wrap">
+    <span class="tier tier-play">あそぶ</span><br>
+    <span class="eyebrow">あそぶ ・ 量子図鑑｜量子とエネルギー</span>
+    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">量子とエネルギー ゲーム</h1>
+    <p class="lead">光は“つぶつぶ（光子）”でできていて、1つぶのエネルギーは<b>色（振動数）</b>で決まる。
+    色を合わせて、電子をぴったりジャンプさせよう。エネルギーが“量子（とびとび）”で受け渡される感覚をつかもう。</p>
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="wrap lab-wrap">
+    <div class="rpg-window with-slime reveal" style="margin-bottom:18px;">
+      <span class="who" data-spr="photon"></span>
+      <p>「光は“つぶつぶ”＝<span class="tag">光子</span>。1つぶのエネルギーは<span class="tag">E ＝ h × 振動数</span>。
+      色（振動数）を上げるほどエネルギーが大きい。電子のすき間 ΔE に<b>ぴったり</b>合う光子だけが吸収されるよ！」</p>
+    </div>
+
+    <div class="lab-hud">
+      <div class="lab-stat"><div class="lab">振動数 ν（色）</div><div class="val" id="vnu">5.0</div></div>
+      <div class="lab-stat"><div class="lab">光子のエネルギー E</div><div class="val" id="ve">5.0</div></div>
+      <div class="lab-stat"><div class="lab">必要なエネルギー ΔE</div><div class="val" id="vneed">5.0</div></div>
+      <div class="lab-stat"><div class="lab">吸収できた回数</div><div class="val" id="vhit">0</div></div>
+    </div>
+
+    <div class="lab-stage"><canvas id="en" width="600" height="340"></canvas></div>
+
+    <div class="lab-controls" style="flex-direction:column; align-items:stretch;">
+      <div class="lab-slider">
+        <span class="cap">赤（低エネルギー）</span>
+        <input id="freq" type="range" min="1" max="10" step="0.5" value="5">
+        <span class="cap">紫（高エネルギー）</span>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="lab-btn fire" id="fire">⚡ 光子を発射</button>
+        <button class="lab-btn sub" id="reset">♻ リセット</button>
+      </div>
+    </div>
+    <p class="lab-msg" id="msg"></p>
+
+    <span class="eyebrow" style="margin-top:30px;">わかること</span>
+    <h2 class="section-title">エネルギーは“量子（とびとびのかたまり）”でやりとりされる</h2>
+    <div class="grid">
+      <div class="card reveal"><span class="icon">🔆</span><h3>① 光＝光子のつぶつぶ</h3>
+        <p>光はなめらかな“流れ”ではなく、エネルギーの最小のかたまり「光子」の集まり。これが「量子」だよ。</p></div>
+      <div class="card reveal"><span class="icon">🌈</span><h3>② 色＝エネルギー</h3>
+        <p>光子1つぶのエネルギーは<b>E＝h×振動数</b>。赤より青、青より紫のほうが高エネルギー。明るさ（数）ではなく<b>色</b>で決まる。</p></div>
+      <div class="card reveal"><span class="icon">🎯</span><h3>③ ぴったりだけ吸収</h3>
+        <p>電子の準位の差 ΔE に<b>ぴったり合う光子だけ</b>が吸収され、ジャンプする。エネルギーがとびとび（量子化）だからこそ。</p></div>
+    </div>
+
+    <p style="margin-top:18px;">これは<a href="zukan.html">量子図鑑</a>の主役・電子と光子の関係そのもの。
+    「とびとびの準位」をのぼり下りする様子は<a href="levels.html">準位ジャンプ</a>、ルールとしての解説は
+    <a href="rules.html#r-quantize">量子化</a>へ。</p>
+
+    <div class="btn-row">
+      <a class="btn btn-primary" href="zukan.html">▶ 量子図鑑へ</a>
+      <a class="btn btn-ghost" href="levels.html" style="border-color:var(--line); color:var(--blue);">🎮 準位ジャンプであそぶ</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>🔵 量子力学ふしぎ図鑑 — 日常とは違う“ミクロの世界のルール”を、やさしく・体験して学ぶ</span>
+    <span><a href="index.html">ホームへもどる</a></span>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   手描きSVGスプライト集（スライム＆キャラクター）
+   data-spr="id" の要素に <use> で差し込む
+   ========================================================= */
+
+const QM_SPRITES = `
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0"
+     style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+<defs>
+
+<!-- ===== スライム（マスコット） ===== -->
+<symbol id="qm-slime" viewBox="0 0 64 64">
+  <g stroke="#1c4b7a" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M32 8 C30 8 28.5 10 27 14 C21 27 12 38 12 46 C12 52 20 54 32 54 C44 54 52 52 52 46 C52 38 43 27 37 14 C35.5 10 34 8 32 8 Z" fill="#36a3ef"/>
+    <path d="M24 16 C22 19 19 24 17 30 C20 23 24 18 27 15 C26 14 25 15 24 16 Z" fill="#7ec4f6" stroke="none"/>
+    <ellipse cx="25.5" cy="34" rx="4.4" ry="5.4" fill="#fff" stroke="none"/>
+    <ellipse cx="38.5" cy="34" rx="4.4" ry="5.4" fill="#fff" stroke="none"/>
+    <circle cx="26.5" cy="35" r="2.3" fill="#10314f" stroke="none"/>
+    <circle cx="39.5" cy="35" r="2.3" fill="#10314f" stroke="none"/>
+    <path d="M25 43 Q32 50 39 43" fill="none" stroke="#10314f" stroke-width="2.2"/>
+    <ellipse cx="19.5" cy="42" rx="2.6" ry="1.7" fill="#f48ab0" stroke="none"/>
+    <ellipse cx="44.5" cy="42" rx="2.6" ry="1.7" fill="#f48ab0" stroke="none"/>
+  </g>
+</symbol>
+
+<!-- ===== 電子（勇者・青年） ===== -->
+<symbol id="qm-electron" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#dcebfb" stroke="#2b7cc9" stroke-width="2.5"/>
+  <g stroke="#2a3550" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M28 54 L28 60" stroke="#3a4a6b" stroke-width="4"/>
+    <path d="M36 54 L36 60" stroke="#3a4a6b" stroke-width="4"/>
+    <path d="M24 38 L18 48" stroke="#2b7cc9" stroke-width="5"/>
+    <path d="M40 38 L46 48" stroke="#2b7cc9" stroke-width="5"/>
+    <circle cx="17" cy="49" r="2.4" fill="#f7cfa6"/>
+    <circle cx="47" cy="49" r="2.4" fill="#f7cfa6"/>
+    <path d="M24 55 L26 36 Q32 32 38 36 L40 55 Z" fill="#2b7cc9"/>
+    <path d="M26 45 L38 45" stroke="#e0a800" stroke-width="3"/>
+    <circle cx="32" cy="24" r="9.5" fill="#f7cfa6"/>
+    <path d="M22 22 Q24 12 32 12 Q40 12 42 22 Q38 17 32 17 Q26 17 22 22 Z" fill="#7a4a2a"/>
+    <path d="M22.5 21 Q32 18 41.5 21" stroke="#c0392b" stroke-width="2.4" fill="none"/>
+    <circle cx="29" cy="24" r="1.5" fill="#2a3550" stroke="none"/>
+    <circle cx="35" cy="24" r="1.5" fill="#2a3550" stroke="none"/>
+    <path d="M30 28 Q32 30 34 28" fill="none" stroke="#2a3550" stroke-width="1.6"/>
+  </g>
+</symbol>
+
+<!-- ===== クォーク（戦士） ===== -->
+<symbol id="qm-quark" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#e9f3df" stroke="#6aa84f" stroke-width="2.5"/>
+  <g stroke="#3a4030" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M16 12 L16 40" stroke="#b9c2cc" stroke-width="4"/>
+    <path d="M16 10 L18.5 14 L16 16.5 L13.5 14 Z" fill="#cdd5dd"/>
+    <path d="M11 36 L21 36" stroke="#8a6a3a" stroke-width="3"/>
+    <path d="M28 54 L28 60" stroke="#5a4632" stroke-width="4"/>
+    <path d="M36 54 L36 60" stroke="#5a4632" stroke-width="4"/>
+    <path d="M24 38 L18 46" stroke="#6f9b4e" stroke-width="5"/>
+    <path d="M40 38 L45 47" stroke="#6f9b4e" stroke-width="5"/>
+    <circle cx="17" cy="40" r="2.4" fill="#f7cfa6"/>
+    <circle cx="46" cy="48" r="2.4" fill="#f7cfa6"/>
+    <path d="M24 55 L26 36 Q32 32 38 36 L40 55 Z" fill="#6f9b4e"/>
+    <path d="M26 45 L38 45" stroke="#5a4632" stroke-width="3"/>
+    <circle cx="32" cy="24" r="9.5" fill="#f7cfa6"/>
+    <path d="M21.5 24 Q21 13 32 13 Q43 13 42.5 24 L40 24 Q40 16 32 16 Q24 16 24 24 Z" fill="#aeb7c0"/>
+    <path d="M32 14 L32 26" stroke="#8a929b" stroke-width="2"/>
+    <circle cx="29" cy="25" r="1.5" fill="#2a3550" stroke="none"/>
+    <circle cx="35" cy="25" r="1.5" fill="#2a3550" stroke="none"/>
+  </g>
+</symbol>
+
+<!-- ===== レプトン（軽身のエルフ） ===== -->
+<symbol id="qm-lepton" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#e9f3df" stroke="#6aa84f" stroke-width="2.5"/>
+  <g stroke="#33402e" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M20 58 Q22 34 32 32 Q42 34 44 58 Z" fill="#79b06a"/>
+    <path d="M24 40 L19 50" stroke="#79b06a" stroke-width="5"/>
+    <path d="M40 40 L45 50" stroke="#79b06a" stroke-width="5"/>
+    <circle cx="32" cy="25" r="8.5" fill="#f7cfa6"/>
+    <path d="M23.5 24 L18.5 21 L24 27 Z" fill="#f7cfa6"/>
+    <path d="M40.5 24 L45.5 21 L40 27 Z" fill="#f7cfa6"/>
+    <path d="M23 24 Q24 13 32 13 Q40 13 41 24 Q37 19 32 19 Q27 19 23 24 Z" fill="#4f8f55"/>
+    <circle cx="29.5" cy="26" r="1.4" fill="#2a3550" stroke="none"/>
+    <circle cx="34.5" cy="26" r="1.4" fill="#2a3550" stroke="none"/>
+    <path d="M30 29 Q32 31 34 29" fill="none" stroke="#2a3550" stroke-width="1.4"/>
+  </g>
+</symbol>
+
+<!-- ===== 陽子（王様） ===== -->
+<symbol id="qm-proton" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#f6ecd6" stroke="#c79a3a" stroke-width="2.5"/>
+  <g stroke="#5a3a2a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M20 58 Q22 34 32 32 Q42 34 44 58 Z" fill="#b5402f"/>
+    <path d="M24 40 L19 50" stroke="#b5402f" stroke-width="5"/>
+    <path d="M40 40 L45 50" stroke="#b5402f" stroke-width="5"/>
+    <circle cx="18" cy="51" r="2.3" fill="#f7cfa6"/>
+    <circle cx="46" cy="51" r="2.3" fill="#f7cfa6"/>
+    <circle cx="32" cy="25" r="9" fill="#f7cfa6"/>
+    <path d="M25 28 Q32 40 39 28 Q36 33 32 33 Q28 33 25 28 Z" fill="#eef0f3"/>
+    <path d="M22 18 L24 11 L28 16 L32 9 L36 16 L40 11 L42 18 Z" fill="#e9c84a" stroke="#b8902a"/>
+    <circle cx="32" cy="12.5" r="1.4" fill="#e0533a" stroke="none"/>
+    <circle cx="29.5" cy="24" r="1.5" fill="#2a3550" stroke="none"/>
+    <circle cx="34.5" cy="24" r="1.5" fill="#2a3550" stroke="none"/>
+  </g>
+</symbol>
+
+<!-- ===== 中性子（忍び） ===== -->
+<symbol id="qm-neutron" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#e2e6ee" stroke="#5a6b7b" stroke-width="2.5"/>
+  <g stroke="#23262e" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M28 54 L28 60" stroke="#3a3f48" stroke-width="4"/>
+    <path d="M36 54 L36 60" stroke="#3a3f48" stroke-width="4"/>
+    <path d="M24 38 L18 47" stroke="#4a5059" stroke-width="5"/>
+    <path d="M40 38 L46 47" stroke="#4a5059" stroke-width="5"/>
+    <path d="M24 55 L26 36 Q32 32 38 36 L40 55 Z" fill="#4a5059"/>
+    <path d="M26 45 L38 45" stroke="#23262e" stroke-width="3"/>
+    <circle cx="32" cy="24" r="9.5" fill="#3a3f48"/>
+    <rect x="22.5" y="21" width="19" height="6" rx="2" fill="#f7cfa6" stroke="none"/>
+    <circle cx="29" cy="24" r="1.6" fill="#23262e" stroke="none"/>
+    <circle cx="35" cy="24" r="1.6" fill="#23262e" stroke="none"/>
+    <path d="M41 21.5 L48 19 M41 26 L48 28.5" stroke="#3a3f48" stroke-width="2.4"/>
+  </g>
+</symbol>
+
+<!-- ===== 光子（太陽の使者） ===== -->
+<symbol id="qm-photon" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#fdf6da" stroke="#e0a800" stroke-width="2.5"/>
+  <g stroke="#f0b400" stroke-width="3" stroke-linecap="round">
+    <path d="M32 7 L32 13"/><path d="M32 51 L32 57"/>
+    <path d="M7 32 L13 32"/><path d="M51 32 L57 32"/>
+    <path d="M14 14 L18.5 18.5"/><path d="M45.5 45.5 L50 50"/>
+    <path d="M50 14 L45.5 18.5"/><path d="M18.5 45.5 L14 50"/>
+  </g>
+  <g stroke="#b9860b" stroke-width="2">
+    <circle cx="32" cy="32" r="14.5" fill="#ffd23f"/>
+    <circle cx="27" cy="30" r="1.8" fill="#7a5500" stroke="none"/>
+    <circle cx="37" cy="30" r="1.8" fill="#7a5500" stroke="none"/>
+    <path d="M27 36 Q32 41 37 36" fill="none" stroke="#7a5500" stroke-width="2"/>
+    <ellipse cx="24" cy="35" rx="2.2" ry="1.3" fill="#f48ab0" stroke="none" opacity=".55"/>
+    <ellipse cx="40" cy="35" rx="2.2" ry="1.3" fill="#f48ab0" stroke="none" opacity=".55"/>
+  </g>
+</symbol>
+
+<!-- ===== グルーオン（力持ち＋ハンマー） ===== -->
+<symbol id="qm-gluon" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#fbe9d8" stroke="#c8743a" stroke-width="2.5"/>
+  <g stroke="#5a3320" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M42 16 L49 23" stroke="#8a6a3a" stroke-width="3"/>
+    <rect x="44" y="9" width="11" height="9" rx="2" transform="rotate(45 49.5 13.5)" fill="#9aa3ad"/>
+    <path d="M27 54 L27 60" stroke="#7a4a2a" stroke-width="5"/>
+    <path d="M37 54 L37 60" stroke="#7a4a2a" stroke-width="5"/>
+    <path d="M23 37 L16 44" stroke="#d98a52" stroke-width="6"/>
+    <path d="M41 37 L47 30" stroke="#d98a52" stroke-width="6"/>
+    <path d="M22 55 L25 36 Q32 31 39 36 L42 55 Z" fill="#cf7b3e"/>
+    <circle cx="32" cy="23" r="9" fill="#e8a86f"/>
+    <path d="M22.5 21 Q32 18 41.5 21" stroke="#7a3a1a" stroke-width="3" fill="none"/>
+    <circle cx="29" cy="24" r="1.5" fill="#2a1a10" stroke="none"/>
+    <circle cx="35" cy="24" r="1.5" fill="#2a1a10" stroke="none"/>
+    <path d="M28 28 Q32 30 36 28" fill="none" stroke="#2a1a10" stroke-width="1.6"/>
+  </g>
+</symbol>
+
+<!-- ===== Wボソン（魔法使い・青緑） ===== -->
+<symbol id="qm-wboson" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#def0ee" stroke="#2f9e8f" stroke-width="2.5"/>
+  <g stroke="#244a44" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M46 16 L42 54" stroke="#8a6a3a" stroke-width="3"/>
+    <circle cx="46" cy="14" r="3.5" fill="#7fe3d2" stroke="#2f9e8f"/>
+    <path d="M20 58 Q22 34 32 32 Q42 34 44 58 Z" fill="#2f9e8f"/>
+    <path d="M24 40 L19 50" stroke="#2f9e8f" stroke-width="5"/>
+    <circle cx="32" cy="26" r="8.5" fill="#f7cfa6"/>
+    <path d="M23.5 26 Q22 38 26 40 L27 28 Z" fill="#8a5a8f"/>
+    <path d="M40.5 26 Q42 38 38 40 L37 28 Z" fill="#8a5a8f"/>
+    <path d="M21 22 L32 6 L43 22 Z" fill="#267f73"/>
+    <path d="M19 22 L45 22 L45 25 L19 25 Z" fill="#1f6b61"/>
+    <circle cx="29.5" cy="27" r="1.4" fill="#2a3550" stroke="none"/>
+    <circle cx="34.5" cy="27" r="1.4" fill="#2a3550" stroke="none"/>
+    <path d="M30 30 Q32 32 34 30" fill="none" stroke="#2a3550" stroke-width="1.4"/>
+  </g>
+</symbol>
+
+<!-- ===== Zボソン（魔法使い・紫） ===== -->
+<symbol id="qm-zboson" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#efeafc" stroke="#805ad5" stroke-width="2.5"/>
+  <g stroke="#3a2a5a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M18 16 L22 54" stroke="#8a6a3a" stroke-width="3"/>
+    <circle cx="18" cy="14" r="3.5" fill="#c3a7f0" stroke="#805ad5"/>
+    <path d="M20 58 Q22 34 32 32 Q42 34 44 58 Z" fill="#7a55c8"/>
+    <path d="M40 40 L45 50" stroke="#7a55c8" stroke-width="5"/>
+    <circle cx="32" cy="26" r="8.5" fill="#f7cfa6"/>
+    <path d="M21 22 L32 6 L43 22 Z" fill="#6a46b0"/>
+    <path d="M19 22 L45 22 L45 25 L19 25 Z" fill="#583a96"/>
+    <path d="M24 22 Q32 19 40 22" stroke="#e0a800" stroke-width="1.5" fill="none"/>
+    <circle cx="29.5" cy="27" r="1.4" fill="#2a3550" stroke="none"/>
+    <circle cx="34.5" cy="27" r="1.4" fill="#2a3550" stroke="none"/>
+    <path d="M30 30 Q32 32 34 30" fill="none" stroke="#2a3550" stroke-width="1.4"/>
+  </g>
+</symbol>
+
+<!-- ===== ヒッグス（長老の賢者） ===== -->
+<symbol id="qm-higgs" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#eef0f5" stroke="#7a8aa0" stroke-width="2.5"/>
+  <g stroke="#33405a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M47 14 L44 56" stroke="#8a6a3a" stroke-width="3"/>
+    <circle cx="47" cy="12" r="3.6" fill="#ffd23f" stroke="#d8a200"/>
+    <path d="M19 58 Q21 34 32 31 Q43 34 45 58 Z" fill="#4a6fae"/>
+    <path d="M23 40 L18 50" stroke="#4a6fae" stroke-width="5"/>
+    <path d="M24 26 Q24 52 32 52 Q40 52 40 26 Q36 36 32 36 Q28 36 24 26 Z" fill="#f1f3f6"/>
+    <circle cx="32" cy="24" r="8.5" fill="#f0cba0"/>
+    <path d="M20 22 L32 4 L44 22 Z" fill="#3a5a96"/>
+    <path d="M28 14 Q32 16 36 14" stroke="#e0a800" stroke-width="1.5" fill="none"/>
+    <circle cx="29.5" cy="24" r="1.4" fill="#2a3550" stroke="none"/>
+    <circle cx="34.5" cy="24" r="1.4" fill="#2a3550" stroke="none"/>
+  </g>
+</symbol>
+
+<!-- ===== グラビトン（幻のおばけ） ===== -->
+<symbol id="qm-graviton" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#ece9f5" stroke="#9b8fce" stroke-width="2.5" stroke-dasharray="4 4"/>
+  <g stroke="#6a5fa0" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M20 50 Q19 22 32 22 Q45 22 44 50 L40 46 L36 50 L32 46 L28 50 L24 46 Z" fill="#cfc6ee" opacity="0.92"/>
+    <circle cx="28" cy="34" r="2" fill="#4a4070" stroke="none"/>
+    <circle cx="36" cy="34" r="2" fill="#4a4070" stroke="none"/>
+    <ellipse cx="32" cy="40" rx="2.3" ry="3" fill="#4a4070" stroke="none"/>
+  </g>
+</symbol>
+
+<!-- ===== 盾（フェルミオン紋章） ===== -->
+<symbol id="qm-shield" viewBox="0 0 64 64">
+  <g stroke="#3a5a2a" stroke-width="2.5" stroke-linejoin="round">
+    <path d="M32 7 L53 15 Q53 44 32 57 Q11 44 11 15 Z" fill="#6aa84f"/>
+    <path d="M32 7 L32 57" stroke="#4a7a36" stroke-width="2"/>
+    <path d="M11 30 L53 30" stroke="#4a7a36" stroke-width="2"/>
+    <circle cx="32" cy="30" r="4" fill="#eaf6e2" stroke="#4a7a36" stroke-width="1.6"/>
+  </g>
+</symbol>
+
+<!-- ===== ラッパ（ボソン伝令） ===== -->
+<symbol id="qm-horn" viewBox="0 0 64 64">
+  <g stroke="#244a6e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M9 32 L40 21 Q53 18 55 28 Q57 38 44 39 L9 32 Z" fill="#e0a800"/>
+    <circle cx="11" cy="32" r="5" fill="#f0c200"/>
+    <path d="M40 23 L43 37" stroke="#b8860b" stroke-width="2"/>
+    <path d="M55 26 L60 24 M55 30 L60 31" stroke="#5b8fd4" stroke-width="2"/>
+  </g>
+</symbol>
+
+</defs>
+</svg>`;
+
+// SVGスプライト定義を読み込み、data-spr要素に流し込む
+(function () {
+  const inject = () => {
+    document.body.insertAdjacentHTML('afterbegin', QM_SPRITES);
+    document.querySelectorAll('[data-spr]').forEach((el) => {
+      const id = el.getAttribute('data-spr');
+      el.innerHTML =
+        '<svg class="spr" viewBox="0 0 64 64" aria-hidden="true">' +
+        '<use href="#qm-' + id + '" xlink:href="#qm-' + id + '"></use></svg>';
+    });
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inject);
+  } else {
+    inject();
+  }
+})();
+
+</script>
+<script>
+// スクロールで要素をふわっと表示
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+// 現在ページをナビでハイライト（親グループも）
+const here = location.pathname.split('/').pop() || 'index.html';
+document.querySelectorAll('.nav-links a').forEach((a) => {
+  const target = a.getAttribute('href');
+  if (target === here || (here === '' && target === 'index.html')) {
+    a.classList.add('active');
+    const grp = a.closest('.nav-group');
+    if (grp) grp.classList.add('has-active');
+  }
+});
+
+// ドロップダウン：タップ/クリックで開閉（PCはhoverでも開く）
+document.querySelectorAll('.nav-trigger').forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const grp = btn.closest('.nav-group');
+    const isOpen = grp.classList.contains('open');
+    document.querySelectorAll('.nav-group.open').forEach((g) => g.classList.remove('open'));
+    if (!isOpen) grp.classList.add('open');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.nav-group.open').forEach((g) => g.classList.remove('open'));
+});
+
+</script>
+
+<script>
+(function(){
+  var cv=document.getElementById('en'), ctx=cv.getContext('2d');
+  var DPR=Math.min(2,window.devicePixelRatio||1), W=600, H=340;
+  cv.width=W*DPR; cv.height=H*DPR; ctx.scale(DPR,DPR);
+  var sl=document.getElementById('freq');
+  var vNu=document.getElementById('vnu'), vE=document.getElementById('ve'), vNeed=document.getElementById('vneed'), vHit=document.getElementById('vhit'), msg=document.getElementById('msg');
+  var atomX=430, baseY=250, perPx=22;
+  var gap=5, score=0, state='idle', photon=null, emit=null, timer=0, flash='', flashT=0;
+  function hue(n){ return (n-1)/9*270; }
+  function colorFor(n){ return 'hsl('+hue(n)+',85%,58%)'; }
+  function newGap(){ gap=3+Math.floor(Math.random()*6); vNeed.textContent=gap.toFixed(1); }
+  function curE(){ return parseFloat(sl.value); }
+  function fire(){ if(state!=='idle') return; photon={x:60,e:curE(),color:colorFor(curE())}; state='flying'; }
+  function packet(x,y,color){
+    ctx.strokeStyle=color; ctx.lineWidth=3; ctx.beginPath();
+    for(var i=-18;i<=18;i++){ var px=x+i, py=y+Math.sin(i*0.6)*7*Math.exp(-i*i/210); if(i===-18)ctx.moveTo(px,py); else ctx.lineTo(px,py); }
+    ctx.stroke();
+    ctx.fillStyle=color; ctx.beginPath(); ctx.arc(x,y,4,0,7); ctx.fill();
+  }
+  function draw(){
+    ctx.fillStyle='#0a1730'; ctx.fillRect(0,0,W,H);
+    var upY=baseY-gap*perPx;
+    ctx.strokeStyle='rgba(255,255,255,.5)'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(atomX-70,baseY); ctx.lineTo(atomX+70,baseY); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(atomX-70,upY); ctx.lineTo(atomX+70,upY); ctx.stroke();
+    ctx.fillStyle='#9fc4e8'; ctx.font='12px sans-serif'; ctx.textAlign='left';
+    ctx.fillText('E2（上の準位）', atomX+78, upY+4);
+    ctx.fillText('E1（下の準位）', atomX+78, baseY+4);
+    ctx.strokeStyle='#7fd0c4'; ctx.beginPath(); ctx.moveTo(atomX-92,baseY); ctx.lineTo(atomX-92,upY); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(atomX-96,baseY-6); ctx.lineTo(atomX-92,baseY); ctx.lineTo(atomX-88,baseY-6); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(atomX-96,upY+6); ctx.lineTo(atomX-92,upY); ctx.lineTo(atomX-88,upY+6); ctx.stroke();
+    ctx.fillStyle='#7fd0c4'; ctx.textAlign='right'; ctx.fillText('ΔE='+gap.toFixed(1), atomX-100, (baseY+upY)/2+4);
+    var eY=(state==='excited'||state==='emit')?upY:baseY;
+    ctx.fillStyle='#46b0ff'; ctx.beginPath(); ctx.arc(atomX, eY-13, 11,0,7); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.font='bold 14px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('-',atomX,eY-13); ctx.textBaseline='alphabetic';
+    if(state==='idle'){ packet(70,baseY-13,colorFor(curE())); ctx.fillStyle='#9fc4e8'; ctx.font='11px sans-serif'; ctx.textAlign='center'; ctx.fillText('次の光子',70,baseY+14); }
+    if(state==='flying' && photon){ packet(photon.x,baseY-13,photon.color); photon.x+=5.2;
+      if(photon.x>=atomX-14){
+        if(Math.abs(photon.e-gap)<=0.5){ state='excited'; timer=0; score++; vHit.textContent=score; flash='ok'; flashT=20; photon=null; }
+        else { state='passing'; }
+      }
+    }
+    if(state==='passing' && photon){ packet(photon.x,baseY-13,photon.color); photon.x+=5.2; if(photon.x>W+20){ photon=null; flash='ng'; flashT=14; state='idle'; } }
+    if(state==='excited'){ timer++; if(timer>42){ state='emit'; emit={x:atomX,color:colorFor(gap)}; } }
+    if(state==='emit' && emit){ packet(emit.x,upY-13,emit.color); emit.x+=5.2; if(emit.x>W+20){ emit=null; newGap(); state='idle'; } }
+    if(flashT>0){ flashT--; ctx.fillStyle=(flash==='ok'?'rgba(127,208,196,':'rgba(224,82,82,')+(flashT/20*0.35)+')'; ctx.fillRect(0,0,W,H); }
+    var nu=curE(); vNu.textContent=nu.toFixed(1); vE.textContent=nu.toFixed(1);
+    requestAnimationFrame(draw);
+  }
+  document.getElementById('fire').onclick=fire;
+  document.getElementById('reset').onclick=function(){ score=0; vHit.textContent='0'; state='idle'; photon=null; emit=null; newGap(); };
+  setInterval(function(){ msg.textContent = (state==='excited'||state==='emit') ? 'ピッタリの量子！電子が吸収してジャンプ→光子を放って戻る。' : (state==='passing' ? 'エネルギーがズレた光子は、吸収されず素通り…。' : '色（振動数）を ΔE に合わせて「光子を発射」。ぴったりの量子だけ吸収される！'); },300);
+  newGap(); draw();
+})();
+</script>
+</body>
+</html>

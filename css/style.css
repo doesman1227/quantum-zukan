@@ -1,0 +1,531 @@
+/* =========================================================
+   量子力学ふしぎ図鑑  -  共通スタイル
+   RPG（RPGゲーム風）テーマ
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Zen+Maru+Gothic:wght@500;700&display=swap');
+
+:root {
+  --bg:            #f4f7fb;
+  --bg-deep:       #e8eef7;
+  --window:        #ffffff;
+  --ink:           #20303f;
+  --ink-soft:      #5a6b7b;
+  --line:          #d6e0ec;
+
+  --blue:          #2b6cb0;
+  --blue-deep:     #1e3a5f;
+  --sky:           #4aa3df;
+  --green:         #38a169;
+  --green-soft:    #e6f4ec;
+  --orange:        #dd6b20;
+  --orange-soft:   #fdf0e3;
+  --purple:        #805ad5;
+  --purple-soft:   #efeafc;
+  --red:           #e05252;
+  --gold:          #e0a800;
+
+  --fermion:       #6aa84f;
+  --boson:         #5b8fd4;
+
+  --radius:        16px;
+  --shadow:        0 6px 18px rgba(30, 58, 95, .10);
+  --shadow-lg:     0 14px 40px rgba(30, 58, 95, .16);
+  --maxw:          1100px;
+
+  --font: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic",
+          "Meiryo", system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 8%, #ffffff 0, transparent 40%),
+    radial-gradient(circle at 88% 4%, #eaf2ff 0, transparent 45%),
+    var(--bg);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--blue); }
+
+/* ---------- ヘッダー / ナビ ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255,255,255,.86);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  color: var(--blue-deep);
+  text-decoration: none;
+  font-size: 1.05rem;
+}
+.brand .slime { font-size: 1.5rem; }
+.nav-links {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--ink-soft);
+  font-weight: 700;
+  font-size: .9rem;
+  padding: 7px 13px;
+  border-radius: 999px;
+  transition: .18s;
+}
+.nav-links a:hover { background: var(--bg-deep); color: var(--blue-deep); }
+.nav-links a.active { background: var(--blue); color: #fff; }
+
+/* ---------- 共通レイアウト ---------- */
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 18px; }
+section { padding: 56px 0; }
+.section-pad { padding: 40px 0; }
+
+.eyebrow {
+  display: inline-block;
+  font-weight: 800;
+  font-size: .8rem;
+  letter-spacing: .14em;
+  color: var(--sky);
+  background: #eaf4fc;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+h1, h2, h3 { line-height: 1.4; }
+h2.section-title {
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  margin: 0 0 8px;
+  color: var(--blue-deep);
+}
+.section-sub { color: var(--ink-soft); margin: 0 0 30px; }
+
+/* ---------- ヒーロー ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 80% -10%, #cfe6ff 0, transparent 55%),
+    linear-gradient(160deg, #1e3a5f 0%, #2b6cb0 60%, #3d8ed0 100%);
+  color: #fff;
+  padding: 70px 0 90px;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.6) 0, transparent 100%),
+    radial-gradient(2px 2px at 70% 60%, rgba(255,255,255,.5) 0, transparent 100%),
+    radial-gradient(1.5px 1.5px at 40% 80%, rgba(255,255,255,.5) 0, transparent 100%),
+    radial-gradient(1.5px 1.5px at 90% 20%, rgba(255,255,255,.4) 0, transparent 100%),
+    radial-gradient(2px 2px at 55% 15%, rgba(255,255,255,.4) 0, transparent 100%);
+  pointer-events: none;
+}
+.hero .wrap { position: relative; z-index: 1; }
+.hero h1 {
+  font-size: clamp(1.8rem, 5.5vw, 3.1rem);
+  margin: 14px 0 16px;
+  font-weight: 900;
+  letter-spacing: .01em;
+}
+.hero p.lead {
+  font-size: clamp(1rem, 2.4vw, 1.2rem);
+  max-width: 640px;
+  color: #e8f2ff;
+}
+.hero .eyebrow { background: rgba(255,255,255,.18); color: #fff; }
+.hero-slime {
+  font-size: clamp(3rem, 10vw, 5rem);
+  display: inline-block;
+  animation: bob 2.6s ease-in-out infinite;
+}
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+.btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 800;
+  padding: 13px 22px;
+  border-radius: 12px;
+  transition: .18s;
+}
+.btn-primary { background: var(--gold); color: #3a2c00; box-shadow: 0 6px 0 #b88a00; }
+.btn-primary:hover { transform: translateY(2px); box-shadow: 0 4px 0 #b88a00; }
+.btn-ghost { background: rgba(255,255,255,.14); color: #fff; border: 2px solid rgba(255,255,255,.5); }
+.btn-ghost:hover { background: rgba(255,255,255,.25); }
+
+/* ---------- RPGメッセージウィンドウ（吹き出し） ---------- */
+.rpg-window {
+  background: var(--blue-deep);
+  color: #fff;
+  border: 3px solid #fff;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 0 0 3px var(--blue-deep), var(--shadow);
+  position: relative;
+  font-weight: 600;
+}
+.rpg-window.with-slime { padding-left: 64px; }
+.rpg-window .who {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+}
+.rpg-window p { margin: 0; }
+.rpg-window .tag { color: var(--gold); font-weight: 800; }
+
+/* ---------- カードグリッド ---------- */
+.grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.card {
+  background: var(--window);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+  transition: .2s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.card .icon { font-size: 2.2rem; display: block; margin-bottom: 8px; }
+.card h3 { margin: 0 0 8px; color: var(--blue-deep); }
+.card p { margin: 0; color: var(--ink-soft); font-size: .95rem; }
+.card .more { display:inline-block; margin-top:14px; font-weight:800; text-decoration:none; }
+
+/* ---------- 分解フロー（水→素粒子） ---------- */
+.flow {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 6px 2px 16px;
+}
+.flow-step {
+  flex: 0 0 175px;
+  background: var(--window);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 14px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.flow-step .emoji { font-size: 2.4rem; display:block; margin-bottom:6px; }
+.flow-step h4 { margin: 4px 0; color: var(--blue-deep); font-size: 1rem; }
+.flow-step p { margin: 0; font-size: .82rem; color: var(--ink-soft); }
+.flow-arrow { align-self: center; font-size: 1.6rem; color: var(--sky); flex: 0 0 auto; }
+
+/* ---------- 図鑑カード（キャラクター） ---------- */
+.dex-band {
+  display: flex; align-items: center; gap: 12px;
+  margin: 8px 0 18px;
+}
+.dex-band .chip {
+  font-weight: 900; color: #fff; padding: 8px 18px; border-radius: 999px;
+  letter-spacing: .04em;
+}
+.chip.fermion { background: var(--fermion); }
+.chip.boson { background: var(--boson); }
+.dex-band .desc { color: var(--ink-soft); font-size: .92rem; }
+
+.npc {
+  background: var(--window);
+  border: 1px solid var(--line);
+  border-top: 6px solid var(--blue);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: .2s;
+}
+.npc:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.npc.is-fermion { border-top-color: var(--fermion); }
+.npc.is-boson   { border-top-color: var(--boson); }
+.npc .head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.npc .ava { font-size: 2.6rem; line-height: 1; }
+.npc .title { margin: 0; font-size: 1.15rem; color: var(--blue-deep); font-weight: 800; }
+.npc .sub { font-size: .78rem; color: var(--ink-soft); font-weight: 700; }
+.npc .role {
+  font-size: .9rem; color: var(--ink); margin: 0 0 12px;
+}
+.npc .stats { list-style: none; margin: auto 0 0; padding: 12px 0 0; border-top: 1px dashed var(--line); }
+.npc .stats li { font-size: .82rem; color: var(--ink-soft); padding: 2px 0; }
+.npc .stats b { color: var(--ink); }
+
+/* ---------- ルール（量子のふしぎ） ---------- */
+.rule {
+  background: var(--window);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+.rule .num {
+  display:inline-flex; align-items:center; justify-content:center;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--blue); color:#fff; font-weight:900; font-size:1.1rem;
+  margin-bottom: 12px;
+}
+.rule.c-green .num { background: var(--green); }
+.rule.c-orange .num { background: var(--orange); }
+.rule.c-purple .num { background: var(--purple); }
+.rule.c-red .num { background: var(--red); }
+.rule h3 { margin: 0 0 10px; color: var(--blue-deep); }
+.rule p { margin: 0 0 10px; color: var(--ink-soft); }
+.point {
+  margin-top: 14px; padding: 12px 14px; border-radius: 10px;
+  background: var(--green-soft); border-left: 4px solid var(--green);
+  font-size: .9rem; color: var(--ink);
+}
+.point b { color: var(--green); }
+
+/* energy levels table */
+.energy {
+  width: 100%; border-collapse: collapse; margin: 8px 0; font-size: .9rem;
+}
+.energy th, .energy td { padding: 6px 10px; text-align: center; border-bottom: 1px solid var(--line); }
+.energy th { color: var(--blue-deep); }
+.energy .no { color: var(--red); text-decoration: line-through; opacity:.7; }
+
+.spin-demo { display:flex; gap:24px; justify-content:center; margin:10px 0; }
+.spin-demo .s { text-align:center; }
+.spin-demo .arr { font-size:2rem; }
+
+/* ---------- タイムライン（歴史） ---------- */
+.timeline { position: relative; margin-top: 20px; }
+.timeline::before {
+  content:""; position:absolute; left: 26px; top: 0; bottom: 0;
+  width: 3px; background: linear-gradient(var(--sky), var(--purple));
+  border-radius: 3px;
+}
+.tl-item { position: relative; padding: 0 0 28px 70px; }
+.tl-item .dot {
+  position: absolute; left: 10px; top: 2px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background:#fff; border: 3px solid var(--blue);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:900; color:var(--blue); font-size:.95rem; z-index:1;
+}
+.tl-item .card-tl {
+  background: var(--window); border:1px solid var(--line);
+  border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow);
+}
+.tl-item .year { font-weight:900; color: var(--sky); font-size:.85rem; }
+.tl-item h3 { margin: 2px 0 4px; color: var(--blue-deep); }
+.tl-item .who { font-size:.85rem; color: var(--ink-soft); font-weight:700; margin-bottom:8px; }
+.tl-item p { margin:0 0 10px; color: var(--ink-soft); font-size:.93rem; }
+.tl-item .kw {
+  display:inline-block; font-size:.78rem; font-weight:800;
+  background: var(--purple-soft); color: var(--purple);
+  padding: 4px 11px; border-radius: 999px;
+}
+.tl-item .quote {
+  font-style: italic; color: var(--blue-deep);
+  border-left: 3px solid var(--sky); padding-left: 12px; margin: 0 0 10px;
+}
+
+/* ---------- まとめバナー ---------- */
+.summary {
+  background: linear-gradient(160deg, #1e3a5f, #2b6cb0);
+  color:#fff; border-radius: var(--radius); padding: 30px;
+  box-shadow: var(--shadow-lg);
+  display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+}
+.summary .big { font-size: 2.6rem; }
+.summary p { margin:0; }
+.summary b { color: var(--gold); }
+
+/* ---------- フッター ---------- */
+.site-footer {
+  background: var(--blue-deep); color: #cdd9e6;
+  padding: 34px 0; margin-top: 30px;
+  font-size: .88rem;
+}
+.site-footer .wrap { display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:center; }
+.site-footer a { color:#9ecbff; }
+
+/* ---------- 補足 / 用語 ---------- */
+.kvp { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:14px; }
+.kvp .k { background:var(--window); border:1px solid var(--line); border-radius:12px; padding:16px; box-shadow:var(--shadow); }
+.kvp .k b { color: var(--blue-deep); }
+
+.note { font-size:.82rem; color: var(--ink-soft); }
+
+/* reveal on scroll */
+.reveal { opacity:0; transform: translateY(18px); transition: .6s ease; }
+.reveal.in { opacity:1; transform:none; }
+
+@media (max-width: 600px) {
+  section { padding: 40px 0; }
+  .nav-links a { padding: 6px 10px; font-size: .82rem; }
+}
+
+/* =========================================================
+   GAME-UI テーマ（ピクセルフォント＆コマンドウィンドウ）
+   ========================================================= */
+:root{
+  --font-ui: "DotGothic16", "Hiragino Kaku Gothic ProN", system-ui, sans-serif;
+  --font-body: "Zen Maru Gothic", "Hiragino Maru Gothic ProN",
+               "Hiragino Kaku Gothic ProN", system-ui, sans-serif;
+}
+
+/* 本文はやわらか丸ゴシック、見出し系はドット文字 */
+body{
+  font-family: var(--font-body);
+  background-image:
+    linear-gradient(rgba(43,108,176,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(43,108,176,.045) 1px, transparent 1px),
+    radial-gradient(circle at 12% 8%, #ffffff 0, transparent 40%),
+    radial-gradient(circle at 88% 4%, #eaf2ff 0, transparent 45%);
+  background-size: 24px 24px, 24px 24px, auto, auto;
+  background-color: var(--bg);
+}
+
+.brand, .nav-links a, .eyebrow, h1, h2, h3,
+.btn, .rule .num, .chip, .dex-band .chip,
+.npc .title, .npc .sub, .tl-item h3, .tl-item .year,
+.flow-step h4, .card h3, .section-title, .hero h1,
+.rpg-window .tag, .summary b, .tl-item .kw, .energy th{
+  font-family: var(--font-ui);
+  font-weight: 400;
+  letter-spacing: .03em;
+}
+.hero h1, .section-title{ line-height: 1.5; }
+
+/* 角ばったゲーム機UIへ */
+.btn, .btn-ghost, .nav-links a, .chip, .dex-band .chip{ border-radius: 6px; }
+.card, .npc, .rule, .flow-step, .tl-item .card-tl, .k, .kvp .k{ border-radius: 10px; }
+.btn-primary{ box-shadow: 0 5px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
+.btn-primary:hover{ box-shadow: 0 2px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
+.nav-links a.active{ box-shadow: 0 3px 0 #1c4f86; }
+
+/* RPGコマンドウィンドウ：二重枠＆角ピクセル */
+.rpg-window{ border-radius: 8px; }
+.rpg-window::after{
+  content:""; position:absolute; inset:5px;
+  border:1px solid rgba(255,255,255,.4); border-radius:5px; pointer-events:none;
+}
+
+/* ===== 手描きSVGスプライト ===== */
+.spr{ width: 1em; height: 1em; display:inline-block; vertical-align: -0.18em; }
+.hero-slime .spr{ filter: drop-shadow(0 8px 12px rgba(0,0,0,.28)); }
+.npc .ava{ line-height: 1; }
+
+/* コンセプト系の絵文字アイコンも“トークン枠”に */
+.card .icon{
+  width: 60px; height: 60px; line-height: 60px; text-align: center;
+  font-size: 1.9rem; margin-bottom: 12px; border-radius: 12px;
+  background: var(--bg-deep); border: 2px solid var(--line);
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,.06);
+}
+
+/* JSが無効な環境でも内容が消えないように（reveal安全弁） */
+@media (scripting: none){
+  .reveal{ opacity:1 !important; transform:none !important; }
+}
+
+/* 文章中にインラインで置くキャラクタースプライト */
+.spr-inline{ font-size: 1.5em; vertical-align: middle; line-height: 1; }
+
+/* ===== 難易度バッジ & 学習ルート ===== */
+.tier{ display:inline-block; font-family:var(--font-ui); font-size:.72rem; font-weight:400;
+  padding:3px 11px; border-radius:6px; letter-spacing:.04em; color:#fff; vertical-align:middle; }
+.tier-intro{ background:#38a169; }   /* 入門 */
+.tier-play{ background:#dd6b20; }    /* 体験 */
+.tier-adv{ background:#805ad5; }     /* 発展 */
+.tier-read{ background:#4aa3df; }    /* よみもの */
+.hero .tier{ margin-bottom:12px; box-shadow:0 2px 0 rgba(0,0,0,.18); }
+.card .tier{ margin-bottom:10px; }
+
+.route-head{ display:flex; align-items:center; gap:12px; margin:34px 0 16px; }
+.route-head .tier{ font-size:.82rem; padding:5px 15px; }
+.route-head h3{ margin:0; color:var(--blue-deep); font-family:var(--font-ui); font-weight:400; font-size:1.05rem; }
+.route-head .ln{ flex:1; height:2px; background:var(--line); border-radius:2px; }
+
+/* ホーム：量子とは の3つのびっくり */
+.whatis-lead{ font-size:1.05rem; color:var(--ink); background:var(--green-soft);
+  border-left:5px solid var(--green); border-radius:0 12px 12px 0; padding:16px 20px; margin:0 0 22px; }
+.whatis-lead b{ color:var(--green); }
+
+
+/* ===== ナビ：ドロップダウン（まなぶ／あそぶ／ふかめる） ===== */
+.nav-group{ position: relative; }
+.nav-trigger{
+  font-family: var(--font-ui); font-weight: 400; letter-spacing: .03em;
+  cursor: pointer; border: none; background: transparent;
+  color: var(--ink-soft); font-size: .9rem; padding: 7px 13px;
+  border-radius: 6px; transition: .18s;
+}
+.nav-trigger:hover{ background: var(--bg-deep); color: var(--blue-deep); }
+.nav-group.has-active .nav-trigger{ background: var(--blue); color: #fff; }
+.nav-menu{
+  position: absolute; top: calc(100% + 8px); left: 0;
+  background: var(--window); border: 1px solid var(--line); border-radius: 10px;
+  box-shadow: var(--shadow-lg); padding: 6px; min-width: 172px;
+  display: none; flex-direction: column; gap: 2px; z-index: 60;
+}
+.nav-menu::before{ content:""; position:absolute; top:-8px; left:0; right:0; height:8px; }
+.nav-group:hover .nav-menu,
+.nav-group.open .nav-menu{ display: flex; }
+.nav-menu a{ white-space: nowrap; }
+
+/* ===== ナビ：こらむ内のサブカテゴリ見出し ===== */
+.nav-cat{ display:block; padding:9px 13px 3px; font-family:var(--font-ui); font-weight:400;
+  font-size:.7rem; letter-spacing:.06em; color:var(--ink-soft);
+  border-top:1px solid var(--line); margin-top:4px; }
+.nav-menu .nav-cat:first-child{ border-top:none; margin-top:0; padding-top:2px; }
+
+/* ===== 理論コラム（QFT〜ホログラフィー） ===== */
+.thstat{ display:inline-flex; align-items:center; gap:6px; font-family:var(--font-ui);
+  font-size:.8rem; padding:5px 14px; border-radius:999px; margin:2px 0 14px; }
+.thstat.ok{ background:var(--green-soft); color:#1f7a4d; border:1px solid #abdcc0; }
+.thstat.hyp{ background:var(--orange-soft); color:#b35c12; border:1px solid #f0c89a; }
+.thstat.strong{ background:#e6f6f3; color:#1d7d70; border:1px solid #a9ddd4; }
+.illfig{ background:#0f1f3a; border-radius:12px; padding:14px; margin:8px 0 16px;
+  max-width:360px; box-shadow:var(--shadow); }
+.illfig svg{ width:100%; height:auto; display:block; }
+.answer{ background:#eef6ff; border:2px solid var(--sky); border-radius:14px; padding:18px 20px; margin:0 0 14px; }
+.answer .verdict{ font-family:var(--font-ui); font-size:1.12rem; color:var(--blue-deep); display:block; margin-bottom:4px; }
+.answer p{ margin:0; }
+.linklist{ list-style:none; padding:0; margin:16px 0 0; display:flex; flex-wrap:wrap; gap:8px; }
+.linklist a{ display:inline-block; background:#eef6ff; border:1px solid var(--sky);
+  color:var(--blue-deep); text-decoration:none; font-weight:700; font-size:.85rem;
+  padding:7px 13px; border-radius:999px; }
+.linklist a:hover{ background:var(--sky); color:#fff; }
+
+.thmore{ display:inline-block; margin-top:10px; font-weight:800; font-size:.85rem; text-decoration:none; color:var(--blue); }
+.thmore:hover{ text-decoration:underline; }
