@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>量子のふしぎルール｜量子力学ふしぎ図鑑</title>
-<meta name="description" content="電子キャラクターを主役に、量子化・重ね合わせ・波束の収縮・不確定性原理・量子もつれ・相互作用といった量子力学のふしぎなルールを、二重スリット実験やシュレーディンガーの猫の例とともにRPGゲーム風にやさしく解説。">
+<title>質量と重力について｜量子力学ふしぎ図鑑</title>
+<meta name="description" content="質量と重力をやさしく解説。慣性質量と重力質量、E=mc²（質量はエネルギー）、体重の大半が強い力のエネルギー由来な理由、ニュートンからアインシュタインの時空のゆがみ、等価原理、重力が最弱でも宇宙を支配する理由、量子重力の謎まで。">
 <style>
 /* =========================================================
    量子力学ふしぎ図鑑  -  共通スタイル
@@ -546,7 +546,7 @@ body{
 <header class="site-header">
   <nav class="nav">
     <a class="brand" href="index.html"><span class="slime" data-spr="slime"></span> 量子力学ふしぎ図鑑</a>
-                                    <div class="nav-links">
+<div class="nav-links">
       <a href="index.html">ホーム</a>
       <div class="nav-group">
         <button type="button" class="nav-trigger">まなぶ ▾</button>
@@ -593,229 +593,100 @@ body{
   </nav>
 </header>
 
-<section class="hero" style="padding:54px 0 64px;">
+<section class="hero" style="padding:48px 0 56px;">
   <div class="wrap">
-    <span class="tier tier-intro">まなぶ</span><br>
-    <span class="eyebrow">まなぶ ・ ミクロの“もうひとつのルール”</span>
-    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">量子のふしぎルール</h1>
-    <p class="lead">主役は<b>電子キャラクター</b>。電子そのものはいつも「電子」だけど、その“状態”は私たちの常識とぜんぜんちがうルールで決まる。6つのふしぎを体験しよう。</p>
+    <span class="tier tier-adv">コラム</span><br>
+    <span class="eyebrow">こらむ ・ もっと知りたい</span>
+    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">質量と重力について</h1>
+    <p class="lead">「重さ」って何だろう？ 「落ちる」ってどういうこと？
+    当たり前すぎる2つの正体をたどると、E＝mc² と“時空のゆがみ”という、宇宙の見え方が変わる話にたどり着きます。</p>
   </div>
 </section>
 
 <section class="section-pad">
   <div class="wrap">
-    <div class="rpg-window with-slime reveal">
-      <span class="who" data-spr="electron"></span>
-      <p>「やあ、ぼくが電子だ。これから見せるのは“ぼく自身”じゃなくて、ぼくの<span class="tag">状態</span>のふしぎ。
-      位置・スピン・エネルギー…ぜんぶ、ちょっと変わったルールで決まるんだ。」</p>
+    <div class="answer reveal">
+      <span class="verdict">ひとことで：質量は“エネルギーのかたまり”、重力は“時空のゆがみ”。</span>
+      <p>「重さ」と「引っぱる力」は、当たり前すぎて説明しにくい。でもその正体をたどると、
+      <b>E＝mc²</b>や<b>時空の曲がり</b>という、世界の見え方が変わる話にたどり着くよ。</p>
     </div>
-  </div>
-</section>
 
-<!-- ===== ルール1：量子化 ===== -->
-<section>
-  <div class="wrap">
-    <div class="rule reveal" id="r-quantize" style="scroll-margin-top:80px">
-      <span class="num">1</span>
-      <h3>飛び飛びの状態（量子化）</h3>
-      <p>電子の位置・スピン・エネルギーなどは、すべて<b>“飛び飛びの値”しかとれない</b>。
-      階段のように、決まった段にしか立てないイメージ。坂道のようになめらかには変われない。</p>
-
-      <p style="margin-top:16px;"><b>① エネルギー</b>（水素原子の中の電子の例）</p>
-      <table class="energy">
-        <tr><th>準位</th><th>エネルギー Eₙ</th></tr>
-        <tr><td>n = 1</td><td>−13.6 eV</td></tr>
-        <tr><td>n = 2</td><td>−3.40 eV</td></tr>
-        <tr><td>n = 3</td><td>−1.51 eV</td></tr>
-        <tr><td>n = 4</td><td>−0.85 eV</td></tr>
-        <tr><td>n = ∞</td><td>0 eV（電離）</td></tr>
-        <tr><td class="no">例</td><td class="no">−5.00 eV は存在できない！</td></tr>
-      </table>
-
-      <p style="margin-top:16px;"><b>② スピン</b>（電子はスピン½）</p>
-      <div class="spin-demo">
-        <div class="s"><div class="arr">⬆️</div>上向き（+½）</div>
-        <div class="s"><div class="arr">⬇️</div>下向き（−½）</div>
-      </div>
-      <p>スピンの向きは、たった<b>2種類だけ</b>。中間はない。</p>
-
-      <div class="point"><b>ポイント：</b>電子そのものは電子のまま。位置・スピン・エネルギーなどの“状態”が飛び飛びの値しかとれないのが「量子化」。</div>
-      <div class="btn-row"><a class="btn btn-primary" href="levels.html">🎮 「準位ジャンプ」で体験する</a></div>
+    <span class="eyebrow">① 質量ってなに？</span>
+    <h2 class="section-title">「動かしにくさ」と「重さの源」</h2>
+    <div class="kvp reveal">
+      <div class="k"><b>🛒 動かしにくさ（慣性質量）</b>
+        <p>同じ力で押しても、重いものほど動きにくい。この“動かしにくさ”の度合いが質量。</p></div>
+      <div class="k"><b>🪐 重さの源（重力質量）</b>
+        <p>質量があるものは、まわりに重力を生み、また重力に引かれる。その“引かれやすさ”も質量。</p></div>
     </div>
-  </div>
-</section>
+    <p>ふしぎなことに、この2つの質量は<b>つねにピッタリ一致</b>する。これが後の④の話につながる。</p>
 
-<!-- ===== ルール2：重ね合わせ ===== -->
-<section class="section-pad">
-  <div class="wrap">
-    <div class="rule c-green reveal" id="r-superpose" style="scroll-margin-top:80px">
-      <span class="num">2</span>
-      <h3>観測されるまで状態は決まらない（重ね合わせ）</h3>
-      <p>電子キャラクターは、観測されるまで、いくつかの状態を<b>“重ね合わせ”たまま同時に存在</b>している。</p>
-      <p style="text-align:center; font-size:1.4rem; margin:18px 0;">
-        位置A ☁️ ＋ 位置B ☁️ ＋ 位置C ☁️ &nbsp; → &nbsp; 👁️ 観測 → &nbsp; <b>「位置Bにいた！」</b>
-      </p>
-      <p>観測する前は、Aにも・Bにも・Cにも“可能性として”いる。観測した瞬間、そのうちの1つに決まる。</p>
-      <div class="point" style="background:var(--green-soft);"><b>ポイント：</b>観測前は複数の状態が同時にある（重ね合わせ）。観測によって1つに確定する！</div>
-
-      <div style="margin-top:16px; padding:14px 16px; border:1px dashed var(--line); border-radius:10px; background:#f5fbff;">
-        <b style="color:var(--blue-deep);">💡 有名な実験：二重スリット</b>
-        <p style="margin:6px 0 0; font-size:.92rem; color:var(--ink-soft);">電子を1個ずつ2つのすき間に撃つと、見ていないときは“波”として両方を同時に通り、
-        スクリーンに<b>しま模様（干渉）</b>が現れる。ところが「どちらを通った？」と<b>観測したとたん</b>、
-        しま模様は消えて、“粒”のように片方だけを通った振る舞いに変わる。――観測が結果を変える、量子の代名詞のような実験だよ。</p>
-        <a class="more" href="slit.html" style="margin-top:8px;">🌊 二重スリット実験ラボで体験する →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== ルール3：波束の収縮 ===== -->
-<section>
-  <div class="wrap">
-    <div class="rule c-orange reveal" id="r-collapse" style="scroll-margin-top:80px">
-      <span class="num">3</span>
-      <h3>観測で状態が決まる（波束の収縮）</h3>
-      <p>観測（測定）によって、重ね合わせの中から1つの状態に確定する。
-      たとえばスピンが「⬆️と⬇️が重なった状態」だったとして…</p>
-      <p style="text-align:center; font-size:1.3rem; margin:16px 0;">
-        ⬆️＋⬇️（重ね合わせ） &nbsp; → 👁️観測 → &nbsp; <b>⬇️ だった！</b>
-      </p>
-      <div class="point" style="background:var(--orange-soft); border-left-color:var(--orange);">
-        <b style="color:var(--orange);">ポイント：</b>電子そのものが変わるのではない。電子の“状態”が確定するだけ！</div>
-
-      <div style="margin-top:16px; padding:14px 16px; border:1px dashed var(--line); border-radius:10px; background:#fff8f1;">
-        <b style="color:var(--blue-deep);">🐱 シュレーディンガーの猫</b>
-        <p style="margin:6px 0 0; font-size:.92rem; color:var(--ink-soft);">箱の中の猫の運命を、ミクロな粒子の重ね合わせとつないだら…理屈の上では
-        「生きた猫」と「死んだ猫」が<b>重なった状態</b>になってしまう。フタを開けて<b>観測した瞬間</b>に、どちらか一方に決まる。
-        ――重ね合わせと観測のふしぎを、猫でたとえた有名な思考実験だよ。</p>
-      </div>
-      <div class="btn-row"><a class="btn btn-primary" href="collapse.html">🎮 「観測と収縮」で体験する</a></div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== ルール4：不確定性原理 ===== -->
-<section class="section-pad">
-  <div class="wrap">
-    <div class="rule reveal">
-      <span class="num">4</span>
-      <h3>不確定性原理（同時には決められない）</h3>
-      <p>電子の「位置」と「運動量（動きの勢い）」は、<b>両方を同時にきっちり決めることができない</b>。
-      片方をくわしく知ろうとすると、もう片方がぼやけてしまう――これがハイゼンベルクの不確定性原理。</p>
-      <p style="text-align:center; font-size:1.15rem; margin:16px 0;">
-        📍 位置をくわしく知る &nbsp;→&nbsp; 💨 動きがぼやける<br>
-        💨 動きをくわしく知る &nbsp;→&nbsp; 📍 位置がぼやける
-      </p>
-      <p>これは測定の腕が悪いからではなく、<b>自然そのものがもつ“ぼやけ”</b>。
-      ミクロの世界では「ここに・この速さで」と一点に決めること自体ができないんだ。</p>
-      <div class="point"><b>ポイント：</b>位置と動き（運動量）はセットで“あいまいさ”をもつ。両方を同時に、くっきりとは決められない！</div>
-      <div class="btn-row"><a class="btn btn-primary" href="uncertainty.html">🎮 「不確定性ゲーム」で体験する</a></div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== ルール5：量子もつれ ===== -->
-<section class="section-pad">
-  <div class="wrap">
-    <div class="rule c-purple reveal">
-      <span class="num">5</span>
-      <h3>量子もつれ（エンタングルメント）</h3>
-      <p>2つ以上の電子キャラクターが“もつれる”と、どんなに離れた場所にいても、
-      <b>互いの状態が強く結びつく</b>。</p>
-      <p style="text-align:center; font-size:1.25rem; margin:16px 0;">
-        電子A 🧍 ⸺♾️⸺ 🧍 電子B<br>
-        <span style="font-size:1rem;">Aを ⬆️ と観測すると → Bは ⬇️ に確定！<br>
-        Aを ⬇️ と観測すると → Bは ⬆️ に確定！</span>
-      </p>
-      <div class="point" style="background:var(--purple-soft); border-left-color:var(--purple);">
-        <b style="color:var(--purple);">ポイント：</b>電子の状態は単体では決まっておらず、ペア（全体）の状態として決まっている！</div>
-      <div class="btn-row">
-        <a class="btn btn-primary" href="game.html">🎮 「量子もつれワーム」で体験する</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== ルール5：相互作用 ===== -->
-<section>
-  <div class="wrap">
-    <div class="rule c-red reveal">
-      <span class="num">6</span>
-      <h3>相互作用（情報のやり取り）</h3>
-      <p>電子は光子などの粒子と相互作用して、エネルギーや情報を交換する。</p>
-      <p style="text-align:center; font-size:1.25rem; margin:16px 0;">
-        🧍 電子 ＋ 🌞 光子を吸収 → エネルギーが増える → ⬆️ 別のエネルギー準位へジャンプ！
-      </p>
-      <div class="point" style="background:#fdeaea; border-left-color:var(--red);">
-        <b style="color:var(--red);">ポイント：</b>相互作用によって電子の状態（エネルギー・スピンなど）が変化し、情報がやり取りされる！</div>
-      <div class="btn-row"><a class="btn btn-primary" href="interact.html">🎮 「力の交換」で体験する</a></div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== エントロピーの拡大 ===== -->
-<section class="section-pad">
-  <div class="wrap">
-    <span class="eyebrow">そして宇宙へ</span>
-    <h2 class="section-title">⑦ 相互作用 → もつれの拡大 → エントロピーの増大</h2>
-    <p class="section-sub">相互作用がくり返されると、量子もつれが広がり、情報が宇宙全体に拡散していく。</p>
-    <div class="flow reveal">
-      <div class="flow-step"><span class="emoji">🧍🧍</span><h4>初期</h4><p>関係が少ない</p></div>
-      <div class="flow-arrow">➡</div>
-      <div class="flow-step"><span class="emoji">🧍↔🧍</span><h4>相互作用が増える</h4><p>つながりが生まれる</p></div>
-      <div class="flow-arrow">➡</div>
-      <div class="flow-step"><span class="emoji">🕸️</span><h4>もつれが広がる</h4><p>互いに結びつく</p></div>
-      <div class="flow-arrow">➡</div>
-      <div class="flow-step"><span class="emoji">🌐</span><h4>情報が拡散</h4><p>混ざり合っていく</p></div>
-      <div class="flow-arrow">➡</div>
-      <div class="flow-step"><span class="emoji">❓</span><h4>エントロピー増大</h4><p>乱雑さが増す</p></div>
-    </div>
-    <div class="point" style="margin-top:6px;">
-      <b>大きな流れ：</b>相互作用 → 量子もつれの増加 → 情報の拡散 → エントロピー増大。
-      これが「宇宙の時間の矢印（過去→未来）」の原因のひとつと考えられている。
-    </div>
-  </div>
-</section>
-
-<!-- ===== 確立した理論（場の量子論・標準模型） ===== -->
-<section>
-  <div class="wrap">
-    <span class="eyebrow">ルールの土台</span>
-    <h2 class="section-title">これらのルールを束ねる“確立した理論”</h2>
-    <p class="section-sub">ここまでのルールは、思いつきではなく、実験で何度も確かめられた<b>2つの理論</b>にまとめられているよ。</p>
-    <div class="grid">
-      <div class="card reveal" style="border-top:5px solid var(--green);">
-        <span class="icon">🌊</span>
-        <h3>場の量子論（確立）</h3>
-        <p>「粒子」は、空間いっぱいに広がる<b>“場”のゆらぎ</b>。電子は電子場のさざ波、光子は電磁場のさざ波。
-        これまでのルール（重ね合わせ・量子化…）は、この理論の上で成り立っている。実験と桁違いの精度で一致。</p>
-      </div>
-      <div class="card reveal" style="border-top:5px solid var(--green);">
-        <span class="icon">📖</span>
-        <h3>標準模型（確立）</h3>
-        <p>クォーク・レプトン・力のボソン・ヒッグスで、物質と3つの力（電磁・弱・強）をまとめた“完成形”。
-        登場する素粒子は<a href="zukan.html">量子図鑑</a>で紹介。ただし重力だけは、まだこの枠に入らない。</p>
-      </div>
-    </div>
+    <span class="eyebrow" style="margin-top:30px;">② 質量の正体はエネルギー</span>
+    <h2 class="section-title">E＝mc² ―― 質量とエネルギーは同じもの</h2>
+    <p>アインシュタインは「質量とエネルギーは姿を変えただけの同じもの」と見抜いた。これが有名な <b>E＝mc²</b>。
+    つまり<b>エネルギーをもつものには質量があり、質量はエネルギーに変えられる</b>（太陽が燃えるのもこの原理）。</p>
     <div class="point">
-      <b>その先（仮説）：</b>重力まで含めて統一しようとする<b>超弦理論・M理論・ループ量子重力・ホログラフィー</b>は、
-      まだ確かめられていない最先端の挑戦。確立と仮説をまとめて読み比べるなら →
-      <a href="theory.html">こらむ「理論ガイド」</a>へ。
+      おどろくのは、<b>私たちの体重のほとんどはヒッグスのおかげではない</b>こと。
+      陽子や中性子の重さの大半は、中のクォークを<a href="zukan.html">強い力</a>で結びつける<b>エネルギー（＝質量）</b>でできている。
+      <a href="zukan.html">ヒッグス粒子</a>が直接あたえるのは、素粒子そのものの“もとの軽い質量”の部分なんだ。
     </div>
-  </div>
-</section>
 
-<!-- ===== まとめ ===== -->
-<section>
-  <div class="wrap">
-    <div class="summary reveal">
-      <span class="big" data-spr="electron"></span>
-      <p>電子そのものは、いつでも<b>「電子」</b>！　ふしぎで飛び飛びなのは、電子の<b>「状態」</b>のほう。
-      その状態が、観測・相互作用・もつれによって決まり、やがて宇宙全体の姿（時空や情報の広がり）につながっていく。</p>
+    <span class="eyebrow" style="margin-top:30px;">③ 重力ってなに？</span>
+    <h2 class="section-title">「引っぱる力」から「時空のゆがみ」へ</h2>
+    <div class="illfig reveal" style="max-width:420px;"><svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="質量が時空をゆがめる">
+  <g stroke="#5b8fd4" stroke-width="1" fill="none" opacity="0.85">
+    <path d="M14 34 Q160 70 306 34"/>
+    <path d="M14 58 Q160 108 306 58"/>
+    <path d="M14 86 Q160 140 306 86"/>
+    <path d="M14 114 Q160 168 306 114"/>
+  </g>
+  <g stroke="#3a5a86" stroke-width="1" fill="none" opacity="0.5">
+    <path d="M40 28 Q60 90 40 124"/>
+    <path d="M160 30 Q160 96 160 124"/>
+    <path d="M280 28 Q260 90 280 124"/>
+  </g>
+  <circle cx="160" cy="100" r="18" fill="#e0a800"/>
+  <text x="160" y="105" text-anchor="middle" font-size="13" fill="#3a2c00" font-family="sans-serif" font-weight="700">質量</text>
+  <circle cx="248" cy="70" r="7" fill="#9fc4e8"/>
+  <text x="160" y="18" text-anchor="middle" font-size="11" fill="#bcd2ee" font-family="sans-serif">重いものが“時空”をへこませ、まわりが引き寄せられる</text>
+</svg></div>
+    <div class="kvp reveal">
+      <div class="k"><b>🍎 ニュートン</b>
+        <p>「すべての物は、たがいに引き合う」。重力を“離れていても働く力”として、みごとに計算できた。</p></div>
+      <div class="k"><b>🌌 アインシュタイン</b>
+        <p>「重力は力ではなく、<b>質量が時空をゆがめた結果</b>」。へこんだトランポリンに球を転がすと曲がるように、
+        天体は“まっすぐ進んでいるのに”曲げられる。</p></div>
+    </div>
+
+    <span class="eyebrow" style="margin-top:30px;">④ 落下と加速は見分けられない</span>
+    <h2 class="section-title">等価原理 ―― ①の謎の答え</h2>
+    <p>エレベーターで上昇すると、体が重く感じる。逆に自由落下中は“無重力”になる。
+    じつは<b>重力を受けることと、加速することは、中にいる人には区別できない</b>。
+    これが<b>等価原理</b>で、「慣性質量＝重力質量」がいつも一致する理由でもある。アインシュタインはここから一般相対論を作り上げた。</p>
+
+    <span class="eyebrow" style="margin-top:30px;">⑤ 最弱なのに、宇宙の主役</span>
+    <h2 class="section-title">なぜ重力が宇宙を形づくる？</h2>
+    <div class="point">
+      重力は4つの力で<b>圧倒的に弱い</b>（電磁気力の10³⁶分の1以下）。小さな磁石1個が、地球全体の重力に勝ってクリップを持ち上げられるほどだ。
+      それでも宇宙の主役になれるのは、重力には<b>プラス・マイナスの打ち消し合いが無く、遠くまで効いて、ひたすら足し算される</b>から。
+      星・惑星・銀河という大構造は、弱い重力の“積み重ね”でできている。
+    </div>
+
+    <span class="eyebrow" style="margin-top:30px;">⑥ 残された最大の謎</span>
+    <h2 class="section-title">重力だけ、量子論に入れられない</h2>
+    <p>電磁気力などは「力を伝える粒子（ボソン）」でうまく量子化できた。けれど<b>重力＝時空そのもののゆがみ</b>を、
+    量子のルールでどう書くかは<b>まだ誰も完成できていない</b>。重力を伝える粒子<a href="zukan.html">グラビトン</a>は未発見で、
+    その統一に挑むのが<a href="superstring.html">超弦理論</a>や<a href="lqg.html">ループ量子重力</a>だ。
+    時空が<a href="existtime.html">量子もつれから生まれる</a>という最前線にもつながっている。</p>
+
+    <div class="summary reveal" style="margin-top:26px;">
+      <span class="big" data-spr="slime"></span>
+      <p>質量は<b>エネルギーのかたまり（E＝mc²）</b>、重力は<b>その質量がつくる時空のゆがみ</b>。
+      いちばん身近な「重さ」と「落ちる」が、じつは宇宙でいちばん深い謎（量子重力）の入り口なんだ。</p>
     </div>
     <div class="btn-row">
-      <a class="btn btn-primary" href="history.html">▶ 量子力学の歴史へ</a>
-      <a class="btn btn-ghost" href="zukan.html" style="border-color:var(--line); color:var(--blue);">← 量子図鑑へ</a>
+      <a class="btn btn-primary" href="zukan.html">▶ 量子図鑑（ヒッグス・4つの力）へ</a>
+      <a class="btn btn-ghost" href="superstring.html" style="border-color:var(--line); color:var(--blue);">🧵 超弦理論へ</a>
     </div>
   </div>
 </section>
