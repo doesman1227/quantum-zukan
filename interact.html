@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>力の交換ゲーム（相互作用）｜量子力学ふしぎ図鑑</title>
-<meta name="description" content="相互作用を体験するゲーム。電子どうしが光子（ボソン）をキャッチボールし、投げた側も受けた側も後ろへ下がって反発。力＝力を運ぶ粒子のやりとり、運動量保存を体感。">
+<meta name="description" content="相互作用を体験するゲーム。クリックした向きへ光子を放つと、電子は反動で反対へ動く（運動量保存）。少ない手数で電子をゴールに導こう。力＝力を運ぶ粒子のやり取り、という見方を体感できる。">
 <style>
 /* =========================================================
    量子力学ふしぎ図鑑  -  共通スタイル
@@ -542,20 +542,30 @@ body{
 <style>
 .lab-wrap{ max-width:680px; margin:0 auto; }
 .lab-hud{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
-.lab-stat{ flex:1 1 130px; background:var(--window); border:1px solid var(--line); border-radius:10px; padding:9px 14px; box-shadow:var(--shadow); }
+.lab-stat{ flex:1 1 120px; background:var(--window); border:1px solid var(--line); border-radius:10px; padding:9px 14px; box-shadow:var(--shadow); }
 .lab-stat .lab{ font-size:.72rem; color:var(--ink-soft); font-weight:700; }
-.lab-stat .val{ font-family:var(--font-ui); font-size:1.3rem; color:var(--blue-deep); line-height:1.2; }
+.lab-stat .val{ font-family:var(--font-ui),sans-serif; font-size:1.3rem; color:var(--blue-deep); line-height:1.2; }
 .lab-stage{ border-radius:14px; overflow:hidden; border:3px solid var(--blue-deep); box-shadow:var(--shadow-lg); background:#0a1730; }
 .lab-stage canvas{ display:block; width:100%; height:auto; }
 .lab-controls{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; align-items:center; }
-.lab-btn{ font-family:var(--font-ui); cursor:pointer; border:none; border-radius:8px; font-size:.9rem; padding:10px 15px; }
+.lab-btn{ font-family:var(--font-ui),sans-serif; cursor:pointer; border:none; border-radius:8px; font-size:.9rem; padding:10px 15px; }
 .lab-btn.fire{ background:var(--gold); color:#3a2c00; box-shadow:0 4px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
 .lab-btn.fire:active{ transform:translateY(2px); box-shadow:0 2px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
 .lab-btn.sub{ background:var(--window); color:var(--blue-deep); border:1px solid var(--line); box-shadow:var(--shadow); }
-.lab-msg{ margin:12px 0 0; padding:11px 14px; border-radius:10px; font-size:.92rem; background:#eef3fb; border-left:4px solid var(--sky); color:var(--ink); }
+.lab-btn.on{ outline:3px solid var(--gold); outline-offset:1px; }
+.lab-msg{ margin:12px 0 0; padding:11px 14px; border-radius:10px; font-size:.92rem; background:#eef3fb; border-left:4px solid var(--sky); color:var(--ink); min-height:1.2em; }
 .lab-slider{ display:flex; align-items:center; gap:10px; width:100%; margin-top:4px; }
 .lab-slider input[type=range]{ flex:1; accent-color:var(--blue); }
 .lab-slider .cap{ font-size:.8rem; color:var(--ink-soft); white-space:nowrap; }
+.playguide{ background:#eef6ff; border:1px solid var(--sky); border-radius:12px; padding:13px 16px; margin:0 0 16px; }
+.playguide .goal{ font-weight:800; color:var(--blue-deep); }
+.playguide ol{ margin:6px 0 0; padding-left:1.3em; font-size:.9rem; color:var(--ink); }
+.playguide li{ margin:1px 0; }
+.goal-banner{ font-family:var(--font-ui),sans-serif; font-weight:800; color:#b07d00; background:#fffaf0;
+  border:1px solid #f0dca8; border-radius:10px; padding:9px 14px; margin:0 0 12px; }
+.learnbox{ margin:16px 0 0; padding:12px 16px; border-radius:10px; background:var(--green-soft);
+  border-left:4px solid var(--green); font-size:.92rem; }
+.learnbox a{ font-weight:700; }
 </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔵</text></svg>">
 </head>
@@ -564,7 +574,7 @@ body{
 <header class="site-header">
   <nav class="nav">
     <a class="brand" href="index.html"><span class="slime" data-spr="slime"></span> 量子力学ふしぎ図鑑</a>
-            <div class="nav-links">
+<div class="nav-links">
       <a href="index.html">ホーム</a>
       <div class="nav-group">
         <button type="button" class="nav-trigger">まなぶ ▾</button>
@@ -599,6 +609,7 @@ body{
       <div class="nav-group">
         <button type="button" class="nav-trigger">あそぶ ▾</button>
         <div class="nav-menu">
+          <a href="play.html">ゲーム一覧</a>
           <a href="energy.html">量子とエネルギー</a>
           <a href="levels.html">準位ジャンプ</a>
           <a href="slit.html">二重スリット</a>
@@ -616,42 +627,25 @@ body{
   <div class="wrap">
     <span class="tier tier-play">あそぶ</span><br>
     <span class="eyebrow">あそぶ ・ ルール⑥ 相互作用</span>
-    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">力の交換ゲーム</h1>
-    <p class="lead">“力”の正体は、力を運ぶ粒子（ボソン）のキャッチボール。電子どうしが光子を投げ合うと、おたがい後ろへ下がって反発します。投げて確かめてみよう。</p>
+    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">光子ビリヤード</h1>
+    <p class="lead">“力”の正体は、力を運ぶ粒子（光子）のやり取り。光子を放った反動で電子を動かし、ゴールへ導こう。狙って動かすパズルゲームです。</p>
   </div>
 </section>
 
 <section class="section-pad">
   <div class="wrap lab-wrap">
-    <div class="rpg-window with-slime reveal" style="margin-bottom:18px;">
-      <span class="who" data-spr="photon"></span>
-      <p>「“力”の正体は、力を運ぶ粒子（ボソン）の<span class="tag">キャッチボール</span>。電子どうしは光子を投げ合って、おたがい後ろへ下がる＝<span class="tag">反発する</span>んだ。投げてみて！」</p>
-    </div>
-
+<div class="playguide reveal"><div class="goal">🎯 目的：光子を投げた反動で電子を動かし、ゴールに入れろ！</div><ol><li>キャンバスをクリック＝その向きへ光子を放つ</li><li>電子は反対向きに動く（反動＝運動量保存）</li><li>少ない手数でゴール枠に入れるほど上達</li><li>ゴールするたびに次の的が出現</li></ol></div>
     <div class="lab-hud">
-      <div class="lab-stat"><div class="lab">交換した回数</div><div class="val" id="cnt">0</div></div>
-      <div class="lab-stat"><div class="lab">電子A ↔ B の間隔</div><div class="val" id="mom">130</div></div>
+      <div class="lab-stat"><div class="lab">ゴール数</div><div class="val" id="score">0</div></div>
+      <div class="lab-stat"><div class="lab">手数（今）</div><div class="val" id="shots">0</div></div>
+      <div class="lab-stat"><div class="lab">最高記録</div><div class="val" id="best">0</div></div>
     </div>
-
-    <div class="lab-stage"><canvas id="it" width="600" height="320"></canvas></div>
-
+    <div class="lab-stage"><canvas id="it" width="600" height="360"></canvas></div>
     <div class="lab-controls">
-      <button class="lab-btn fire" id="fire">⚡ 力を交換する（光子を投げる）</button>
       <button class="lab-btn sub" id="reset">♻ リセット</button>
     </div>
     <p class="lab-msg" id="msg"></p>
-
-    <span class="eyebrow" style="margin-top:30px;">ここがポイント</span>
-    <h2 class="section-title">力 ＝ 力を運ぶ粒子の“やりとり”</h2>
-    <p>氷の上で2人がボールを投げ合うと、投げた人も受けた人も後ろへ下がる――これが反発する力のイメージ。
-    自然界では、電磁気力は<b>光子</b>、強い力は<b>グルーオン</b>…というように、<b>力ごとに専用のボソン</b>をやりとりして働く。
-    投げた光子が運動量を運ぶので、<b>全体の運動量は変わらない（保存される）</b>。
-    くわしくは<a href="rules.html">量子のルール「相互作用」</a>、登場するボソンは<a href="zukan.html">量子図鑑</a>で。</p>
-
-    <div class="btn-row">
-      <a class="btn btn-primary" href="rules.html">▶ 相互作用（ルール）へ</a>
-      <a class="btn btn-ghost" href="zukan.html" style="border-color:var(--line); color:var(--blue);">📖 力のボソンを図鑑で見る</a>
-    </div>
+    <div class="learnbox">いま体験したルール：<b>相互作用</b>。力は“力を運ぶ粒子（ボソン）”のやり取りで働く。光子を放つと反動で動く＝放出のたびに運動量は保存される。 → <a href="rules.html">量子のルールでくわしく</a></div>
   </div>
 </section>
 
@@ -972,43 +966,31 @@ document.addEventListener('click', () => {
 
 <script>
 (function(){
-  var cv=document.getElementById('it'), ctx=cv.getContext('2d');
-  var DPR=Math.min(2,window.devicePixelRatio||1), W=600, H=320;
-  cv.width=W*DPR; cv.height=H*DPR; ctx.scale(DPR,DPR);
-  var cntEl=document.getElementById('cnt'), pEl=document.getElementById('mom'), msg=document.getElementById('msg');
-  var y=H/2, R=22, KICK=1.7;
-  var A={x:235,v:0}, B={x:365,v:0}, ball=null, cnt=0;
-  function fire(){
-    if(ball) return;
-    var left = A.x<B.x?A:B, right = A.x<B.x?B:A;
-    ball={x:left.x, target:right};
-    left.v += -KICK; cnt++; cntEl.textContent=cnt;
-  }
-  function particle(x,label){
-    ctx.fillStyle='#2b6cb0'; ctx.beginPath(); ctx.arc(x,y,R,0,7); ctx.fill();
-    ctx.strokeStyle='#cfe0f5'; ctx.lineWidth=2; ctx.stroke();
-    ctx.fillStyle='#fff'; ctx.font='bold 22px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('−',x,y-1);
-    ctx.fillStyle='#9fc4e8'; ctx.font='12px sans-serif'; ctx.fillText(label,x,y+R+14);
-  }
+  var cv=document.getElementById('it'),ctx=cv.getContext('2d');
+  var DPR=Math.min(2,window.devicePixelRatio||1),W=600,H=360;cv.width=W*DPR;cv.height=H*DPR;ctx.scale(DPR,DPR);
+  var sScore=document.getElementById('score'),sShots=document.getElementById('shots'),sBest=document.getElementById('best'),msg=document.getElementById('msg');
+  var e={x:120,y:H/2,vx:0,vy:0,r:16},goal={x:480,y:H/2,r:28},photons=[],shots=0,clears=0,best=+(localStorage.getItem('itBest')||0);
+  sBest.textContent=best;
+  function place(){do{goal.x=90+Math.random()*420;goal.y=60+Math.random()*(H-120);}while(Math.hypot(goal.x-e.x,goal.y-e.y)<120);}
+  cv.addEventListener('click',function(ev){var r=cv.getBoundingClientRect();var mx=(ev.clientX-r.left)*(W/r.width),my=(ev.clientY-r.top)*(H/r.height);
+    var dx=mx-e.x,dy=my-e.y,d=Math.hypot(dx,dy)||1;dx/=d;dy/=d;
+    e.vx-=dx*2.7;e.vy-=dy*2.7; photons.push({x:e.x,y:e.y,vx:dx*6,vy:dy*6,life:70});shots++;sShots.textContent=shots;});
+  document.getElementById('reset').onclick=function(){e={x:120,y:H/2,vx:0,vy:0,r:16};photons=[];shots=0;clears=0;sScore.textContent=0;sShots.textContent=0;place();msg.textContent='クリックした向きへ光子を放つと、電子は反対へ動く。ゴールへ！';};
   function draw(){
-    ctx.fillStyle='#0a1730'; ctx.fillRect(0,0,W,H);
-    ctx.strokeStyle='rgba(255,255,255,.14)'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(20,y+R+26); ctx.lineTo(W-20,y+R+26); ctx.stroke();
-    particle(A.x,'電子A'); particle(B.x,'電子B');
-    if(ball){ ctx.fillStyle='#e0a800'; ctx.beginPath(); ctx.arc(ball.x,y,9,0,7); ctx.fill(); ctx.fillStyle='#3a2c00'; ctx.font='bold 11px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('γ',ball.x,y); }
-    ctx.textAlign='left';
+    ctx.fillStyle='#0a1730';ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle='#7fd0c4';ctx.lineWidth=3;ctx.setLineDash([5,4]);ctx.beginPath();ctx.arc(goal.x,goal.y,goal.r,0,7);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#7fd0c4';ctx.font='12px sans-serif';ctx.textAlign='center';ctx.fillText('ゴール',goal.x,goal.y+4);
+    e.x+=e.vx;e.y+=e.vy;e.vx*=0.985;e.vy*=0.985;
+    if(e.x<e.r){e.x=e.r;e.vx*=-0.5;}if(e.x>W-e.r){e.x=W-e.r;e.vx*=-0.5;}
+    if(e.y<e.r){e.y=e.r;e.vy*=-0.5;}if(e.y>H-e.r){e.y=H-e.r;e.vy*=-0.5;}
+    for(var i=photons.length-1;i>=0;i--){var p=photons[i];p.x+=p.vx;p.y+=p.vy;p.life--;ctx.fillStyle='#e0a800';ctx.beginPath();ctx.arc(p.x,p.y,5,0,7);ctx.fill();if(p.life<=0)photons.splice(i,1);}
+    ctx.fillStyle='#2b6cb0';ctx.beginPath();ctx.arc(e.x,e.y,e.r,0,7);ctx.fill();ctx.fillStyle='#fff';ctx.font='bold 18px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('-',e.x,e.y);ctx.textBaseline='alphabetic';ctx.textAlign='left';
+    if(Math.hypot(e.x-goal.x,e.y-goal.y)<goal.r-2 && Math.hypot(e.vx,e.vy)<1.8){
+      clears++;sScore.textContent=clears;if(clears>best){best=clears;localStorage.setItem('itBest',best);}sBest.textContent=best;
+      msg.textContent='⛳ ゴール！（手数 '+shots+'）次の的へ！';shots=0;sShots.textContent=0;place();e.vx=e.vy=0;}
+    requestAnimationFrame(draw);
   }
-  function step(){
-    if(ball){ var dir = ball.target.x>=ball.x?1:-1; ball.x += dir*4.4; if((dir>0&&ball.x>=ball.target.x)||(dir<0&&ball.x<=ball.target.x)){ ball.target.v += dir*KICK; ball=null; } }
-    var arr=[A,B];
-    for(var i=0;i<2;i++){ var P=arr[i]; P.x+=P.v; P.v*=0.99; if(P.x<40){P.x=40;P.v=Math.abs(P.v)*0.5;} if(P.x>W-40){P.x=W-40;P.v=-Math.abs(P.v)*0.5;} }
-    if(Math.abs(A.x-B.x)<2*R+10){ var m=(A.x+B.x)/2; if(A.x<=B.x){A.x=m-(R+5);B.x=m+(R+5);}else{A.x=m+(R+5);B.x=m-(R+5);} }
-    pEl.textContent=Math.round(Math.abs(B.x-A.x))+'px';
-    draw(); requestAnimationFrame(step);
-  }
-  document.getElementById('fire').onclick=fire;
-  document.getElementById('reset').onclick=function(){ A={x:235,v:0}; B={x:365,v:0}; ball=null; cnt=0; cntEl.textContent='0'; };
-  msg.textContent='「力を交換する」を押すと、電子Aが光子（γ）を投げてAは後ろへ。受け取った電子Bも後ろへ。＝反発する力！';
-  step();
+  msg.textContent='クリックした向きへ光子を放つと、電子は反対へ動く。ゴール枠に入れよう！';place();draw();
 })();
 </script>
 </body>

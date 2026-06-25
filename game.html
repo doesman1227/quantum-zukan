@@ -592,6 +592,17 @@ body{
 .legend .sw{ width:18px; height:18px; border-radius:5px; flex:0 0 auto; box-shadow:inset 0 0 0 1px rgba(0,0,0,.15); }
 .key{ font-family:var(--font-ui); font-size:.75rem; background:var(--bg-deep);
   border:1px solid var(--line); border-radius:5px; padding:2px 7px; color:var(--ink-soft); }
+
+/* ===== あそびかた（目的） ===== */
+.playguide{ background:#eef6ff; border:1px solid var(--sky); border-radius:12px; padding:13px 16px; margin:0 0 16px; }
+.playguide .goal{ font-weight:800; color:var(--blue-deep); }
+.playguide ol{ margin:6px 0 0; padding-left:1.3em; font-size:.9rem; color:var(--ink); }
+.playguide li{ margin:1px 0; }
+
+/* ===== テーマ解説ボックス ===== */
+.learnbox{ margin:0; padding:12px 16px; border-radius:10px; background:var(--green-soft);
+  border-left:4px solid var(--green); font-size:.92rem; }
+.learnbox a{ font-weight:700; }
 </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔵</text></svg>">
 </head>
@@ -635,6 +646,7 @@ body{
       <div class="nav-group">
         <button type="button" class="nav-trigger">あそぶ ▾</button>
         <div class="nav-menu">
+          <a href="play.html">ゲーム一覧</a>
           <a href="energy.html">量子とエネルギー</a>
           <a href="levels.html">準位ジャンプ</a>
           <a href="slit.html">二重スリット</a>
@@ -661,6 +673,7 @@ body{
 
 <section class="section-pad">
   <div class="wrap">
+    <div class="playguide reveal"><div class="goal">🎯 目的：もつれの塊を動かして粒子を取り込み、ネットワークを広げよう！</div><ol><li>「スタート」で開始</li><li>矢印（▲◀▶▼）で動かす</li><li>粒子に触れてもつれを拡大</li><li>スコアと最高もつれ記録をのばそう</li></ol></div>
     <div class="rpg-window with-slime reveal" style="margin-bottom:26px;">
       <span class="who" data-spr="electron"></span>
       <p>「量子もつれは、もつれの“塊”が相互作用を通じて<span class="tag">広がって</span>いくんだ。
@@ -714,6 +727,12 @@ body{
         ※これはイメージを楽しむためのゲームです。実際の量子もつれやデコヒーレンスは確率と波動関数で記述されますが、
         「広がる／確定する」のせめぎ合いという“感じ”をワームで表現しています。</p>
     </div>
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="wrap">
+    <div class="learnbox">いま体験したルール：<b>⑤ 量子もつれ</b>。離れた粒子どうしの状態が連動し、相互作用を通じて“もつれ”は周囲へ広がっていく。 → <a href="rules.html">量子のルールでくわしく</a></div>
   </div>
 </section>
 
@@ -1271,5 +1290,6 @@ document.addEventListener('click', () => {
   requestAnimationFrame(loop);
 })();
 </script>
+<script>(function(){var K='wormBest',el=document.getElementById('best');if(!el)return;var s=parseInt(localStorage.getItem(K))||0;if(s>(parseInt(el.textContent)||0))el.textContent=s;setInterval(function(){var v=parseInt(el.textContent)||0;if(v>(parseInt(localStorage.getItem(K))||0))localStorage.setItem(K,v);},1000);})();</script>
 </body>
 </html>

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>不確定性ゲーム（不確定性原理）｜量子力学ふしぎ図鑑</title>
-<meta name="description" content="不確定性原理を体験するゲーム。スライダーで粒子の位置をしぼると運動量が散らばり、Δx×Δpは下限を割れない。場所と速さを同時にきっちり決められない理由を体感。">
+<title>不確定性ゲーム（虫かごチャレンジ）｜量子力学ふしぎ図鑑</title>
+<meta name="description" content="不確定性原理を体験するゲーム。粒子の位置をしぼる（かごをせまくする）ほど運動量が暴れて逃げやすくなる。ちょうど良い加減を探して、できるだけ長く閉じこめてスコアを伸ばそう。">
 <style>
 /* =========================================================
    量子力学ふしぎ図鑑  -  共通スタイル
@@ -542,20 +542,30 @@ body{
 <style>
 .lab-wrap{ max-width:680px; margin:0 auto; }
 .lab-hud{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
-.lab-stat{ flex:1 1 130px; background:var(--window); border:1px solid var(--line); border-radius:10px; padding:9px 14px; box-shadow:var(--shadow); }
+.lab-stat{ flex:1 1 120px; background:var(--window); border:1px solid var(--line); border-radius:10px; padding:9px 14px; box-shadow:var(--shadow); }
 .lab-stat .lab{ font-size:.72rem; color:var(--ink-soft); font-weight:700; }
-.lab-stat .val{ font-family:var(--font-ui); font-size:1.3rem; color:var(--blue-deep); line-height:1.2; }
+.lab-stat .val{ font-family:var(--font-ui),sans-serif; font-size:1.3rem; color:var(--blue-deep); line-height:1.2; }
 .lab-stage{ border-radius:14px; overflow:hidden; border:3px solid var(--blue-deep); box-shadow:var(--shadow-lg); background:#0a1730; }
 .lab-stage canvas{ display:block; width:100%; height:auto; }
 .lab-controls{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; align-items:center; }
-.lab-btn{ font-family:var(--font-ui); cursor:pointer; border:none; border-radius:8px; font-size:.9rem; padding:10px 15px; }
+.lab-btn{ font-family:var(--font-ui),sans-serif; cursor:pointer; border:none; border-radius:8px; font-size:.9rem; padding:10px 15px; }
 .lab-btn.fire{ background:var(--gold); color:#3a2c00; box-shadow:0 4px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
 .lab-btn.fire:active{ transform:translateY(2px); box-shadow:0 2px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
 .lab-btn.sub{ background:var(--window); color:var(--blue-deep); border:1px solid var(--line); box-shadow:var(--shadow); }
-.lab-msg{ margin:12px 0 0; padding:11px 14px; border-radius:10px; font-size:.92rem; background:#eef3fb; border-left:4px solid var(--sky); color:var(--ink); }
+.lab-btn.on{ outline:3px solid var(--gold); outline-offset:1px; }
+.lab-msg{ margin:12px 0 0; padding:11px 14px; border-radius:10px; font-size:.92rem; background:#eef3fb; border-left:4px solid var(--sky); color:var(--ink); min-height:1.2em; }
 .lab-slider{ display:flex; align-items:center; gap:10px; width:100%; margin-top:4px; }
 .lab-slider input[type=range]{ flex:1; accent-color:var(--blue); }
 .lab-slider .cap{ font-size:.8rem; color:var(--ink-soft); white-space:nowrap; }
+.playguide{ background:#eef6ff; border:1px solid var(--sky); border-radius:12px; padding:13px 16px; margin:0 0 16px; }
+.playguide .goal{ font-weight:800; color:var(--blue-deep); }
+.playguide ol{ margin:6px 0 0; padding-left:1.3em; font-size:.9rem; color:var(--ink); }
+.playguide li{ margin:1px 0; }
+.goal-banner{ font-family:var(--font-ui),sans-serif; font-weight:800; color:#b07d00; background:#fffaf0;
+  border:1px solid #f0dca8; border-radius:10px; padding:9px 14px; margin:0 0 12px; }
+.learnbox{ margin:16px 0 0; padding:12px 16px; border-radius:10px; background:var(--green-soft);
+  border-left:4px solid var(--green); font-size:.92rem; }
+.learnbox a{ font-weight:700; }
 </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔵</text></svg>">
 </head>
@@ -564,7 +574,7 @@ body{
 <header class="site-header">
   <nav class="nav">
     <a class="brand" href="index.html"><span class="slime" data-spr="slime"></span> 量子力学ふしぎ図鑑</a>
-            <div class="nav-links">
+<div class="nav-links">
       <a href="index.html">ホーム</a>
       <div class="nav-group">
         <button type="button" class="nav-trigger">まなぶ ▾</button>
@@ -599,6 +609,7 @@ body{
       <div class="nav-group">
         <button type="button" class="nav-trigger">あそぶ ▾</button>
         <div class="nav-menu">
+          <a href="play.html">ゲーム一覧</a>
           <a href="energy.html">量子とエネルギー</a>
           <a href="levels.html">準位ジャンプ</a>
           <a href="slit.html">二重スリット</a>
@@ -616,51 +627,29 @@ body{
   <div class="wrap">
     <span class="tier tier-play">あそぶ</span><br>
     <span class="eyebrow">あそぶ ・ ルール④ 不確定性原理</span>
-    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">不確定性ゲーム</h1>
-    <p class="lead">粒子の位置を“ぎゅっ”としぼると、運動量はブワッと散らばる。両方を同時にくっきりさせられない――不確定性原理を、スライダーでさわって体感しよう。</p>
+    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">虫かごチャレンジ</h1>
+    <p class="lead">位置を“ぎゅっ”としぼるほど、運動量が暴れて粒子は逃げ回る。せまいかごほど高得点、でも逃げられやすい――不確定性原理をジレンマとして体感しよう。</p>
   </div>
 </section>
 
 <section class="section-pad">
   <div class="wrap lab-wrap">
-    <div class="rpg-window with-slime reveal" style="margin-bottom:18px;">
-      <span class="who" data-spr="electron"></span>
-      <p>「位置を“ぎゅっ”としぼると、運動量（速さ）がブワッと散らばる。<span class="tag">両方くっきり</span>は、どうやってもムリなんだ。スライダーで確かめてみて！」</p>
-    </div>
-
+<div class="playguide reveal"><div class="goal">🎯 目的：かごの中に、あばれる粒子をできるだけ長く閉じこめろ！</div><ol><li>「スタート」でチャレンジ開始</li><li>スライダーでかごの大きさを調整</li><li>かごをせまくするほど高得点…でも粒子が暴れて逃げる</li><li>逃げられたら終了。スコアを更新しよう</li></ol></div>
     <div class="lab-hud">
-      <div class="lab-stat"><div class="lab">Δx（位置のあいまいさ）</div><div class="val" id="vx">1.00</div></div>
-      <div class="lab-stat"><div class="lab">Δp（運動量のあいまいさ）</div><div class="val" id="vp">1.00</div></div>
-      <div class="lab-stat"><div class="lab">Δx × Δp（下限＝1.00）</div><div class="val" id="vprod">1.00</div></div>
+      <div class="lab-stat"><div class="lab">スコア</div><div class="val" id="score">0</div></div>
+      <div class="lab-stat"><div class="lab">最高記録</div><div class="val" id="best">0</div></div>
+      <div class="lab-stat"><div class="lab">Δx（位置）</div><div class="val" id="dx">–</div></div>
+      <div class="lab-stat"><div class="lab">Δp（あばれ）</div><div class="val" id="dp">–</div></div>
     </div>
-
-    <div class="lab-stage"><canvas id="uq" width="600" height="360"></canvas></div>
-
-    <div class="lab-controls">
-      <div class="lab-slider">
-        <span class="cap">位置をしぼる</span>
-        <input id="sig" type="range" min="0.4" max="3.0" step="0.05" value="1.0">
-        <span class="cap">運動量をしぼる</span>
-      </div>
+    <div class="lab-stage"><canvas id="uq" width="600" height="340"></canvas></div>
+    <div class="lab-controls" style="flex-direction:column; align-items:stretch;">
+      <div class="lab-slider"><span class="cap">せまい（高得点・危険）</span>
+        <input id="cage" type="range" min="22" max="120" step="1" value="80">
+        <span class="cap">ひろい（安全）</span></div>
+      <div><button class="lab-btn fire" id="start">▶ スタート / リトライ</button></div>
     </div>
-    <p class="lab-msg" id="msg">スライダーを動かしてみよう。</p>
-
-    <div class="point" style="margin-top:22px;">
-      <b>🎯 チャレンジ：</b>Δx も Δp も <b>0.8 以下</b>にできる？ → ぜったいムリ。
-      かけ算（Δx×Δp）は<b>1.00より小さくなれない</b>。これが<b>不確定性原理</b>。
-      「測りかたが下手だから」ではなく、ミクロの世界が<b>もともとそういうルール</b>でできているんだ。
-    </div>
-
-    <span class="eyebrow" style="margin-top:30px;">どういうこと？</span>
-    <h2 class="section-title">場所と速さは、同時にきっちり決められない</h2>
-    <p>粒子は小さな玉ではなく“波のかたまり（波束）”。波を一点に集める（位置をくっきり）ほど、いろんな波長が混ざって
-    <b>運動量はばらける</b>。逆に運動量をそろえる（波長を1つに）ほど、波は広がって<b>位置がぼやける</b>。
-    これは観測の精度の話ではなく、自然そのものの性質だよ。</p>
-
-    <div class="btn-row">
-      <a class="btn btn-primary" href="rules.html#r-quantize">▶ 量子のルールへ</a>
-      <a class="btn btn-ghost" href="collapse.html" style="border-color:var(--line); color:var(--blue);">👁 観測と収縮であそぶ</a>
-    </div>
+    <p class="lab-msg" id="msg"></p>
+    <div class="learnbox">いま体験したルール：<b>不確定性原理</b>。位置をしぼる（かごをせまく）ほど運動量が大きくバラついて暴れる。位置と運動量は同時にきっちり決められない。 → <a href="rules.html">量子のルールでくわしく</a></div>
   </div>
 </section>
 
@@ -981,39 +970,31 @@ document.addEventListener('click', () => {
 
 <script>
 (function(){
-  var cv=document.getElementById('uq'), ctx=cv.getContext('2d');
-  var DPR=Math.min(2,window.devicePixelRatio||1), W=600, H=360;
-  cv.width=W*DPR; cv.height=H*DPR; ctx.scale(DPR,DPR);
-  var sig=document.getElementById('sig');
-  var vx=document.getElementById('vx'), vp=document.getElementById('vp'), vpr=document.getElementById('vprod'), msg=document.getElementById('msg');
-  function g(){ var u=0,v=0; while(u===0)u=Math.random(); while(v===0)v=Math.random(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
-  function cloud(x0,y0,w,h,spread,color,label){
-    var cx=x0+w/2, cy=y0+h/2;
-    var half=Math.min(w*0.46, 16+spread*70);
-    ctx.fillStyle='#cfe0f5'; ctx.font='14px sans-serif'; ctx.textAlign='left'; ctx.fillText(label, x0+18, y0+20);
-    for(var i=0;i<150;i++){
-      var gx=cx+g()*half*0.45, gy=cy+g()*Math.min(24,h*0.16);
-      ctx.fillStyle=color; ctx.globalAlpha=0.25+Math.random()*0.4;
-      ctx.beginPath(); ctx.arc(gx,gy,2.3,0,7); ctx.fill();
-    }
-    ctx.globalAlpha=1;
-    ctx.strokeStyle=color; ctx.lineWidth=2;
-    ctx.beginPath(); ctx.moveTo(cx-half,cy+h/2-14); ctx.lineTo(cx+half,cy+h/2-14); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(cx-half,cy+h/2-19); ctx.lineTo(cx-half,cy+h/2-9); ctx.moveTo(cx+half,cy+h/2-19); ctx.lineTo(cx+half,cy+h/2-9); ctx.stroke();
-  }
+  var cv=document.getElementById('uq'),ctx=cv.getContext('2d');
+  var DPR=Math.min(2,window.devicePixelRatio||1),W=600,H=340;cv.width=W*DPR;cv.height=H*DPR;ctx.scale(DPR,DPR);
+  var slider=document.getElementById('cage');
+  var sScore=document.getElementById('score'),sBest=document.getElementById('best'),sDx=document.getElementById('dx'),sDp=document.getElementById('dp'),msg=document.getElementById('msg');
+  var cx=W/2,cy=H/2,best=+(localStorage.getItem('uqBest')||0);sBest.textContent=best;
+  var playing=false,score=0,px=cx,py=cy;
+  function gauss(){var u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(6.283*v);}
+  document.getElementById('start').onclick=function(){playing=true;score=0;px=cx;py=cy;msg.textContent='かごをせまくすると高得点！でも暴れて逃げるよ。';};
   function draw(){
-    var s=parseFloat(sig.value), dx=s, dp=1/s;
-    ctx.fillStyle='#0a1730'; ctx.fillRect(0,0,W,H);
-    ctx.strokeStyle='rgba(255,255,255,.12)'; ctx.beginPath(); ctx.moveTo(0,180); ctx.lineTo(W,180); ctx.stroke();
-    cloud(0,14,W,150,dx,'#4aa3df','位置 x のひろがり');
-    cloud(0,190,W,150,dp,'#e0a800','運動量 p のひろがり');
-    vx.textContent=dx.toFixed(2); vp.textContent=dp.toFixed(2); vpr.textContent=(dx*dp).toFixed(2);
-    if(s<=0.6) msg.textContent='位置はくっきり！でも運動量は大ばらつき。場所を知るほど、速さがわからなくなる。';
-    else if(s>=2.3) msg.textContent='運動量はくっきり！でも位置は大ばらつき。速さを知るほど、場所がわからなくなる。';
-    else msg.textContent='バランス型。それでも積はいつも下限（＝1.00）どまり。これ以上は縮められない。';
+    var W2=parseFloat(slider.value);
+    sDx.textContent=Math.round(W2*2);sDp.textContent=Math.round(900/W2);
+    ctx.fillStyle='#0a1730';ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle=playing?'#7fd0c4':'#56708f';ctx.lineWidth=3;ctx.strokeRect(cx-W2,cy-W2,W2*2,W2*2);
+    if(playing){
+      var jit=340/W2; px+=gauss()*jit;py+=gauss()*jit;
+      score+=Math.round(120/W2)+1;sScore.textContent=score;
+      if(px<cx-W2||px>cx+W2||py<cy-W2||py>cy+W2){playing=false;
+        if(score>best){best=score;localStorage.setItem('uqBest',best);}sBest.textContent=best;
+        msg.textContent='💥 逃げられた！ スコア '+score+'。せますぎると運動量が暴れる＝不確定性原理。';}
+    }
+    ctx.fillStyle='#46b0ff';ctx.beginPath();ctx.arc(px,py,8,0,7);ctx.fill();
+    if(!playing){ctx.fillStyle='#9fc4e8';ctx.font='13px sans-serif';ctx.textAlign='center';ctx.fillText('「スタート」でチャレンジ！',cx,cy-W2-12);ctx.textAlign='left';}
     requestAnimationFrame(draw);
   }
-  draw();
+  msg.textContent='「スタート」を押して、かごの大きさを調整しよう。';draw();
 })();
 </script>
 </body>

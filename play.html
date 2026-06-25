@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>量子とエネルギー ゲーム｜量子力学ふしぎ図鑑</title>
-<meta name="description" content="量子とエネルギーの関係を体験するゲーム。光は光子のつぶつぶで、そのエネルギーは色（振動数）で決まる（E=h×振動数）。電子の準位差ΔEにぴったり合う光子だけが吸収されることを通じて、エネルギーが量子（とびとび）でやりとりされる感覚をつかむ。">
+<title>あそぶ：量子を体験するゲーム一覧｜量子力学ふしぎ図鑑</title>
+<meta name="description" content="量子力学のルールを“さわって”体験できるブラウザゲーム集。量子とエネルギー・二重スリット・観測と収縮・不確定性・もつれワーム・力の交換など、各ゲームが1つのルールに対応。自己ベストとコンプリート要素つき。">
 <style>
 /* =========================================================
    量子力学ふしぎ図鑑  -  共通スタイル
@@ -540,33 +540,22 @@ body{
 
 </style>
 <style>
-.lab-wrap{ max-width:680px; margin:0 auto; }
-.lab-hud{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
-.lab-stat{ flex:1 1 130px; background:var(--window); border:1px solid var(--line); border-radius:10px; padding:9px 14px; box-shadow:var(--shadow); }
-.lab-stat .lab{ font-size:.72rem; color:var(--ink-soft); font-weight:700; }
-.lab-stat .val{ font-family:var(--font-ui); font-size:1.3rem; color:var(--blue-deep); line-height:1.2; }
-.lab-stage{ border-radius:14px; overflow:hidden; border:3px solid var(--blue-deep); box-shadow:var(--shadow-lg); background:#0a1730; }
-.lab-stage canvas{ display:block; width:100%; height:auto; }
-.lab-controls{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; align-items:center; }
-.lab-btn{ font-family:var(--font-ui); cursor:pointer; border:none; border-radius:8px; font-size:.9rem; padding:10px 15px; }
-.lab-btn.fire{ background:var(--gold); color:#3a2c00; box-shadow:0 4px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
-.lab-btn.fire:active{ transform:translateY(2px); box-shadow:0 2px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
-.lab-btn.sub{ background:var(--window); color:var(--blue-deep); border:1px solid var(--line); box-shadow:var(--shadow); }
-.lab-msg{ margin:12px 0 0; padding:11px 14px; border-radius:10px; font-size:.92rem; background:#eef3fb; border-left:4px solid var(--sky); color:var(--ink); }
-.lab-slider{ display:flex; align-items:center; gap:10px; width:100%; margin-top:4px; }
-.lab-slider input[type=range]{ flex:1; accent-color:var(--blue); }
-.lab-slider .cap{ font-size:.8rem; color:var(--ink-soft); white-space:nowrap; }
-
-/* ===== あそびかた（目的） ===== */
-.playguide{ background:#eef6ff; border:1px solid var(--sky); border-radius:12px; padding:13px 16px; margin:0 0 16px; }
-.playguide .goal{ font-weight:800; color:var(--blue-deep); }
-.playguide ol{ margin:6px 0 0; padding-left:1.3em; font-size:.9rem; color:var(--ink); }
-.playguide li{ margin:1px 0; }
-
-/* ===== テーマ解説ボックス ===== */
-.learnbox{ margin:0; padding:12px 16px; border-radius:10px; background:var(--green-soft);
-  border-left:4px solid var(--green); font-size:.92rem; }
-.learnbox a{ font-weight:700; }
+.ghub{ display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(225px,1fr)); }
+.gcard{ display:flex; flex-direction:column; background:var(--window); border:1px solid var(--line);
+  border-radius:14px; padding:18px; box-shadow:var(--shadow); transition:.2s; }
+.gcard:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+.gemoji{ font-size:2.2rem; line-height:1; }
+.grule{ display:inline-block; align-self:flex-start; font-size:.72rem; font-weight:700; color:#5b6fd0;
+  background:#eef0ff; border-radius:999px; padding:2px 10px; margin:8px 0 0; }
+.gcard h3{ margin:6px 0 2px; color:var(--blue-deep); }
+.gcard p{ margin:0 0 12px; color:var(--ink-soft); font-size:.9rem; flex:1; }
+.gbest{ font-size:.82rem; color:var(--ink-soft); margin-bottom:10px; }
+.gbest b{ color:var(--gold); font-size:1.05rem; font-family:var(--font-ui),sans-serif; }
+.gplay{ text-align:center; background:var(--gold); color:#3a2c00; font-weight:800; text-decoration:none;
+  border-radius:10px; padding:9px; box-shadow:0 3px 0 #b88a00; }
+.gplay:hover{ transform:translateY(2px); box-shadow:0 1px 0 #b88a00; }
+.progress{ background:var(--window); border:1px solid var(--line); border-radius:12px; padding:14px 18px;
+  box-shadow:var(--shadow); margin-bottom:20px; font-weight:800; color:var(--blue-deep); }
 </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔵</text></svg>">
 </head>
@@ -575,7 +564,7 @@ body{
 <header class="site-header">
   <nav class="nav">
     <a class="brand" href="index.html"><span class="slime" data-spr="slime"></span> 量子力学ふしぎ図鑑</a>
-        <div class="nav-links">
+<div class="nav-links">
       <a href="index.html">ホーム</a>
       <div class="nav-group">
         <button type="button" class="nav-trigger">まなぶ ▾</button>
@@ -627,69 +616,79 @@ body{
 <section class="hero" style="padding:48px 0 56px;">
   <div class="wrap">
     <span class="tier tier-play">あそぶ</span><br>
-    <span class="eyebrow">あそぶ ・ 量子図鑑｜量子とエネルギー</span>
-    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">量子とエネルギー ゲーム</h1>
-    <p class="lead">光は“つぶつぶ（光子）”でできていて、1つぶのエネルギーは<b>色（振動数）</b>で決まる。
-    色を合わせて、電子をぴったりジャンプさせよう。エネルギーが“量子（とびとび）”で受け渡される感覚をつかもう。</p>
-  </div>
-</section>
-
-<section class="section-pad">
-  <div class="wrap lab-wrap">
-    <div class="playguide reveal"><div class="goal">🎯 目的：色（振動数）を“必要なエネルギー ΔE”に合わせ、電子をジャンプさせよう！</div><ol><li>スライダーで光の色（振動数）を変える</li><li>「光子を発射」で当てる</li><li>ΔEにぴったりなら吸収してジャンプ＝吸収回数アップ</li></ol></div>
-    <div class="rpg-window with-slime reveal" style="margin-bottom:18px;">
-      <span class="who" data-spr="photon"></span>
-      <p>「光は“つぶつぶ”＝<span class="tag">光子</span>。1つぶのエネルギーは<span class="tag">E ＝ h × 振動数</span>。
-      色（振動数）を上げるほどエネルギーが大きい。電子のすき間 ΔE に<b>ぴったり</b>合う光子だけが吸収されるよ！」</p>
-    </div>
-
-    <div class="lab-hud">
-      <div class="lab-stat"><div class="lab">振動数 ν（色）</div><div class="val" id="vnu">5.0</div></div>
-      <div class="lab-stat"><div class="lab">光子のエネルギー E</div><div class="val" id="ve">5.0</div></div>
-      <div class="lab-stat"><div class="lab">必要なエネルギー ΔE</div><div class="val" id="vneed">5.0</div></div>
-      <div class="lab-stat"><div class="lab">吸収できた回数</div><div class="val" id="vhit">0</div></div>
-    </div>
-
-    <div class="lab-stage"><canvas id="en" width="600" height="340"></canvas></div>
-
-    <div class="lab-controls" style="flex-direction:column; align-items:stretch;">
-      <div class="lab-slider">
-        <span class="cap">赤（低エネルギー）</span>
-        <input id="freq" type="range" min="1" max="10" step="0.5" value="5">
-        <span class="cap">紫（高エネルギー）</span>
-      </div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        <button class="lab-btn fire" id="fire">⚡ 光子を発射</button>
-        <button class="lab-btn sub" id="reset">♻ リセット</button>
-      </div>
-    </div>
-    <p class="lab-msg" id="msg"></p>
-
-    <span class="eyebrow" style="margin-top:30px;">わかること</span>
-    <h2 class="section-title">エネルギーは“量子（とびとびのかたまり）”でやりとりされる</h2>
-    <div class="grid">
-      <div class="card reveal"><span class="icon">🔆</span><h3>① 光＝光子のつぶつぶ</h3>
-        <p>光はなめらかな“流れ”ではなく、エネルギーの最小のかたまり「光子」の集まり。これが「量子」だよ。</p></div>
-      <div class="card reveal"><span class="icon">🌈</span><h3>② 色＝エネルギー</h3>
-        <p>光子1つぶのエネルギーは<b>E＝h×振動数</b>。赤より青、青より紫のほうが高エネルギー。明るさ（数）ではなく<b>色</b>で決まる。</p></div>
-      <div class="card reveal"><span class="icon">🎯</span><h3>③ ぴったりだけ吸収</h3>
-        <p>電子の準位の差 ΔE に<b>ぴったり合う光子だけ</b>が吸収され、ジャンプする。エネルギーがとびとび（量子化）だからこそ。</p></div>
-    </div>
-
-    <p style="margin-top:18px;">これは<a href="zukan.html">量子図鑑</a>の主役・電子と光子の関係そのもの。
-    「とびとびの準位」をのぼり下りする様子は<a href="levels.html">準位ジャンプ</a>、ルールとしての解説は
-    <a href="rules.html#r-quantize">量子化</a>へ。</p>
-
-    <div class="btn-row">
-      <a class="btn btn-primary" href="zukan.html">▶ 量子図鑑へ</a>
-      <a class="btn btn-ghost" href="levels.html" style="border-color:var(--line); color:var(--blue);">🎮 準位ジャンプであそぶ</a>
-    </div>
+    <span class="eyebrow">あそぶ ・ ゲーム一覧</span>
+    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">あそぶ：量子を体験するゲーム</h1>
+    <p class="lead">むずかしい数式はナシ。量子のふしぎなルールを、ゲームでさわって体感しよう。気になるものからどうぞ！</p>
   </div>
 </section>
 
 <section class="section-pad">
   <div class="wrap">
-    <div class="learnbox">いま体験したルール：<b>量子化（光のエネルギー E＝h×振動数）</b>。エネルギーは飛び飛びの“量子”でやり取りされ、ぴったりの色（振動数）だけが吸収される。 → <a href="rules.html#r-quantize">量子のルール</a> ／ <a href="zukan.html">量子図鑑</a></div>
+    <p class="section-sub" style="margin-bottom:18px;">量子のふしぎなルールを、読むだけでなく<b>“さわって”体験</b>できるゲーム集。
+    各ゲームは1つのルールに対応しているよ。自己ベストはこの端末に記録されるので、更新を目指そう！</p>
+    <div class="progress" id="prog">読み込み中…</div>
+    <div class="ghub">
+      <div class="gcard reveal">
+        <span class="gemoji">🔆</span>
+        <span class="grule">量子化・E=hν</span>
+        <h3>量子とエネルギー</h3>
+        <p>色を合わせて電子をジャンプ</p>
+        <div class="gbest">自己ベスト：<b data-best="energyBest">—</b> 吸収</div>
+        <a class="gplay" href="energy.html">▶ あそぶ</a>
+      </div>
+      <div class="gcard reveal">
+        <span class="gemoji">🪜</span>
+        <span class="grule">① 量子化</span>
+        <h3>準位ジャンプ</h3>
+        <p>お題の光を選んで準位を上げる</p>
+        <div class="gbest">自己ベスト：<b data-best="levelsBest">—</b> 点</div>
+        <a class="gplay" href="levels.html">▶ あそぶ</a>
+      </div>
+      <div class="gcard reveal">
+        <span class="gemoji">🌊</span>
+        <span class="grule">② 重ね合わせ</span>
+        <h3>二重スリット</h3>
+        <p>お題どおりの模様をつくる</p>
+        <div class="gbest">自己ベスト：<b data-best="slitBest">—</b> クリア</div>
+        <a class="gplay" href="slit.html">▶ あそぶ</a>
+      </div>
+      <div class="gcard reveal">
+        <span class="gemoji">👁</span>
+        <span class="grule">③ 波束の収縮</span>
+        <h3>観測と収縮</h3>
+        <p>どこに出るか賭けて当てる</p>
+        <div class="gbest">自己ベスト：<b data-best="collBest">—</b> 点</div>
+        <a class="gplay" href="collapse.html">▶ あそぶ</a>
+      </div>
+      <div class="gcard reveal">
+        <span class="gemoji">📍</span>
+        <span class="grule">④ 不確定性原理</span>
+        <h3>不確定性</h3>
+        <p>かごに粒子を閉じこめる</p>
+        <div class="gbest">自己ベスト：<b data-best="uqBest">—</b> 点</div>
+        <a class="gplay" href="uncertainty.html">▶ あそぶ</a>
+      </div>
+      <div class="gcard reveal">
+        <span class="gemoji">🐛</span>
+        <span class="grule">⑤ 量子もつれ</span>
+        <h3>もつれワーム</h3>
+        <p>もつれを広げてスコア</p>
+        <div class="gbest">自己ベスト：<b data-best="wormBest">—</b> 記録</div>
+        <a class="gplay" href="game.html">▶ あそぶ</a>
+      </div>
+      <div class="gcard reveal">
+        <span class="gemoji">⚡</span>
+        <span class="grule">⑥ 相互作用</span>
+        <h3>力の交換</h3>
+        <p>光子の反動でゴールへ</p>
+        <div class="gbest">自己ベスト：<b data-best="itBest">—</b> ゴール</div>
+        <a class="gplay" href="interact.html">▶ あそぶ</a>
+      </div>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="rules.html">▶ 量子のルールを読む</a>
+      <a class="btn btn-ghost" href="index.html" style="border-color:var(--line); color:var(--blue);">🏠 ホームへ</a>
+    </div>
   </div>
 </section>
 
@@ -1010,60 +1009,12 @@ document.addEventListener('click', () => {
 
 <script>
 (function(){
-  var cv=document.getElementById('en'), ctx=cv.getContext('2d');
-  var DPR=Math.min(2,window.devicePixelRatio||1), W=600, H=340;
-  cv.width=W*DPR; cv.height=H*DPR; ctx.scale(DPR,DPR);
-  var sl=document.getElementById('freq');
-  var vNu=document.getElementById('vnu'), vE=document.getElementById('ve'), vNeed=document.getElementById('vneed'), vHit=document.getElementById('vhit'), msg=document.getElementById('msg');
-  var atomX=430, baseY=250, perPx=22;
-  var gap=5, score=0, state='idle', photon=null, emit=null, timer=0, flash='', flashT=0;
-  function hue(n){ return (n-1)/9*270; }
-  function colorFor(n){ return 'hsl('+hue(n)+',85%,58%)'; }
-  function newGap(){ gap=3+Math.floor(Math.random()*6); vNeed.textContent=gap.toFixed(1); }
-  function curE(){ return parseFloat(sl.value); }
-  function fire(){ if(state!=='idle') return; photon={x:60,e:curE(),color:colorFor(curE())}; state='flying'; }
-  function packet(x,y,color){
-    ctx.strokeStyle=color; ctx.lineWidth=3; ctx.beginPath();
-    for(var i=-18;i<=18;i++){ var px=x+i, py=y+Math.sin(i*0.6)*7*Math.exp(-i*i/210); if(i===-18)ctx.moveTo(px,py); else ctx.lineTo(px,py); }
-    ctx.stroke();
-    ctx.fillStyle=color; ctx.beginPath(); ctx.arc(x,y,4,0,7); ctx.fill();
-  }
-  function draw(){
-    ctx.fillStyle='#0a1730'; ctx.fillRect(0,0,W,H);
-    var upY=baseY-gap*perPx;
-    ctx.strokeStyle='rgba(255,255,255,.5)'; ctx.lineWidth=2;
-    ctx.beginPath(); ctx.moveTo(atomX-70,baseY); ctx.lineTo(atomX+70,baseY); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(atomX-70,upY); ctx.lineTo(atomX+70,upY); ctx.stroke();
-    ctx.fillStyle='#9fc4e8'; ctx.font='12px sans-serif'; ctx.textAlign='left';
-    ctx.fillText('E2（上の準位）', atomX+78, upY+4);
-    ctx.fillText('E1（下の準位）', atomX+78, baseY+4);
-    ctx.strokeStyle='#7fd0c4'; ctx.beginPath(); ctx.moveTo(atomX-92,baseY); ctx.lineTo(atomX-92,upY); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(atomX-96,baseY-6); ctx.lineTo(atomX-92,baseY); ctx.lineTo(atomX-88,baseY-6); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(atomX-96,upY+6); ctx.lineTo(atomX-92,upY); ctx.lineTo(atomX-88,upY+6); ctx.stroke();
-    ctx.fillStyle='#7fd0c4'; ctx.textAlign='right'; ctx.fillText('ΔE='+gap.toFixed(1), atomX-100, (baseY+upY)/2+4);
-    var eY=(state==='excited'||state==='emit')?upY:baseY;
-    ctx.fillStyle='#46b0ff'; ctx.beginPath(); ctx.arc(atomX, eY-13, 11,0,7); ctx.fill();
-    ctx.fillStyle='#fff'; ctx.font='bold 14px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('-',atomX,eY-13); ctx.textBaseline='alphabetic';
-    if(state==='idle'){ packet(70,baseY-13,colorFor(curE())); ctx.fillStyle='#9fc4e8'; ctx.font='11px sans-serif'; ctx.textAlign='center'; ctx.fillText('次の光子',70,baseY+14); }
-    if(state==='flying' && photon){ packet(photon.x,baseY-13,photon.color); photon.x+=5.2;
-      if(photon.x>=atomX-14){
-        if(Math.abs(photon.e-gap)<=0.5){ state='excited'; timer=0; score++; vHit.textContent=score; flash='ok'; flashT=20; photon=null; }
-        else { state='passing'; }
-      }
-    }
-    if(state==='passing' && photon){ packet(photon.x,baseY-13,photon.color); photon.x+=5.2; if(photon.x>W+20){ photon=null; flash='ng'; flashT=14; state='idle'; } }
-    if(state==='excited'){ timer++; if(timer>42){ state='emit'; emit={x:atomX,color:colorFor(gap)}; } }
-    if(state==='emit' && emit){ packet(emit.x,upY-13,emit.color); emit.x+=5.2; if(emit.x>W+20){ emit=null; newGap(); state='idle'; } }
-    if(flashT>0){ flashT--; ctx.fillStyle=(flash==='ok'?'rgba(127,208,196,':'rgba(224,82,82,')+(flashT/20*0.35)+')'; ctx.fillRect(0,0,W,H); }
-    var nu=curE(); vNu.textContent=nu.toFixed(1); vE.textContent=nu.toFixed(1);
-    requestAnimationFrame(draw);
-  }
-  document.getElementById('fire').onclick=fire;
-  document.getElementById('reset').onclick=function(){ score=0; vHit.textContent='0'; state='idle'; photon=null; emit=null; newGap(); };
-  setInterval(function(){ msg.textContent = (state==='excited'||state==='emit') ? 'ピッタリの量子！電子が吸収してジャンプ→光子を放って戻る。' : (state==='passing' ? 'エネルギーがズレた光子は、吸収されず素通り…。' : '色（振動数）を ΔE に合わせて「光子を発射」。ぴったりの量子だけ吸収される！'); },300);
-  newGap(); draw();
+  var cards=document.querySelectorAll('[data-best]'), done=0, total=cards.length;
+  cards.forEach(function(el){ var v=parseInt(localStorage.getItem(el.getAttribute('data-best')))||0; el.textContent=v>0?v:'—'; if(v>0)done++; });
+  var p=document.getElementById('prog');
+  if(done>=total) p.innerHTML='🏆 全'+total+'種コンプリート！ あなたは“量子マスター”だ！';
+  else p.textContent='制覇状況：'+total+'本中 '+done+'本に自己ベスト記録あり。ぜんぶ遊んでコンプリートを目指そう！';
 })();
 </script>
-<script>(function(){var el=document.getElementById('vhit');if(!el)return;setInterval(function(){var v=parseInt(el.textContent)||0,s=parseInt(localStorage.getItem('energyBest'))||0;if(v>s)localStorage.setItem('energyBest',v);},1000);})();</script>
 </body>
 </html>

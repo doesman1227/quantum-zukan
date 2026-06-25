@@ -562,6 +562,17 @@ body{
 .overlay .big{ font-family:var(--font-ui); font-size:2rem; color:var(--gold); }
 .btn-game{ font-family:var(--font-ui); cursor:pointer; border:none; background:var(--gold); color:#3a2c00; padding:12px 26px; border-radius:8px; font-size:1rem; box-shadow:0 5px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
 .btn-game:active{ transform:translateY(2px); box-shadow:0 3px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
+
+/* ===== あそびかた（目的） ===== */
+.playguide{ background:#eef6ff; border:1px solid var(--sky); border-radius:12px; padding:13px 16px; margin:0 0 16px; }
+.playguide .goal{ font-weight:800; color:var(--blue-deep); }
+.playguide ol{ margin:6px 0 0; padding-left:1.3em; font-size:.9rem; color:var(--ink); }
+.playguide li{ margin:1px 0; }
+
+/* ===== テーマ解説ボックス ===== */
+.learnbox{ margin:0; padding:12px 16px; border-radius:10px; background:var(--green-soft);
+  border-left:4px solid var(--green); font-size:.92rem; }
+.learnbox a{ font-weight:700; }
 </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔵</text></svg>">
 </head>
@@ -605,6 +616,7 @@ body{
       <div class="nav-group">
         <button type="button" class="nav-trigger">あそぶ ▾</button>
         <div class="nav-menu">
+          <a href="play.html">ゲーム一覧</a>
           <a href="energy.html">量子とエネルギー</a>
           <a href="levels.html">準位ジャンプ</a>
           <a href="slit.html">二重スリット</a>
@@ -631,6 +643,7 @@ body{
 
 <section class="section-pad">
   <div class="wrap">
+    <div class="playguide reveal"><div class="goal">🎯 目的：お題に合う光を選び、電子を正しい準位へジャンプさせ続けよう！</div><ol><li>「スタート」でゲーム開始</li><li>お題（必要なエネルギー）を読む</li><li>正しい選択肢をクリック</li><li>正解でスコア＆コンボ、まちがいでライフが減る</li></ol></div>
     <div class="rpg-window with-slime reveal" style="margin-bottom:24px;">
       <span class="who" data-spr="photon"></span>
       <p>「電子が上の段へ上がるには、すき間ぴったりのエネルギーの<span class="tag">光子を吸収</span>する。
@@ -668,6 +681,12 @@ body{
         <a class="btn btn-ghost" href="rules.html" style="border-color:var(--line); color:var(--blue);">📘 量子のルールへ</a>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="wrap">
+    <div class="learnbox">いま体験したルール：<b>① 量子化（飛び飛びの準位）</b>。電子は決まった段しか取れず、ちょうどのエネルギーの光でだけ上の段へジャンプする。 → <a href="rules.html#r-quantize">量子のルールでくわしく</a></div>
   </div>
 </section>
 
@@ -1081,5 +1100,6 @@ document.addEventListener('click', () => {
   requestAnimationFrame(draw);
 })();
 </script>
+<script>(function(){var K='levelsBest',el=document.getElementById('best');if(!el)return;var s=parseInt(localStorage.getItem(K))||0;if(s>(parseInt(el.textContent)||0))el.textContent=s;setInterval(function(){var v=parseInt(el.textContent)||0;if(v>(parseInt(localStorage.getItem(K))||0))localStorage.setItem(K,v);},1000);})();</script>
 </body>
 </html>

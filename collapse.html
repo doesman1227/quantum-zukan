@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>観測と収縮ゲーム（波束の収縮）｜量子力学ふしぎ図鑑</title>
-<meta name="description" content="観測と波束の収縮を体験するゲーム。重ね合わせの“確率の雲”が、観測した瞬間に1点へ収縮。何度も観測すると点の分布が|ψ|²に一致することを体感できる。">
+<meta name="description" content="観測と波束の収縮を、賭けゲームで体験。観測の前に粒子がどこに出るかを予想し、確率の濃いところほど当たりやすいことを通じて|ψ|²の意味を体感する。">
 <style>
 /* =========================================================
    量子力学ふしぎ図鑑  -  共通スタイル
@@ -542,20 +542,30 @@ body{
 <style>
 .lab-wrap{ max-width:680px; margin:0 auto; }
 .lab-hud{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
-.lab-stat{ flex:1 1 130px; background:var(--window); border:1px solid var(--line); border-radius:10px; padding:9px 14px; box-shadow:var(--shadow); }
+.lab-stat{ flex:1 1 120px; background:var(--window); border:1px solid var(--line); border-radius:10px; padding:9px 14px; box-shadow:var(--shadow); }
 .lab-stat .lab{ font-size:.72rem; color:var(--ink-soft); font-weight:700; }
-.lab-stat .val{ font-family:var(--font-ui); font-size:1.3rem; color:var(--blue-deep); line-height:1.2; }
+.lab-stat .val{ font-family:var(--font-ui),sans-serif; font-size:1.3rem; color:var(--blue-deep); line-height:1.2; }
 .lab-stage{ border-radius:14px; overflow:hidden; border:3px solid var(--blue-deep); box-shadow:var(--shadow-lg); background:#0a1730; }
 .lab-stage canvas{ display:block; width:100%; height:auto; }
 .lab-controls{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; align-items:center; }
-.lab-btn{ font-family:var(--font-ui); cursor:pointer; border:none; border-radius:8px; font-size:.9rem; padding:10px 15px; }
+.lab-btn{ font-family:var(--font-ui),sans-serif; cursor:pointer; border:none; border-radius:8px; font-size:.9rem; padding:10px 15px; }
 .lab-btn.fire{ background:var(--gold); color:#3a2c00; box-shadow:0 4px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
 .lab-btn.fire:active{ transform:translateY(2px); box-shadow:0 2px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
 .lab-btn.sub{ background:var(--window); color:var(--blue-deep); border:1px solid var(--line); box-shadow:var(--shadow); }
-.lab-msg{ margin:12px 0 0; padding:11px 14px; border-radius:10px; font-size:.92rem; background:#eef3fb; border-left:4px solid var(--sky); color:var(--ink); }
+.lab-btn.on{ outline:3px solid var(--gold); outline-offset:1px; }
+.lab-msg{ margin:12px 0 0; padding:11px 14px; border-radius:10px; font-size:.92rem; background:#eef3fb; border-left:4px solid var(--sky); color:var(--ink); min-height:1.2em; }
 .lab-slider{ display:flex; align-items:center; gap:10px; width:100%; margin-top:4px; }
 .lab-slider input[type=range]{ flex:1; accent-color:var(--blue); }
 .lab-slider .cap{ font-size:.8rem; color:var(--ink-soft); white-space:nowrap; }
+.playguide{ background:#eef6ff; border:1px solid var(--sky); border-radius:12px; padding:13px 16px; margin:0 0 16px; }
+.playguide .goal{ font-weight:800; color:var(--blue-deep); }
+.playguide ol{ margin:6px 0 0; padding-left:1.3em; font-size:.9rem; color:var(--ink); }
+.playguide li{ margin:1px 0; }
+.goal-banner{ font-family:var(--font-ui),sans-serif; font-weight:800; color:#b07d00; background:#fffaf0;
+  border:1px solid #f0dca8; border-radius:10px; padding:9px 14px; margin:0 0 12px; }
+.learnbox{ margin:16px 0 0; padding:12px 16px; border-radius:10px; background:var(--green-soft);
+  border-left:4px solid var(--green); font-size:.92rem; }
+.learnbox a{ font-weight:700; }
 </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔵</text></svg>">
 </head>
@@ -564,7 +574,7 @@ body{
 <header class="site-header">
   <nav class="nav">
     <a class="brand" href="index.html"><span class="slime" data-spr="slime"></span> 量子力学ふしぎ図鑑</a>
-            <div class="nav-links">
+<div class="nav-links">
       <a href="index.html">ホーム</a>
       <div class="nav-group">
         <button type="button" class="nav-trigger">まなぶ ▾</button>
@@ -599,6 +609,7 @@ body{
       <div class="nav-group">
         <button type="button" class="nav-trigger">あそぶ ▾</button>
         <div class="nav-menu">
+          <a href="play.html">ゲーム一覧</a>
           <a href="energy.html">量子とエネルギー</a>
           <a href="levels.html">準位ジャンプ</a>
           <a href="slit.html">二重スリット</a>
@@ -616,42 +627,26 @@ body{
   <div class="wrap">
     <span class="tier tier-play">あそぶ</span><br>
     <span class="eyebrow">あそぶ ・ ルール③ 波束の収縮</span>
-    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">観測と収縮ゲーム</h1>
-    <p class="lead">観測する前、粒子は“あちこちに同時にいる”確率の雲。見た瞬間、1点にパチンと確定します。何度も観測して、結果が確率の雲どおりに集まるのを確かめよう。</p>
+    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">どこに出るか賭けろ</h1>
+    <p class="lead">観測する前、粒子は“あちこちに同時”。観測した瞬間どこに出る？ 予想して当てるほど高得点。確率の意味が、賭けで自然に分かります。</p>
   </div>
 </section>
 
 <section class="section-pad">
   <div class="wrap lab-wrap">
-    <div class="rpg-window with-slime reveal" style="margin-bottom:18px;">
-      <span class="who" data-spr="slime"></span>
-      <p>「観測する前、粒子は<span class="tag">あちこちに同時にいる</span>“確率の雲”。でも見た瞬間、<span class="tag">1点にパチン</span>と確定する。これが波束の収縮だよ。何回も観測すると…？」</p>
-    </div>
-
+<div class="playguide reveal"><div class="goal">🎯 目的：観測の前に“どこに出るか”賭けて、当てよう！</div><ol><li>雲の上をクリックして「ここに出る」と予想</li><li>「観測する」を押す</li><li>予想と結果が近いほど高得点（コンボあり）</li><li>濃いところほど当たりやすい＝確率の雲</li></ol></div>
     <div class="lab-hud">
-      <div class="lab-stat"><div class="lab">観測した回数</div><div class="val" id="cnt">0</div></div>
-      <div class="lab-stat"><div class="lab">いちばん最近の結果</div><div class="val" id="last">―</div></div>
+      <div class="lab-stat"><div class="lab">スコア</div><div class="val" id="score">0</div></div>
+      <div class="lab-stat"><div class="lab">コンボ</div><div class="val" id="combo">0</div></div>
+      <div class="lab-stat"><div class="lab">最高記録</div><div class="val" id="best">0</div></div>
     </div>
-
     <div class="lab-stage"><canvas id="cl" width="600" height="360"></canvas></div>
-
     <div class="lab-controls">
       <button class="lab-btn fire" id="obs">👁 観測する</button>
-      <button class="lab-btn fire" id="obs100">⏩ 100回観測</button>
-      <button class="lab-btn sub" id="reset">♻ リセット</button>
+      <button class="lab-btn sub" id="reset">♻ スコアをリセット</button>
     </div>
-    <p class="lab-msg" id="msg">「観測する」を押してみよう。</p>
-
-    <span class="eyebrow" style="margin-top:30px;">ここがポイント</span>
-    <h2 class="section-title">どこに出るかは選べない。でも“偏り”はある</h2>
-    <p>観測のたび、結果は<b>雲の濃いところほど出やすい</b>。1回ごとはランダムでも、たくさん集めると点の分布は
-    もとの確率の雲（<b>|ψ|²</b>）にそっくりになる。これが量子力学の「確率」の意味だよ。
-    雲が2つに分かれているのは、粒子が<a href="rules.html#r-superpose">重ね合わせ</a>で“2か所に同時にいる”状態を表しているんだ。</p>
-
-    <div class="btn-row">
-      <a class="btn btn-primary" href="rules.html#r-collapse">▶ 波束の収縮（ルール）へ</a>
-      <a class="btn btn-ghost" href="slit.html" style="border-color:var(--line); color:var(--blue);">🌊 二重スリットであそぶ</a>
-    </div>
+    <p class="lab-msg" id="msg"></p>
+    <div class="learnbox">いま体験したルール：<b>波束の収縮と確率</b>。観測の前は“あちこちに同時”、観測した瞬間に1点へ確定。どこに出るかは確率（|ψ|²）で決まる。 → <a href="rules.html#r-collapse">量子のルールでくわしく</a></div>
   </div>
 </section>
 
@@ -972,38 +967,37 @@ document.addEventListener('click', () => {
 
 <script>
 (function(){
-  var cv=document.getElementById('cl'), ctx=cv.getContext('2d');
-  var DPR=Math.min(2,window.devicePixelRatio||1), W=600, H=360;
-  cv.width=W*DPR; cv.height=H*DPR; ctx.scale(DPR,DPR);
-  var acc=document.createElement('canvas'); acc.width=W; acc.height=H; var ac=acc.getContext('2d');
-  var cntEl=document.getElementById('cnt'), lastEl=document.getElementById('last'), msg=document.getElementById('msg');
+  var cv=document.getElementById('cl'),ctx=cv.getContext('2d');
+  var DPR=Math.min(2,window.devicePixelRatio||1),W=600,H=360;cv.width=W*DPR;cv.height=H*DPR;ctx.scale(DPR,DPR);
   var lobes=[{x:205,y:185,s:46},{x:395,y:185,s:46}];
-  function dens(x,y){ var d=0; for(var i=0;i<lobes.length;i++){ var l=lobes[i], dx=x-l.x, dy=y-l.y; d+=Math.exp(-(dx*dx+dy*dy)/(2*l.s*l.s)); } return d; }
-  var maxd=dens(lobes[0].x,lobes[0].y);
-  var state='super', t=0, target=null, cnt=0;
-  function sample(){ for(var i=0;i<6000;i++){ var x=40+Math.random()*(W-80), y=46+Math.random()*(H-92); if(Math.random()*maxd<dens(x,y)) return {x:x,y:y}; } return {x:lobes[0].x,y:lobes[0].y}; }
-  function addPt(p){ ac.fillStyle='rgba(224,168,0,.55)'; ac.beginPath(); ac.arc(p.x,p.y,2,0,7); ac.fill(); }
-  function observe(){ if(state==='collapsing') return; target=sample(); state='collapsing'; t=0; }
-  function observeMany(n){ for(var i=0;i<n;i++){ var p=sample(); addPt(p); cnt++; } cntEl.textContent=cnt; lastEl.textContent='+'+n+'回'; state='super'; target=null; }
-  function reset(){ ac.clearRect(0,0,W,H); cnt=0; cntEl.textContent='0'; lastEl.textContent='―'; state='super'; target=null; }
-  function cloud(alpha){ for(var i=0;i<lobes.length;i++){ var l=lobes[i]; var gr=ctx.createRadialGradient(l.x,l.y,2,l.x,l.y,l.s*2.2); gr.addColorStop(0,'rgba(74,163,223,'+(0.55*alpha)+')'); gr.addColorStop(1,'rgba(74,163,223,0)'); ctx.fillStyle=gr; ctx.beginPath(); ctx.arc(l.x,l.y,l.s*2.2,0,7); ctx.fill(); } }
+  function dens(x,y){var d=0;for(var i=0;i<lobes.length;i++){var l=lobes[i],dx=x-l.x,dy=y-l.y;d+=Math.exp(-(dx*dx+dy*dy)/(2*l.s*l.s));}return d;}
+  var maxd=dens(205,185);
+  var sScore=document.getElementById('score'),sBest=document.getElementById('best'),sCombo=document.getElementById('combo'),msg=document.getElementById('msg');
+  var score=0,best=+(localStorage.getItem('collBest')||0),combo=0,state='bet',bet=null,actual=null,t=0;
+  sBest.textContent=best;
+  function sample(){for(var i=0;i<6000;i++){var x=40+Math.random()*(W-80),y=46+Math.random()*(H-92);if(Math.random()*maxd<dens(x,y))return{x:x,y:y};}return{x:205,y:185};}
+  function cloud(a){for(var i=0;i<lobes.length;i++){var l=lobes[i];var g=ctx.createRadialGradient(l.x,l.y,2,l.x,l.y,l.s*2.2);g.addColorStop(0,'rgba(74,163,223,'+(0.55*a)+')');g.addColorStop(1,'rgba(74,163,223,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(l.x,l.y,l.s*2.2,0,7);ctx.fill();}}
+  function mark(p,c){ctx.strokeStyle=c;ctx.lineWidth=2;ctx.beginPath();ctx.arc(p.x,p.y,10,0,7);ctx.stroke();ctx.beginPath();ctx.moveTo(p.x-14,p.y);ctx.lineTo(p.x+14,p.y);ctx.moveTo(p.x,p.y-14);ctx.lineTo(p.x,p.y+14);ctx.stroke();}
+  cv.addEventListener('click',function(e){if(state!=='bet')return;var r=cv.getBoundingClientRect();bet={x:(e.clientX-r.left)*(W/r.width),y:(e.clientY-r.top)*(H/r.height)};});
+  document.getElementById('obs').onclick=function(){if(state!=='bet'||!bet)return;actual=sample();state='reveal';t=0;};
+  document.getElementById('reset').onclick=function(){score=0;combo=0;sScore.textContent=0;sCombo.textContent=0;state='bet';bet=null;actual=null;msg.textContent='雲の上をクリックして予想 →「観測する」！';};
   function draw(){
-    ctx.fillStyle='#0a1730'; ctx.fillRect(0,0,W,H);
-    ctx.drawImage(acc,0,0);
-    ctx.textAlign='left'; ctx.font='14px sans-serif'; ctx.fillStyle='#cfe0f5';
-    if(state==='super'){ cloud(1); ctx.fillText('重ね合わせ：あちこちに“同時に”いる（確率の雲）',18,28); }
-    else if(state==='collapsing'){ t+=0.07; var k=Math.max(0,1-t); cloud(k);
-      ctx.strokeStyle='rgba(255,255,255,'+(0.6*(1-t))+')'; ctx.lineWidth=2; ctx.beginPath(); ctx.arc(target.x,target.y,70*k+6,0,7); ctx.stroke();
-      if(t>=1){ state='collapsed'; addPt(target); cnt++; cntEl.textContent=cnt; lastEl.textContent='x='+Math.round(target.x)+', y='+Math.round(target.y); } }
-    else { ctx.fillStyle='#fff2b0'; ctx.beginPath(); ctx.arc(target.x,target.y,7,0,7); ctx.fill(); ctx.fillStyle='#ffd23f'; ctx.beginPath(); ctx.arc(target.x,target.y,3.4,0,7); ctx.fill(); ctx.fillStyle='#cfe0f5'; ctx.fillText('観測！→ 1点にパチンと確定（波束の収縮）',18,28); }
+    ctx.fillStyle='#0a1730';ctx.fillRect(0,0,W,H);
+    cloud(state==='reveal'?Math.max(0.15,1-t):1);
+    ctx.textAlign='left';ctx.font='14px sans-serif';ctx.fillStyle='#cfe0f5';
+    if(state==='bet'){ctx.fillText(bet?'「観測する」で結果発表！':'雲の上をクリックして“ここに出る”と賭けよう',18,28);if(bet)mark(bet,'#ffd23f');}
+    else{t+=0.05;mark(bet,'#ffd23f');ctx.fillStyle='#fff2b0';ctx.beginPath();ctx.arc(actual.x,actual.y,6,0,7);ctx.fill();
+      ctx.strokeStyle='rgba(255,255,255,.5)';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(bet.x,bet.y);ctx.lineTo(actual.x,actual.y);ctx.stroke();
+      if(t>=1){var d=Math.hypot(bet.x-actual.x,bet.y-actual.y);var pt=Math.max(0,Math.round(100-d*0.6));
+        if(pt>0){score+=pt;if(d<45){combo++;score+=combo*5;}else combo=0;}else combo=0;
+        if(score>best){best=score;localStorage.setItem('collBest',best);}
+        sScore.textContent=score;sBest.textContent=best;sCombo.textContent=combo;
+        msg.textContent='距離 '+Math.round(d)+'px → +'+pt+'点'+(d<45?'　ナイス！(コンボ'+combo+')':'　濃い所ほど当たりやすいよ');
+        state='bet';bet=null;actual=null;}
+    }
     requestAnimationFrame(draw);
   }
-  document.getElementById('obs').onclick=observe;
-  document.getElementById('obs100').onclick=function(){ observeMany(100); };
-  document.getElementById('reset').onclick=reset;
-  cv.addEventListener('click',function(){ if(state==='collapsed'){ state='super'; target=null; } });
-  setInterval(function(){ msg.textContent = state==='collapsed' ? 'ステージをクリック（または観測）で重ね合わせにもどせる。たくさん観測すると、点は“雲の濃いところ”に多く集まる＝|ψ|²。' : (state==='collapsing' ? '収縮中…' : '「観測する」を押すと、雲のどこか1点に確定するよ。どこに出るかは確率しだい。'); },300);
-  draw();
+  msg.textContent='雲の濃いところほど“出やすい”。どこに出るか予想してクリック！';draw();
 })();
 </script>
 </body>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>二重スリット実験ラボ｜量子力学ふしぎ図鑑</title>
-<meta name="description" content="電子を1個ずつ撃って、観測ON/OFFで干渉じまが現れたり消えたりするのを自分で体験。波と粒子の二重性と「観測すると変わる」を、二重スリット実験のインタラクティブ・ラボで理解しよう。">
+<meta name="description" content="二重スリット実験をミッション形式で体験するゲーム。観測ありなら粒として2本の帯、観測なしなら波として干渉しま模様。お題どおりの模様をつくってクリアを重ねよう。">
 <style>
 /* =========================================================
    量子力学ふしぎ図鑑  -  共通スタイル
@@ -540,33 +540,32 @@ body{
 
 </style>
 <style>
-/* ===== 二重スリット実験ラボ 専用 ===== */
-.lab-wrap{ max-width: 680px; margin:0 auto; }
+.lab-wrap{ max-width:680px; margin:0 auto; }
 .lab-hud{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
-.lab-stat{ flex:1 1 130px; background:var(--window); border:1px solid var(--line);
-  border-radius:10px; padding:9px 14px; box-shadow:var(--shadow); }
+.lab-stat{ flex:1 1 120px; background:var(--window); border:1px solid var(--line); border-radius:10px; padding:9px 14px; box-shadow:var(--shadow); }
 .lab-stat .lab{ font-size:.72rem; color:var(--ink-soft); font-weight:700; }
-.lab-stat .val{ font-family:var(--font-ui); font-size:1.3rem; line-height:1.2; }
-.lab-stat .val.wave{ color:#2f9e8f; } .lab-stat .val.particle{ color:var(--orange); }
-
-.lab-stage{ border-radius:14px; overflow:hidden; border:3px solid var(--blue-deep);
-  box-shadow:var(--shadow-lg); background:#0a1730; }
+.lab-stat .val{ font-family:var(--font-ui),sans-serif; font-size:1.3rem; color:var(--blue-deep); line-height:1.2; }
+.lab-stage{ border-radius:14px; overflow:hidden; border:3px solid var(--blue-deep); box-shadow:var(--shadow-lg); background:#0a1730; }
 .lab-stage canvas{ display:block; width:100%; height:auto; }
-
-.lab-msg{ margin:12px 0 0; padding:11px 14px; border-radius:10px; font-size:.92rem;
-  background:var(--bg-deep); border-left:4px solid var(--sky); color:var(--ink); }
-.lab-msg.wave{ background:#def0ee; border-left-color:#2f9e8f; }
-.lab-msg.particle{ background:var(--orange-soft); border-left-color:var(--orange); }
-
-.lab-controls{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; align-items:center; }
-.lab-btn{ font-family:var(--font-ui); cursor:pointer; border:none; border-radius:8px;
-  font-size:.92rem; padding:11px 18px; }
+.lab-controls{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; align-items:center; }
+.lab-btn{ font-family:var(--font-ui),sans-serif; cursor:pointer; border:none; border-radius:8px; font-size:.9rem; padding:10px 15px; }
 .lab-btn.fire{ background:var(--gold); color:#3a2c00; box-shadow:0 4px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
 .lab-btn.fire:active{ transform:translateY(2px); box-shadow:0 2px 0 #b88a00, inset 0 0 0 2px #fff4cf; }
 .lab-btn.sub{ background:var(--window); color:var(--blue-deep); border:1px solid var(--line); box-shadow:var(--shadow); }
-.lab-btn.obs{ background:#e2e6ee; color:var(--ink); border:2px solid var(--line); }
-.lab-btn.obs.on{ background:var(--orange); color:#fff; border-color:var(--orange); }
-.lab-toggle{ display:inline-flex; align-items:center; gap:6px; font-size:.86rem; color:var(--ink-soft); cursor:pointer; }
+.lab-btn.on{ outline:3px solid var(--gold); outline-offset:1px; }
+.lab-msg{ margin:12px 0 0; padding:11px 14px; border-radius:10px; font-size:.92rem; background:#eef3fb; border-left:4px solid var(--sky); color:var(--ink); min-height:1.2em; }
+.lab-slider{ display:flex; align-items:center; gap:10px; width:100%; margin-top:4px; }
+.lab-slider input[type=range]{ flex:1; accent-color:var(--blue); }
+.lab-slider .cap{ font-size:.8rem; color:var(--ink-soft); white-space:nowrap; }
+.playguide{ background:#eef6ff; border:1px solid var(--sky); border-radius:12px; padding:13px 16px; margin:0 0 16px; }
+.playguide .goal{ font-weight:800; color:var(--blue-deep); }
+.playguide ol{ margin:6px 0 0; padding-left:1.3em; font-size:.9rem; color:var(--ink); }
+.playguide li{ margin:1px 0; }
+.goal-banner{ font-family:var(--font-ui),sans-serif; font-weight:800; color:#b07d00; background:#fffaf0;
+  border:1px solid #f0dca8; border-radius:10px; padding:9px 14px; margin:0 0 12px; }
+.learnbox{ margin:16px 0 0; padding:12px 16px; border-radius:10px; background:var(--green-soft);
+  border-left:4px solid var(--green); font-size:.92rem; }
+.learnbox a{ font-weight:700; }
 </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔵</text></svg>">
 </head>
@@ -575,7 +574,7 @@ body{
 <header class="site-header">
   <nav class="nav">
     <a class="brand" href="index.html"><span class="slime" data-spr="slime"></span> 量子力学ふしぎ図鑑</a>
-                                    <div class="nav-links">
+<div class="nav-links">
       <a href="index.html">ホーム</a>
       <div class="nav-group">
         <button type="button" class="nav-trigger">まなぶ ▾</button>
@@ -610,6 +609,7 @@ body{
       <div class="nav-group">
         <button type="button" class="nav-trigger">あそぶ ▾</button>
         <div class="nav-menu">
+          <a href="play.html">ゲーム一覧</a>
           <a href="energy.html">量子とエネルギー</a>
           <a href="levels.html">準位ジャンプ</a>
           <a href="slit.html">二重スリット</a>
@@ -626,58 +626,31 @@ body{
 <section class="hero" style="padding:48px 0 56px;">
   <div class="wrap">
     <span class="tier tier-play">あそぶ</span><br>
-    <span class="eyebrow">あそぶ ・ 波と粒子のルールを実験</span>
-    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">二重スリット実験ラボ</h1>
-    <p class="lead">電子を1個ずつ撃ってみよう。見ていないと“波”として2つのすき間を同時に通り、
-    スクリーンに<b>しま模様（干渉）</b>が浮かぶ。でも「どっちを通った？」と<b>観測</b>したとたん、
-    しまは消えて“粒”の振る舞いに変わる。――自分の手で、出して・消してみよう。</p>
+    <span class="eyebrow">あそぶ ・ ルール② 重ね合わせ</span>
+    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">二重スリット ミッション</h1>
+    <p class="lead">量子力学で最も有名な実験を、ミッション形式で。「観測する／しない」で電子のふるまいがガラッと変わるのを、自分で再現してみよう。</p>
   </div>
 </section>
 
 <section class="section-pad">
-  <div class="wrap">
-    <div class="rpg-window with-slime reveal" style="margin-bottom:24px;">
-      <span class="who" data-spr="electron"></span>
-      <p>「まずは<span class="tag">観測OFF</span>のまま、たくさん撃ってみて。点がたまると“しま模様”が見えてくるよ。
-      次に<span class="tag">観測ON</span>にして撃つと…あれ？しまが消えた！
-      “どっちを通ったか”が分かると、ぼくは波をやめて粒みたいに振る舞うんだ。」</p>
+  <div class="wrap lab-wrap">
+<div class="playguide reveal"><div class="goal">🎯 目的：お題どおりの模様をつくれ！（観測あり=粒／観測なし=波）</div><ol><li>お題を読む（しま模様？ or 2本の帯？）</li><li>「観測」ボタンで 粒/波 を切りかえる</li><li>「100個撃つ」で電子を当てる</li><li>「判定」でクリア＝スコア＆コンボ</li></ol></div>
+    <div class="goal-banner" id="goal">🎯 お題</div>
+    <div class="lab-hud">
+      <div class="lab-stat"><div class="lab">クリア数</div><div class="val" id="clear">0</div></div>
+      <div class="lab-stat"><div class="lab">コンボ</div><div class="val" id="combo">0</div></div>
+      <div class="lab-stat"><div class="lab">最高記録</div><div class="val" id="best">0</div></div>
     </div>
-
-    <div class="lab-wrap">
-      <div class="lab-hud">
-        <div class="lab-stat"><div class="lab">モード</div><div class="val wave" id="mode">観測OFF（波）</div></div>
-        <div class="lab-stat"><div class="lab">撃った電子</div><div class="val" id="count">0</div></div>
-        <div class="lab-stat"><div class="lab">スクリーンの模様</div><div class="val" id="pattern">—</div></div>
-      </div>
-
-      <div class="lab-stage"><canvas id="lab" width="600" height="380"></canvas></div>
-
-      <div class="lab-msg wave" id="msg">観測OFF：電子は波として両方のすき間を通り、干渉じまを作る。たくさん撃って模様を出してみよう！</div>
-
-      <div class="lab-controls">
-        <button class="lab-btn fire" id="fire1">▶ 1個撃つ</button>
-        <button class="lab-btn fire" id="fire100">⏩ 100個撃つ</button>
-        <button class="lab-btn obs" id="obs">🔬 観測：OFF</button>
-        <button class="lab-btn sub" id="reset">♻ 画面をリセット</button>
-        <label class="lab-toggle"><input type="checkbox" id="curve"> 理論曲線を表示</label>
-      </div>
-
-      <p class="note" style="margin-top:18px;">
-        ※電子の着地点は、確率（観測OFF＝干渉パターン／観測ON＝2つの山）にしたがってランダムに決まります。
-        1個では“点”、たくさん撃つと“分布”が見えるのがポイント。これが「観測まで決まらない／結果はランダムだが分布は決まっている」という量子のルールです。</p>
-
-      <div class="rpg-window with-slime reveal" style="margin-top:22px;">
-        <span class="who" data-spr="higgs"></span>
-        <p>「1個1個はランダムに当たるのに、積み重なると必ず同じ模様になる――不思議じゃろ？
-        “しま模様”は<span class="tag">波の証拠</span>、観測でそれが消えるのは<span class="tag">観測が結果を変える</span>証拠じゃ。
-        量子のいちばんふしぎな核を、いま君は自分の手で確かめたのじゃ。」</p>
-      </div>
-
-      <div class="btn-row">
-        <a class="btn btn-primary" href="rules.html">▶ 量子のルールで復習する</a>
-        <a class="btn btn-ghost" href="game.html" style="border-color:var(--line); color:var(--blue);">🎮 もつれワームで遊ぶ</a>
-      </div>
+    <div class="lab-stage"><canvas id="slit" width="600" height="360"></canvas></div>
+    <div class="lab-controls">
+      <button class="lab-btn sub" id="obs">🔬 観測：OFF（波）</button>
+      <button class="lab-btn fire" id="fire1">▶ 1個撃つ</button>
+      <button class="lab-btn fire" id="fire100">⏩ 100個撃つ</button>
+      <button class="lab-btn fire" id="judge">✔ 判定</button>
+      <button class="lab-btn sub" id="reset">♻ 消す</button>
     </div>
+    <p class="lab-msg" id="msg"></p>
+    <div class="learnbox">いま体験したルール：<b>重ね合わせと観測</b>。観測しなければ電子は波として両方のスリットを通り干渉し、観測すると粒のように1つの道を選ぶ。 → <a href="rules.html#r-superpose">量子のルールでくわしく</a></div>
   </div>
 </section>
 
@@ -995,150 +968,50 @@ document.addEventListener('click', () => {
 });
 
 </script>
+
 <script>
-/* =========================================================
-   二重スリット実験ラボ
-   観測OFF＝干渉パターン／観測ON＝2つの山。着地点を確率でサンプリング
-   ========================================================= */
 (function(){
-  const W=600, H=380, cy=H/2;
-  const gunX=44, barrierX=250, screenX=528, landX=524, Ymax=150;
-  const slitOffset=36, slitHalf=12;  // スリット中心±36、開口の半幅12
-
-  const canvas=document.getElementById('lab');
-  const ctx=canvas.getContext('2d');
-  const DPR=Math.max(1,Math.min(2,window.devicePixelRatio||1));
-  canvas.width=W*DPR; canvas.height=H*DPR; ctx.scale(DPR,DPR);
-
-  // 着地点を蓄積する裏キャンバス
-  const acc=document.createElement('canvas'); acc.width=W; acc.height=H;
-  const actx=acc.getContext('2d');
-
-  const $=id=>document.getElementById(id);
-  let observed=false, count=0;
-  const flying=[]; // 飛行中の電子
-  let slitFlash=0; // 観測時にスリットが光る残り時間
-
-  // 確率分布（y はスクリーン中心からのズレ）
-  function pUnobs(y){ const env=Math.exp(-(y*y)/(2*78*78)); const c=Math.cos(y*Math.PI/40); return env*c*c; }
-  function pObs(y){ const s=30; return Math.exp(-((y-slitOffset)**2)/(2*s*s))+Math.exp(-((y+slitOffset)**2)/(2*s*s)); }
-  function P(y){ return observed?pObs(y):pUnobs(y); }
-  function pmax(){ return observed?1.07:1.0; }
-
-  function sampleY(){
-    let y, pm=pmax();
-    do { y=(Math.random()*2-1)*Ymax; } while(Math.random()*pm > P(y));
-    return y;
+  var cv=document.getElementById('slit'),ctx=cv.getContext('2d');
+  var DPR=Math.min(2,window.devicePixelRatio||1),W=600,H=360;cv.width=W*DPR;cv.height=H*DPR;ctx.scale(DPR,DPR);
+  var acc=document.createElement('canvas');acc.width=W;acc.height=H;var ac=acc.getContext('2d');
+  var gunX=58,slitX=250,screenX=470,yc=H/2,yA=yc-36,yB=yc+36;
+  var obsBtn=document.getElementById('obs'),msg=document.getElementById('msg'),goalEl=document.getElementById('goal');
+  var sClear=document.getElementById('clear'),sCombo=document.getElementById('combo'),sBest=document.getElementById('best');
+  var observe=false,clr=0,combo=0,best=+(localStorage.getItem('slitBest')||0),fired=0,target='wave';
+  sBest.textContent=best;
+  function gauss(){var u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(6.283*v);}
+  function setObs(v){observe=v;obsBtn.textContent='🔬 観測：'+(observe?'ON（粒）':'OFF（波）');obsBtn.classList.toggle('on',observe);}
+  function newMission(){target=Math.random()<0.5?'wave':'particle';fired=0;ac.clearRect(0,0,W,H);
+    goalEl.textContent=target==='wave'?'🎯 お題：しま模様（干渉）をつくれ！':'🎯 お題：2本の帯（粒のふるまい）にしろ！';}
+  function sampleY(){ if(observe){return (Math.random()<0.5?yA:yB)+gauss()*9;}
+    for(var i=0;i<200;i++){var y=yc+(Math.random()*2-1)*150;var env=Math.exp(-(y-yc)*(y-yc)/(2*70*70));var fr=Math.cos(0.16*(y-yc));if(Math.random()<env*fr*fr)return y;} return yc; }
+  function fire(n){for(var i=0;i<n;i++){var y=sampleY();ac.fillStyle='rgba(120,200,255,.55)';ac.fillRect(screenX+(Math.random()*8-4),y,2,2);fired++;}}
+  function judge(){ if(fired<60){msg.textContent='もう少し撃ってから判定しよう（60個以上）。';return;}
+    var ok=(observe&&target==='particle')||(!observe&&target==='wave');
+    if(ok){clr++;combo++;if(clr>best){best=clr;localStorage.setItem('slitBest',best);}
+      msg.textContent='✅ 正解！ '+(target==='wave'?'観測なし→波として干渉＝しま模様。':'観測あり→粒として2本の帯。')+'（コンボ'+combo+'）';
+      sClear.textContent=clr;sCombo.textContent=combo;sBest.textContent=best;setTimeout(newMission,1300);
+    } else {combo=0;sCombo.textContent=0;msg.textContent='❌ ちがう。観測ON＝粒（2本）、OFF＝波（しま模様）。切りかえて撃ち直そう。';}
   }
-
-  function stamp(y){
-    const x=landX+(Math.random()*2-1)*2.5;
-    actx.beginPath();
-    actx.fillStyle='rgba(120,205,255,0.85)';
-    actx.arc(x, cy+y, 1.7, 0, 7); actx.fill();
-  }
-
-  function fireOne(animate){
-    const y=sampleY();
-    count++;
-    if(animate){
-      const slit = observed ? (Math.random()<0.5?-1:1) : 0; // 観測時はどちらかのスリット
-      flying.push({ t:0, y, slit, mid: slit===0 ? (Math.random()*2-1)*8 : slit*slitOffset });
-      if(observed) slitFlash=18;
-    } else {
-      stamp(y);
-    }
-    updateHUD();
-  }
-
-  function updateHUD(){
-    $('count').textContent=count;
-    const m=$('mode'), msg=$('msg'), pat=$('pattern');
-    if(observed){
-      m.textContent='観測ON（粒）'; m.className='val particle';
-      pat.textContent= count>=60 ? '2つの山（粒）' : '—';
-      msg.className='lab-msg particle';
-      msg.innerHTML='観測ON：「どちらのすき間を通ったか」が分かるため、電子は<b>粒</b>として振る舞い、干渉じまは消える。スクリーンには<b>2つの山</b>だけ。';
-    } else {
-      m.textContent='観測OFF（波）'; m.className='val wave';
-      pat.textContent= count>=120 ? '干渉じま（波）' : (count>=30?'うっすら しま…':'—');
-      msg.className='lab-msg wave';
-      msg.innerHTML='観測OFF：電子は<b>波</b>として両方のすき間を通り、<b>干渉じま</b>を作る。たくさん撃って模様を出してみよう！';
-    }
-  }
-
-  function reset(){ actx.clearRect(0,0,W,H); count=0; flying.length=0; updateHUD(); }
-
-  /* ---------- 描画 ---------- */
-  function draw(ts){
-    ctx.clearRect(0,0,W,H);
-    ctx.fillStyle='#0a1730'; ctx.fillRect(0,0,W,H);
-
-    // 電子銃
-    ctx.fillStyle='#2b7cc9'; ctx.strokeStyle='#9ecbff'; ctx.lineWidth=2;
-    ctx.beginPath(); ctx.roundRect(gunX-22, cy-16, 30, 32, 5); ctx.fill(); ctx.stroke();
-    ctx.fillStyle='#cfe6ff'; ctx.font='10px sans-serif'; ctx.textAlign='center';
-    ctx.fillText('電子銃', gunX-7, cy+30);
-
-    // バリア（2つのスリット）
-    const sf = slitFlash>0 ? slitFlash/18 : 0;
-    ctx.fillStyle='#3a4456';
-    const gaps=[[0, cy-slitOffset-slitHalf],
-                [cy-slitOffset+slitHalf, cy+slitOffset-slitHalf],
-                [cy+slitOffset+slitHalf, H]];
-    gaps.forEach(g=>ctx.fillRect(barrierX-5, g[0], 10, g[1]-g[0]));
-    if(observed){ // 観測：スリットに“目”
-      ctx.globalAlpha=0.5+0.5*sf; ctx.fillStyle='#e0a800';
-      [cy-slitOffset, cy+slitOffset].forEach(sy=>{ ctx.beginPath(); ctx.arc(barrierX, sy, 4, 0, 7); ctx.fill(); });
-      ctx.globalAlpha=1;
-    }
-
-    // 理論曲線
-    if($('curve').checked){
-      ctx.strokeStyle= observed ? 'rgba(240,160,80,.9)' : 'rgba(120,230,210,.9)';
-      ctx.lineWidth=2; ctx.beginPath();
-      const pm=pmax();
-      for(let y=-Ymax;y<=Ymax;y+=2){ const x=screenX-10-(P(y)/pm)*78; const yy=cy+y; if(y===-Ymax)ctx.moveTo(x,yy); else ctx.lineTo(x,yy); }
-      ctx.stroke();
-    }
-
-    // 蓄積した着地点
+  function draw(){
+    ctx.fillStyle='#0a1730';ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='#33425c';
+    ctx.fillRect(slitX-6,20,12,(yA-12)-20);
+    ctx.fillRect(slitX-6,yA+12,12,(yB-12)-(yA+12));
+    ctx.fillRect(slitX-6,yB+12,12,(H-20)-(yB+12));
+    ctx.fillStyle='#16283f';ctx.fillRect(screenX-2,20,8,H-40);
     ctx.drawImage(acc,0,0);
-
-    // スクリーン
-    ctx.fillStyle='#11203c'; ctx.fillRect(screenX, 8, 14, H-16);
-    ctx.strokeStyle='#9ecbff'; ctx.lineWidth=2; ctx.strokeRect(screenX, 8, 14, H-16);
-    ctx.fillStyle='#cfe6ff'; ctx.save(); ctx.translate(screenX+30, cy); ctx.rotate(Math.PI/2);
-    ctx.fillText('スクリーン', 0, 0); ctx.restore();
-
-    // 飛行中の電子
-    for(let i=flying.length-1;i>=0;i--){
-      const f=flying[i]; f.t+=0.045;
-      let px,py;
-      if(f.t<0.5){ const u=f.t/0.5; px=gunX+ (barrierX-gunX)*u; py=cy + (f.mid-0)*u; }
-      else { const u=(f.t-0.5)/0.5; px=barrierX+(landX-barrierX)*u; py=(cy+f.mid)+((cy+f.y)-(cy+f.mid))*u; }
-      ctx.save(); ctx.shadowColor='#7ec4f6'; ctx.shadowBlur=10;
-      ctx.fillStyle='#eaf4ff'; ctx.beginPath(); ctx.arc(px,py,3,0,7); ctx.fill(); ctx.restore();
-      if(f.t>=1){ stamp(f.y); flying.splice(i,1); }
-    }
-    if(slitFlash>0) slitFlash--;
-
-    requestAnimationFrame(draw);
+    ctx.fillStyle='#e0a800';ctx.beginPath();ctx.arc(gunX,yc,7,0,7);ctx.fill();
+    ctx.fillStyle='#9fc4e8';ctx.font='11px sans-serif';ctx.textAlign='center';
+    ctx.fillText('電子銃',gunX,yc+24);ctx.fillText('2スリット',slitX,H-10);ctx.fillText('スクリーン',screenX+2,14);
+    ctx.textAlign='left';requestAnimationFrame(draw);
   }
-
-  /* ---------- 入力 ---------- */
-  $('fire1').addEventListener('click', ()=>fireOne(true));
-  $('fire100').addEventListener('click', ()=>{ for(let i=0;i<100;i++) fireOne(false); });
-  $('reset').addEventListener('click', reset);
-  $('obs').addEventListener('click', ()=>{
-    observed=!observed;
-    const b=$('obs'); b.classList.toggle('on',observed);
-    b.textContent= observed ? '🔬 観測：ON' : '🔬 観測：OFF';
-    reset(); // モードが変わったら画面をリセットして比較しやすく
-  });
-
-  updateHUD();
-  requestAnimationFrame(draw);
+  obsBtn.onclick=function(){setObs(!observe);};
+  document.getElementById('fire1').onclick=function(){fire(1);};
+  document.getElementById('fire100').onclick=function(){fire(120);};
+  document.getElementById('judge').onclick=judge;
+  document.getElementById('reset').onclick=function(){ac.clearRect(0,0,W,H);fired=0;msg.textContent='モードをお題に合わせて撃ち、「判定」しよう。';};
+  setObs(false);newMission();msg.textContent='お題どおりの模様になるよう、観測ON/OFFを選んで撃とう！';draw();
 })();
 </script>
 </body>
