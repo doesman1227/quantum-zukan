@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>壁のすり抜けについて（量子トンネル効果）｜量子力学ふしぎ図鑑</title>
-<meta name="description" content="量子トンネル効果をやさしく解説。エネルギーが足りなくても、粒子は波として壁にしみ出し、確率的にすり抜ける。うすい壁・軽い粒子ほど通りやすい理由、太陽の核融合・放射性崩壊・半導体・走査トンネル顕微鏡などの実例まで。">
+<title>カラビ・ヤウ多様体｜量子力学ふしぎ図鑑</title>
+<meta name="description" content="カラビ・ヤウ多様体をやさしく解説。超弦理論が要求する余分な6次元を極小サイズに丸めて隠す“形”。超対称性を保つ特別な性質、折りたたみ方が素粒子の種類や世代数を左右する可能性、弦理論ランドスケープの難問まで。">
 <style>
 /* =========================================================
    量子力学ふしぎ図鑑  -  共通スタイル
@@ -600,91 +600,96 @@ body{
 <section class="hero" style="padding:48px 0 56px;">
   <div class="wrap">
     <span class="tier tier-adv">コラム</span><br>
-    <span class="eyebrow">こらむ ・ もっと知りたい</span>
-    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">壁のすり抜けについて</h1>
-    <p class="lead">本来こえられないはずの“壁”を、ミクロの粒子はときどきすり抜ける――量子トンネル効果。
-    SFのようでいて、太陽が輝く理由にもなっている、れっきとした自然のルールです。</p>
+    <span class="eyebrow">こらむ ・ 理論｜仮説（超弦理論の幾何）</span>
+    <h1 style="font-size:clamp(1.6rem,4.5vw,2.6rem);">カラビ・ヤウ多様体</h1>
+    <p class="lead">「世界は10次元」と言う超弦理論。では、見えない6次元はどこにある？
+    その答えのカギをにぎる、ふしぎな“形”をのぞいてみよう。</p>
   </div>
 </section>
 
 <section class="section-pad">
   <div class="wrap">
+    <span class="thstat hyp">🧪 仮説（超弦理論の数学／実験的証拠はまだ）</span>
     <div class="answer reveal">
-      <span class="verdict">ひとことで：ミクロの世界では、本来こえられないはずの“壁”を、確率的にすり抜けられる。</span>
-      <p>ボールは、勢いが足りなければ壁を越えられず必ず跳ね返る。ところが電子のような小さな粒子は、
-      <b>エネルギーが足りなくても、ときどき壁の向こうに現れる</b>。これが<b>量子トンネル効果</b>だよ。</p>
+      <span class="verdict">ひとことで：超弦理論が必要とする“余分な6次元”を、極小サイズに丸めて隠すための特別な「形」。</span>
+      <p>超弦理論では、時空は<b>10次元</b>でないとつじつまが合わない。でも私たちが感じるのは3次元（＋時間）だけ。
+      残り6次元は、<b>どこにでも・とても小さく丸まって</b>隠れている――その“丸め方の形”がカラビ・ヤウ多様体だよ。</p>
     </div>
 
     <div class="rpg-window with-slime reveal" style="margin:22px 0;">
-      <span class="who" data-spr="electron"></span>
-      <p>「ぼくたち電子は“波”でもある。壁にぶつかっても、波が壁の中に<span class="tag">少しだけしみ出す</span>。
-      壁がうすければ、しみ出した波が向こう側に残って――<span class="tag">すり抜けた！</span>ってことになるんだ。」</p>
+      <span class="who" data-spr="slime"></span>
+      <p>「ホースを遠くから見ると“線”だけど、近づくと“ぐるっと回れる輪”があるよね。
+      それと同じで、空間の<span class="tag">どの点にも</span>、目に見えないほど小さな<span class="tag">6次元の形</span>がくっついているんだ。」</p>
     </div>
 
-    <span class="eyebrow">① 日常では“絶対ムリ”</span>
-    <h2 class="section-title">エネルギーが足りなければ越えられない</h2>
-    <p>坂の途中の段差を、勢いの足りないボールは越えられず戻ってくる。私たちの世界では、
-    壁を越えるには<b>それ以上のエネルギー</b>が必ず要る。100回やっても1000回やっても、足りなければ越えられない。</p>
-
-    <span class="eyebrow" style="margin-top:30px;">② 粒子は“波”だから、しみ出す</span>
-    <h2 class="section-title">壁の中でも、波はゼロにならない</h2>
-    <div class="illfig reveal" style="max-width:420px;"><svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="波が壁をすり抜ける">
-  <line x1="8" y1="120" x2="312" y2="120" stroke="rgba(255,255,255,.18)" stroke-width="1"/>
-  <rect x="138" y="22" width="44" height="98" fill="#33425c" stroke="#7a8aa0" stroke-width="1.5"/>
-  <text x="160" y="16" fill="#bcd2ee" font-size="11" text-anchor="middle" font-family="sans-serif">壁（カベ）</text>
-  <path d="M10 74 q11 -26 22 0 q11 26 22 0 q11 -26 22 0 q11 26 22 0 q11 -26 22 0 q11 26 22 0" fill="none" stroke="#4aa3df" stroke-width="2.8"/>
-  <path d="M138 60 Q160 80 182 100" fill="none" stroke="#9fc4e8" stroke-width="1.6" stroke-dasharray="4 3"/>
-  <path d="M138 88 Q160 92 182 92" fill="none" stroke="#9fc4e8" stroke-width="1.6" stroke-dasharray="4 3"/>
-  <path d="M182 96 q7 -8 14 0 q7 8 14 0 q7 -8 14 0 q7 8 14 0 q7 -8 14 0 q7 8 14 0 q7 -8 14 0" fill="none" stroke="#4aa3df" stroke-width="1.8"/>
-  <circle cx="300" cy="96" r="5" fill="#e0a800"/>
-  <text x="60" y="140" fill="#bcd2ee" font-size="10" text-anchor="middle" font-family="sans-serif">大きな波</text>
-  <text x="250" y="140" fill="#bcd2ee" font-size="10" text-anchor="middle" font-family="sans-serif">小さくなって“すり抜け”</text>
+    <div class="illfig reveal" style="max-width:440px;"><svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="余分な次元が各点で小さく丸まっている">
+  <text x="95" y="18" fill="#bcd2ee" font-size="11" text-anchor="middle" font-family="sans-serif">遠くから見ると…大きな空間（3次元）</text>
+  <line x1="20" y1="78" x2="190" y2="78" stroke="#5b8fd4" stroke-width="2"/>
+  <g fill="#7fb0ff"><circle cx="50" cy="78" r="3"/><circle cx="80" cy="78" r="3"/><circle cx="140" cy="78" r="3"/><circle cx="170" cy="78" r="3"/></g>
+  <circle cx="110" cy="78" r="4.5" fill="#e0a800"/>
+  <line x1="114" y1="74" x2="232" y2="44" stroke="#9fb3c8" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="114" y1="82" x2="232" y2="116" stroke="#9fb3c8" stroke-width="1" stroke-dasharray="3 3"/>
+  <circle cx="270" cy="80" r="40" fill="#0f1f3a" stroke="#7fd0c4" stroke-width="2"/>
+  <g stroke="#ffd23f" stroke-width="2" fill="none">
+    <ellipse cx="270" cy="80" rx="23" ry="13"/>
+    <ellipse cx="270" cy="80" rx="11" ry="23" transform="rotate(35 270 80)"/>
+    <ellipse cx="270" cy="80" rx="11" ry="23" transform="rotate(-35 270 80)"/>
+  </g>
+  <text x="270" y="138" fill="#bcd2ee" font-size="9.5" text-anchor="middle" font-family="sans-serif">近くで見ると…小さく丸まった6次元</text>
 </svg></div>
-    <p>量子の世界では、粒子は<a href="rules.html#r-superpose">波（波動関数）</a>として広がっている。
-    波は壁にぶつかっても急にゼロにならず、<b>壁の中へジワッとしみ込む</b>。
-    壁がうすければ、しみ込んだ波が反対側にわずかに残る。その分だけ「向こう側で見つかる確率」が生まれる――これがすり抜けの正体だ。</p>
+    <p class="section-sub" style="margin-top:-4px;">空間の各点に、極小のカラビ・ヤウ（6次元）が貼りついているイメージ。</p>
 
-    <span class="eyebrow" style="margin-top:30px;">③ 通りやすさのルール</span>
-    <h2 class="section-title">うすい・低い壁ほど、軽い粒子ほど通る</h2>
-    <div class="grid">
-      <div class="card reveal"><span class="icon">📏</span><h3>壁がうすいほど</h3>
-        <p>しみ出した波が向こうに届きやすい。逆に厚いと、確率は<b>急激に</b>下がる。</p></div>
-      <div class="card reveal"><span class="icon">⛰️</span><h3>壁が低いほど</h3>
-        <p>足りないエネルギーの差が小さいほど、すり抜けやすくなる。</p></div>
-      <div class="card reveal"><span class="icon">🪶</span><h3>軽い粒子ほど</h3>
-        <p>電子のように軽い粒子は波が広がりやすく、よく抜ける。重い物ほど起きにくい。</p></div>
-    </div>
-    <div class="point" style="margin-top:14px;">
-      だから、人がカベに突進しても通り抜けられない。原子レベルでは確率がゼロではないけれど、
-      <b>0が何十桁も続くような“事実上ゼロ”</b>。トンネル効果が目に見えるのは、ミクロの世界だけなんだ。
-    </div>
+    <span class="eyebrow">① なぜ“余分な次元”が要る？</span>
+    <h2 class="section-title">超弦理論は10次元を要求する</h2>
+    <p>弦の理論が矛盾なく成り立つには、空間が<b>9次元＋時間1次元＝10次元</b>必要になる
+    （<a href="superstring.html">超弦理論</a>参照）。私たちが3次元しか感じないのは、残り6次元が
+    <b>原子よりはるかに小さく丸まって（コンパクト化）</b>いて、見えないから、と考える。</p>
 
-    <span class="eyebrow" style="margin-top:30px;">④ じつは大活躍している</span>
-    <h2 class="section-title">太陽も、半導体も、トンネルのおかげ</h2>
-    <div class="grid">
-      <div class="card reveal"><span class="icon">☀️</span><h3>太陽が燃える</h3>
-        <p>太陽の中心でも、陽子どうしは反発の“壁”を越えるには温度が足りない。<b>トンネル効果</b>で壁を抜けて核融合が起き、太陽は輝いている。</p></div>
-      <div class="card reveal"><span class="icon">☢️</span><h3>放射性崩壊</h3>
-        <p>原子核から粒子が飛び出す<b>α崩壊</b>も、核の“壁”をすり抜けて起こる現象だ。</p></div>
-      <div class="card reveal"><span class="icon">💾</span><h3>半導体・メモリ</h3>
-        <p>フラッシュメモリやトンネルダイオードは、トンネル効果を<b>積極的に利用</b>。逆に微細化しすぎると“漏れ”の原因にも。</p></div>
-      <div class="card reveal"><span class="icon">🔬</span><h3>走査トンネル顕微鏡</h3>
-        <p>針と試料の間を流れる<b>トンネル電流</b>で、原子1個1個を“見る”ことができる装置（STM）。</p></div>
+    <span class="eyebrow" style="margin-top:30px;">② カラビ・ヤウ多様体とは</span>
+    <h2 class="section-title">“ちょうどいい丸め方”の形</h2>
+    <div class="kvp reveal">
+      <div class="k"><b>📐 名前の由来</b>
+        <p>数学者<b>カラビ</b>が「こんな形があるはず」と予想し、<b>ヤウ（丘成桐）</b>が存在を証明した
+        （その功績でフィールズ賞）。だからカラビ・ヤウ。</p></div>
+      <div class="k"><b>✨ 特別な性質</b>
+        <p>6次元のうち、<b>超対称性を壊さずに残せる</b>特別な幾何（リッチ平坦という性質）をもつ。
+        だから超弦理論の“折りたたみ先”に選ばれる。</p></div>
     </div>
 
-    <span class="eyebrow" style="margin-top:30px;">⑤ ふしぎだけど、ルールどおり</span>
-    <h2 class="section-title">「絶対」ではなく「確率」</h2>
-    <p>トンネル効果は、魔法でも反則でもない。<b>粒子が波であり、結果は確率で決まる</b>という量子のルールの、ごく自然な帰結だ。
-    「ぜったい無理」が「ごくまれに起こる」に変わる――ミクロの世界の“もうひとつの常識”だよ。</p>
+    <span class="eyebrow" style="margin-top:30px;">③ 物理への影響</span>
+    <h2 class="section-title">“折りたたみ方”が、素粒子を決める？</h2>
+    <div class="point">
+      おどろくのは、この6次元の<b>形（穴の数などのトポロジー）</b>が、現れる<b>素粒子の種類や世代の数、力の強さ</b>を
+      左右しうること。「<a href="zukan.html">なぜクォークやレプトンは3世代なのか</a>」といった謎の手がかりが、
+      “次元の折りたたみ方”に隠れているかもしれない、というアイデアだ。
+    </div>
+
+    <span class="eyebrow" style="margin-top:30px;">④ いちばんの難問</span>
+    <h2 class="section-title">形の“候補”が多すぎる（ランドスケープ）</h2>
+    <p>ところが、可能なカラビ・ヤウの形（丸め方）は<b>天文学的にたくさん</b>あり、それぞれが別の物理法則・別の宇宙に対応してしまう
+    （“弦理論のランドスケープ”、しばしば10の500乗とも）。<b>どれが私たちの宇宙なのか</b>を選ぶ原理はまだ無い。
+    これは「<a href="constants.html">なぜ宇宙の定数がこの値なのか</a>」や<a href="multiverse.html">マルチバース</a>の議論にも直結する。</p>
+
+    <span class="eyebrow" style="margin-top:30px;">⑤ いま、どこまで？</span>
+    <h2 class="section-title">美しい数学、でも検証はこれから</h2>
+    <p>カラビ・ヤウは数学（特に幾何学）に豊かな実りをもたらし、超弦理論の中心的な道具になっている。
+    一方で、余分な次元は小さすぎて直接は見えず、<b>実験的な証拠はまだ無い</b>。確かめる方法を探すことが、これからの大きな課題だ。</p>
+
+    <ul class="linklist">
+      <li><a href="superstring.html">→ 超弦理論</a></li>
+      <li><a href="mtheory.html">→ M理論</a></li>
+      <li><a href="constants.html">→ この宇宙の定数</a></li>
+      <li><a href="theory.html">→ 理論ガイド（全体像）</a></li>
+    </ul>
 
     <div class="summary reveal" style="margin-top:26px;">
       <span class="big" data-spr="slime"></span>
-      <p>壁のすり抜け（トンネル効果）は、<b>波が壁にしみ出して、向こう側にわずかに残る</b>から起こる。
-      うすい壁・軽い粒子ほど通りやすく、太陽の輝きや半導体まで支えている。量子が“波”であることの、いちばん劇的な証拠なんだ。</p>
+      <p>カラビ・ヤウ多様体は、<b>超弦理論の“見えない6次元”を丸めて隠すための形</b>。
+      その折りたたみ方が素粒子のすがたを決めるかもしれない――数学的に美しいけれど、どれが本物かはまだ謎の、最先端のアイデアだよ。</p>
     </div>
     <div class="btn-row">
-      <a class="btn btn-primary" href="rules.html">▶ 量子のルールへ</a>
-      <a class="btn btn-ghost" href="uncertainty.html" style="border-color:var(--line); color:var(--blue);">🎮 不確定性であそぶ</a>
+      <a class="btn btn-primary" href="superstring.html">▶ 超弦理論へ</a>
+      <a class="btn btn-ghost" href="theory.html" style="border-color:var(--line); color:var(--blue);">🗺 理論ガイドへ</a>
     </div>
   </div>
 </section>
